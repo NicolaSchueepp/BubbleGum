@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pageflow:Pageflow xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf15591082978000" configfile="/BubbleGum/WebContent/WEB-INF/faces-config.xml"/>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf15591082978000" configfile="/BubbleGum/WebContent/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="register.xhtml" id="pf155913696480629" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf155913698768637 pf155913698768638 pf155913698768639" path="/*"/>
+  <nodes xsi:type="pageflow:PFPage" name="home.xhtml" id="pf155913698768640" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf155913698768637" path="/home.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="register.xhtml" id="pf155913698768641" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" inlinks="pf155913698768638" path="/register.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="signin.xhtml" id="pf155913698768642" referenceLink="//@navigationRule.0/@navigationCase.2/@toViewId|" inlinks="pf155913698768639" path="/signin.xhtml"/>
+  <links id="pf155913698768637" target="pf155913698768640" source="pf155913696480629" outcome="home"/>
+  <links id="pf155913698768638" target="pf155913698768641" source="pf155913696480629" outcome="register"/>
+  <links id="pf155913698768639" target="pf155913698768642" source="pf155913696480629" outcome="signin"/>
+</pageflow:Pageflow>
