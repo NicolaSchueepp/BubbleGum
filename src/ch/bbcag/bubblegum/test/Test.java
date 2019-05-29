@@ -7,4 +7,5 @@ import javax.inject.Named;
 @RequestScoped
 public class Test {
 
+	
 }
