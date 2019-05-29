@@ -1,0 +1,33 @@
+<ui:composition template="/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html">
+	<ui:define name="content">
+	<h:form style="width: 50%; margin: 10px auto;">
+	  
+	  <div class="form-group">
+    	<label for="emailInput">Email:</label>
+    	<p>
+	    	<h:inputText placeholder="example@example.com"
+	                 type="email" class="form-control" name="email" id="emailInput"
+	                 required="true"
+                     value="#{registerBean.email}" />
+	  	</p>
+  		</div>
+  		<div class="form-group">
+    		<label for="passwordInput">Password:</label>
+   			<p>
+    			<h:inputSecret placeholder="password"
+	                 type="password" class="form-control" name="password" id="passwordInput"
+	                 required="true"
+                     value="#{registerBean.password}" />
+	  		</p>
+  		</div>
+  
+  	  	<p>
+	    	<h:commandButton class="btn btn-outline-dark" value="Registrieren" 
+		               action="#{registerBean.go()}" />
+	  	</p>
+	</h:form>
+	</ui:define>
+</ui:composition>
