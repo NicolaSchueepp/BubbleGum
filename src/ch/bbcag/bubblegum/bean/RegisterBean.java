@@ -3,7 +3,10 @@ package ch.bbcag.bubblegum.bean;
 import java.io.Serializable;
 
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
+
+import ch.bbcag.bubblegum.service.UserService;
 
 @Named
 @RequestScoped
@@ -12,6 +15,9 @@ public class RegisterBean implements Serializable {
 
 	private String email = "";
 	private String password = "";
+
+	@Inject
+	private UserService userService;
 
 	public String getEmail() {
 		return email;
@@ -30,6 +36,8 @@ public class RegisterBean implements Serializable {
 	}
 
 	public String register() {
-		return "signin";
+		if (userService.register())
+			return "signin";
+		return "register";
 	}
 }

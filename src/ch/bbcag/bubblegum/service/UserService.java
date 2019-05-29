@@ -1,5 +1,8 @@
 package ch.bbcag.bubblegum.service;
 
-public class UserService {
-
+public interface UserService {
+	
+	public boolean register();
+	
+	public boolean signin();
 }
