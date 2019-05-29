@@ -3,7 +3,15 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html">
 	<ui:define name="content">
+	
+			<div class="row">
+			<div class="col-md-2"></div>
+			<div class="well well-lg col-md-8 jumbotron">
+			
+			
 	<h:form style="width: 50%; margin: 10px auto;">
+	  
+	  <h2 style="text-align: center;">Registrieren</h2>
 	  
 	  <div class="form-group">
     	<label for="emailInput">Email:</label>
@@ -25,9 +33,12 @@
   		</div>
   
   	  	<p>
-	    	<h:commandButton class="btn btn-outline-dark" value="Registrieren" 
+	    	<h:commandButton class="btn btn-success" value="Registrieren" 
 		               action="#{registerBean.go()}" />
 	  	</p>
 	</h:form>
+				</div>
+			<div class="col-md-2"></div>
+		</div>
 	</ui:define>
 </ui:composition>

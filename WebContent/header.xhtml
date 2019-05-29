@@ -31,11 +31,11 @@
 
 <h:panelGroup rendered="#{helperBean.isLogedin()}">
 	<form class="form-inline my-2 my-lg-0"
-		action="/GameXchange/SignoutServlet">
+		action="/BubbleGum/SignoutServlet">
 		<button type="submit" class="btn btn-success">Ausloggen</button>
 	</form>
 </h:panelGroup> <h:panelGroup rendered="#{!helperBean.isLogedin()}">
-	<form class="form-inline my-2 my-lg-0" action="/GameXchange/signin.jsf">
+	<form class="form-inline my-2 my-lg-0" action="/BubbleGum/signin.jsf">
 		<button type="submit" class="btn btn-success">Einloggen</button>
 	</form>
 </h:panelGroup> </nav>
