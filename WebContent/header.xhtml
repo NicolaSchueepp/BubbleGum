@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+  	  xmlns:f="http://java.sun.com/jsf/core"
+  	  xmlns:h="http://java.sun.com/jsf/html">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="/BubbleGum/">BubbleGumLogo</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <h:panelGroup rendered="#{helperBean.isLogedin()}">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link text-muted" href="/BubbleGum/">Chats</a>
+      </li>
+       <li class="nav-item active">
+        <a class="nav-link text-muted" href="/BubbleGum/">Nutzer Suchen</a>
+      </li>
+    </ul>
+    </h:panelGroup>
+  </div>
+
+   	<h:panelGroup rendered="#{helperBean.isLogedin()}">
+    	<form class="form-inline my-2 my-lg-0" action="/GameXchange/SignoutServlet">
+      	<button type="submit" class="btn btn-success">Ausloggen</button>
+    	</form>
+   	</h:panelGroup>
+   <h:panelGroup rendered="#{!helperBean.isLogedin()}">
+       <form class="form-inline my-2 my-lg-0" action="/GameXchange/signin.jsf">
+      <button type="submit" class="btn btn-success">Einloggen</button>
+    </form>
+   </h:panelGroup>
+
+</nav>
+<h:outputText value="#{helperBean.messages}" escape="false" />
+
+</html>   
