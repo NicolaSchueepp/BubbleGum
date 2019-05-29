@@ -11,7 +11,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
-import ch.bbcag.gamexchange.lowlevel.dao.CustomerDao;
 import ch.bbcag.gamexchange.lowlevel.util.message.MessageArray;
 
 @Named
@@ -25,10 +24,9 @@ public class HelperBean implements Serializable {
 //	
 	@Inject
 	private MessageArray messageArray;
-	
+
 	private HttpSession session;
-	
-	
+
 //	public String getEmail() {
 //		return getId() != 0l ? customerDao.getById(getId()).getEmail() : "";
 //	}
@@ -46,7 +44,7 @@ public class HelperBean implements Serializable {
 	}
 
 	public String getMessages() {
-		
+
 		return messageArray.toString();
 	}
 
@@ -54,12 +52,12 @@ public class HelperBean implements Serializable {
 		Map<String, Object> sessionMap;
 		try {
 			sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
-		}catch (NullPointerException e) {
+		} catch (NullPointerException e) {
 			sessionMap = getSessionMap();
 		}
-		return  sessionMap;
+		return sessionMap;
 	}
-	
+
 	private Map<String, Object> getSessionMap() {
 		Map<String, Object> sessionMap = new HashMap<String, Object>();
 		Enumeration<String> names = session.getAttributeNames();
@@ -76,8 +74,5 @@ public class HelperBean implements Serializable {
 	public void setSession(HttpSession session) {
 		this.session = session;
 	}
-	
-	
-	
-	
+
 }
