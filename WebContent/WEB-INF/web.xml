@@ -10,7 +10,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>Faces Servlet</servlet-name>
-    <url-pattern>*.jsf</url-pattern>
+    <url-pattern>*.xhtml</url-pattern>
   </servlet-mapping>
   <context-param>
     <param-name>javax.faces.WEBAPP_RESOURCES_DIRECTORY</param-name>
@@ -20,7 +20,7 @@
   </context-param>
   <welcome-file-list>
     <welcome-file>
-      home.jsf
+      home.xhtml
     </welcome-file>
   </welcome-file-list>
 </web-app>
