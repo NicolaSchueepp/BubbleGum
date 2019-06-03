@@ -29,8 +29,8 @@ public class SearchService implements ISearchService{
 		if(name != null && !name.isEmpty()) {
 			users = userDao.searchUserByName(name);
 		}
-		if(users == null || users.isEmpty()) {
-			messageArray.addMessage(new Message(MessageStyle.Warning, "Keine Nutzer mit diesem namen gefunden " + Arrays.toString(users.toArray())));
+		if(users.isEmpty()) {
+			messageArray.addMessage(new Message(MessageStyle.Warning, "Keine Nutzer mit diesem Namen gefunden"));
 		}
 		return users;
 	}

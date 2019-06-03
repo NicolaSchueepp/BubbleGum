@@ -10,16 +10,21 @@ import javax.inject.Named;
 
 import ch.bbcag.bubblegum.model.User;
 import ch.bbcag.bubblegum.service.ISearchService;
+import ch.bbcag.bubblegum.util.message.MessageArray;
 
 @Named
 @RequestScoped
 public class SearchBean {
 	
-	private String query = "Name";
+	private String query = "";
+	private List<User> results = new ArrayList<User>();
 	
 	@Inject
 	ISearchService searchService;
 
+	@Inject
+	MessageArray messageArray;
+	
 	public void setQuery(String query) {
 		this.query = query;
 	}
@@ -29,12 +34,12 @@ public class SearchBean {
 	}
 	
 	public String search() {
-		
+		results = searchService.getUsersByName(query);
 	    FacesContext ctx  = FacesContext.getCurrentInstance();
 	    return ctx.getViewRoot().getViewId();
 	}
 	
 	public List<User> getResults(){
-		return searchService.getUsersByName(query);
+		return results;
 	}
 }
