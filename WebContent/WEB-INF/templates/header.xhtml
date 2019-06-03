@@ -10,7 +10,7 @@
 	crossorigin="anonymous" />
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> <h:panelGroup
-	rendered="#{helperBean.isLogedIn()}">
+	rendered="#{helperBean.logedIn}">
 	<a class="navbar-brand" href="/BubbleGum/overview.xhtml"> <img
 		src="/BubbleGum/resources/bubblegum-logo.png" width="30" height="30"
 		alt="" /></a>
@@ -30,7 +30,7 @@
 </button>
 
 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-	<h:panelGroup rendered="#{helperBean.isLogedIn()}">
+	<h:panelGroup rendered="#{helperBean.logedIn}">
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item active"><a class="nav-link text-muted"
 				href="/BubbleGum/">Chats</a></li>
@@ -40,7 +40,7 @@
 	</h:panelGroup>
 </div>
 
-<h:panelGroup rendered="#{helperBean.isLogedIn()}">
+<h:panelGroup rendered="#{helperBean.logedIn}">
 	<h:form class="form-inline my-2 my-lg-0">
 		<h:commandButton class="btn btn-success" value="Ausloggen"
 			action="#{logoutBean.logout()}" />
@@ -49,7 +49,10 @@
 	<form class="form-inline my-2 my-lg-0" action="/BubbleGum/login.xhtml">
 		<button type="submit" class="btn btn-success">Einloggen</button>
 	</form>
-</h:panelGroup> </nav>
+</h:panelGroup> 
+</nav>
+
+
 <h:outputText value="#{helperBean.messages}" escape="false" />
 
 </html>
