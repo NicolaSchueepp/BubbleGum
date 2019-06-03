@@ -1,5 +1,7 @@
 package ch.bbcag.bubblegum.dao;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -11,7 +13,6 @@ import javax.transaction.HeuristicMixedException;
 import javax.transaction.HeuristicRollbackException;
 import javax.transaction.NotSupportedException;
 import javax.transaction.RollbackException;
-import javax.transaction.Status;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
@@ -28,22 +29,23 @@ public class UserDao implements IUserDao {
 	private UserTransaction transaction;
 
 	@Inject
-	private QueryExecutor quarryExecutor;
+	private QueryExecutor queryExecutor;
 
 	@Override
 	public User create(User user) {
-		quarryExecutor.create(new QueryExecutionUnit<Void>() {
+		queryExecutor.create(new QueryExecutionUnit<Void>() {
 			@Override
-			public Void execute(EntityManager entityManager, QueryExecutor quarryExecutor)
-					throws NoResultException, NotSupportedException, SystemException, SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
-				quarryExecutor.prepareWrite();
+			public Void execute(EntityManager entityManager, QueryExecutor queryExecutor)
+					throws NoResultException, NotSupportedException, SystemException, SecurityException,
+					IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
+				queryExecutor.prepareWrite();
 				entityManager.persist(user);
-				quarryExecutor.closeWrite();
+				queryExecutor.closeWrite();
 				return null;
 			}
 		});
 		try {
-			return quarryExecutor.executeQuery();
+			return queryExecutor.executeQuery();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -51,39 +53,73 @@ public class UserDao implements IUserDao {
 
 	@Override
 	public User getUserByEmail(String email) {
-		EntityManager em = emf.createEntityManager();
-		User user;
-		try {
-			TypedQuery<User> query = em.createQuery("SELECT u FROM User u where u.email = :email", User.class);
-			query.setParameter("email", email);
-			user = query.getSingleResult();
-		} catch (NoResultException e1) {
-			user = null;
-		} catch (Exception e2) {
-			try {
-				if (transaction.getStatus() == Status.STATUS_ACTIVE) {
-					transaction.rollback();
-				}
-			} catch (IllegalStateException | SecurityException | SystemException e3) {
-				throw new RuntimeException(e3);
+		queryExecutor.create(new QueryExecutionUnit<User>() {
+			@Override
+			public User execute(EntityManager entityManager, QueryExecutor queryExecutor)
+					throws NoResultException, NotSupportedException, SystemException, SecurityException,
+					IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
+				queryExecutor.prepareRead();
+				TypedQuery<User> query = entityManager.createQuery("SELECT u FROM User u where u.email = :email",
+						User.class);
+				query.setParameter("email", email);
+
+				User user = query.getSingleResult();
+				queryExecutor.closeRead();
+				return user;
 			}
-			throw new RuntimeException(e2);
-		} finally {
-			em.close();
+		});
+		try {
+			return queryExecutor.executeQuery();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
 		}
-		return user;
 	}
 
 	@Override
 	public User getUserById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		queryExecutor.create(new QueryExecutionUnit<User>() {
+			@Override
+			public User execute(EntityManager entityManager, QueryExecutor queryExecutor)
+					throws NoResultException, NotSupportedException, SystemException, SecurityException,
+					IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
+				queryExecutor.prepareRead();
+				TypedQuery<User> query = entityManager.createQuery("SELECT u FROM User u where u.id = :id", User.class);
+				query.setParameter("id", id);
+
+				User user = query.getSingleResult();
+				queryExecutor.closeRead();
+				return user;
+			}
+		});
+		try {
+			return queryExecutor.executeQuery();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
-	public User searchUserByName() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<User> searchUserByName(String name) {
+		queryExecutor.create(new QueryExecutionUnit<List<User>>() {
+			@Override
+			public List<User> execute(EntityManager entityManager, QueryExecutor queryExecutor)
+					throws NoResultException, NotSupportedException, SystemException, SecurityException,
+					IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
+				queryExecutor.prepareRead();
+				TypedQuery<User> query = entityManager.createQuery("SELECT u FROM User u where u.name like %:name%",
+						User.class);
+				query.setParameter("name", name);
+
+				List<User> users = query.getResultList();
+				queryExecutor.closeRead();
+				return users;
+			}
+		});
+		try {
+			return queryExecutor.executeQuery();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 }

@@ -10,5 +10,5 @@ import javax.transaction.SystemException;
 
 public interface QueryExecutionUnit<T> {
 
-	public T execute(EntityManager entityManager, QueryExecutor quarryExecutor) throws NoResultException, NotSupportedException, SystemException, SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException;
+	public T execute(EntityManager entityManager, QueryExecutor queryExecutor) throws NoResultException, NotSupportedException, SystemException, SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException;
 }

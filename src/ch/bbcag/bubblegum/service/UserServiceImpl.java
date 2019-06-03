@@ -33,6 +33,7 @@ public class UserServiceImpl implements UserService {
 				user.setPassword(Util.encode(password));
 				user.setStatus("");
 				userDao.create(user);
+				return true;
 			} else {
 				msgArray.addMessage(new Message(MessageStyle.error, "Email wurde schon verwendet!"));
 			}

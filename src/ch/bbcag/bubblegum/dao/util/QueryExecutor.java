@@ -46,6 +46,7 @@ public class QueryExecutor {
 		transaction.commit();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public <T> T executeQuery() throws DaoException {
 		T result;
 		
