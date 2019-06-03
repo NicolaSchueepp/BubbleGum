@@ -1,7 +1,9 @@
 <ui:composition template="/WEB-INF/templates/template.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html">
+	<f:viewAction listener="#{helperBean.checkForLogIn}" />
 	<ui:define name="content">
 		<div class="row">
 			<div class="col-md-2"></div>
@@ -9,8 +11,7 @@
 				<section class="jumbotron text-center">
 					<div class="container">
 						<h1 class="jumbotron-heading">Willkommen</h1>
-						<p class="lead text-muted">Bitte Loggen Sie sich ein um mit
-							deinen Freunden chatten zu können!</p>
+						<p class="lead text-muted">Test!</p>
 
 						<p class="lead text-muted">
 							Noch keinen Account? <BR />Registrieren Sie sich jetzt!

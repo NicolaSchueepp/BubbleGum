@@ -9,11 +9,18 @@
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous" />
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark"> <a
-	class="navbar-brand" href="/BubbleGum/"> <img
-	src="/BubbleGum/resources/bubblegum-logo.png" width="30" height="30"
-	alt="" />
-</a> <a class="navbar-brand" href="/BubbleGum/">BubbleGum</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark"> <h:panelGroup
+	rendered="#{helperBean.isLogedIn()}">
+	<a class="navbar-brand" href="/BubbleGum/overview.xhtml"> <img
+		src="/BubbleGum/resources/bubblegum-logo.png" width="30" height="30"
+		alt="" /></a>
+	<a class="navbar-brand" href="/BubbleGum/overview.xhtml">BubbleGum</a>
+</h:panelGroup> <h:panelGroup rendered="#{!helperBean.logedIn}">
+	<a class="navbar-brand" href="/BubbleGum/home.xhtml"> <img
+		src="/BubbleGum/resources/bubblegum-logo.png" width="30" height="30"
+		alt="" /></a>
+	<a class="navbar-brand" href="/BubbleGum/home.xhtml">BubbleGum</a>
+</h:panelGroup>
 
 <button class="navbar-toggler" type="button" data-toggle="collapse"
 	data-target="#navbarSupportedContent"
@@ -23,7 +30,7 @@
 </button>
 
 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-	<h:panelGroup rendered="#{helperBean.logedin}">
+	<h:panelGroup rendered="#{helperBean.isLogedIn()}">
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item active"><a class="nav-link text-muted"
 				href="/BubbleGum/">Chats</a></li>
@@ -33,13 +40,13 @@
 	</h:panelGroup>
 </div>
 
-<h:panelGroup rendered="#{helperBean.logedin}">
-	<form class="form-inline my-2 my-lg-0"
-		action="/BubbleGum/SignoutServlet">
-		<button type="submit" class="btn btn-success">Ausloggen</button>
-	</form>
-</h:panelGroup> <h:panelGroup rendered="#{not helperBean.logedin}">
-	<form class="form-inline my-2 my-lg-0" action="/BubbleGum/signin.xhtml">
+<h:panelGroup rendered="#{helperBean.isLogedIn()}">
+	<h:form class="form-inline my-2 my-lg-0">
+		<h:commandButton class="btn btn-success" value="Ausloggen"
+			action="#{logoutBean.logout()}" />
+	</h:form>
+</h:panelGroup> <h:panelGroup rendered="#{!helperBean.logedIn}">
+	<form class="form-inline my-2 my-lg-0" action="/BubbleGum/login.xhtml">
 		<button type="submit" class="btn btn-success">Einloggen</button>
 	</form>
 </h:panelGroup> </nav>

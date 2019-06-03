@@ -9,14 +9,22 @@
 		<navigation-case>
 			<from-outcome>home</from-outcome>
 			<to-view-id>/home.xhtml</to-view-id>
+			<redirect/>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>register</from-outcome>
 			<to-view-id>/register.xhtml</to-view-id>
+			<redirect/>
 		</navigation-case>
 		<navigation-case>
-			<from-outcome>signin</from-outcome>
-			<to-view-id>/signin.xhtml</to-view-id>
+			<from-outcome>login</from-outcome>
+			<to-view-id>/login.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>overview</from-outcome>
+			<to-view-id>/overview.xhtml</to-view-id>
+			<redirect/>
 		</navigation-case>
 	</navigation-rule>
 </faces-config>
