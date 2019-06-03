@@ -17,7 +17,7 @@ import ch.bbcag.bubblegum.util.message.MessageArray;
 public class SearchBean {
 	
 	private String query = "";
-	private List<User> results = new ArrayList<User>();
+	private List<User> results;
 	
 	@Inject
 	ISearchService searchService;
