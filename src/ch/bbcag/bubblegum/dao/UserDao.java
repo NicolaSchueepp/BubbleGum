@@ -1,19 +1,22 @@
 package ch.bbcag.bubblegum.dao;
 
 import javax.annotation.Resource;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.TypedQuery;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
 import javax.transaction.Status;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
+import ch.bbcag.bubblegum.dao.util.QuarryExecutionUnit;
+import ch.bbcag.bubblegum.dao.util.QuarryExecutor;
 import ch.bbcag.bubblegum.model.User;
 
 public class UserDao implements IUserDao {
@@ -24,28 +27,26 @@ public class UserDao implements IUserDao {
 	@Resource
 	private UserTransaction transaction;
 
+	@Inject
+	private QuarryExecutor quarryExecutor;
+
 	@Override
 	public User create(User user) {
-		EntityManager em = emf.createEntityManager();
-		try {
-			transaction.begin();
-			em.joinTransaction();
-			em.persist(user);
-			em.flush();
-			transaction.commit();
-		} catch (Exception e) {
-			try {
-				if (transaction.getStatus() == Status.STATUS_ACTIVE) {
-					transaction.rollback();
-				}
-			} catch (IllegalStateException | SecurityException | SystemException e1) {
-				throw new RuntimeException(e1);
+		quarryExecutor.create(new QuarryExecutionUnit<Void>() {
+			@Override
+			public Void execute(EntityManager entityManager, QuarryExecutor quarryExecutor)
+					throws NoResultException, NotSupportedException, SystemException, SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
+				quarryExecutor.prepareWrite();
+				entityManager.persist(user);
+				quarryExecutor.closeWrite();
+				return null;
 			}
+		});
+		try {
+			return quarryExecutor.executeQuarry();
+		} catch (Exception e) {
 			throw new RuntimeException(e);
-		} finally {
-			em.close();
 		}
-		return user;
 	}
 
 	@Override
