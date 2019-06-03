@@ -13,7 +13,7 @@ import javax.transaction.Status;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
-public class QuarryExecutor {
+public class QueryExecutor {
 
 	@PersistenceUnit
 	private EntityManagerFactory emf;
@@ -21,12 +21,12 @@ public class QuarryExecutor {
 	@Resource
 	private UserTransaction transaction;
 	
-	private QuarryExecutionUnit<?> executionUnit;
+	private QueryExecutionUnit<?> executionUnit;
 	
 	private EntityManager entityManager;
 	
 	
-	public void create(QuarryExecutionUnit<?> executionUnit) {
+	public void create(QueryExecutionUnit<?> executionUnit) {
 		this.entityManager = emf.createEntityManager();
 		this.executionUnit = executionUnit;
 	}
@@ -46,7 +46,7 @@ public class QuarryExecutor {
 		transaction.commit();
 	}
 	
-	public <T> T executeQuarry() throws DaoException {
+	public <T> T executeQuery() throws DaoException {
 		T result;
 		
 		try {

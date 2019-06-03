@@ -15,8 +15,8 @@ import javax.transaction.Status;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
-import ch.bbcag.bubblegum.dao.util.QuarryExecutionUnit;
-import ch.bbcag.bubblegum.dao.util.QuarryExecutor;
+import ch.bbcag.bubblegum.dao.util.QueryExecutionUnit;
+import ch.bbcag.bubblegum.dao.util.QueryExecutor;
 import ch.bbcag.bubblegum.model.User;
 
 public class UserDao implements IUserDao {
@@ -28,13 +28,13 @@ public class UserDao implements IUserDao {
 	private UserTransaction transaction;
 
 	@Inject
-	private QuarryExecutor quarryExecutor;
+	private QueryExecutor quarryExecutor;
 
 	@Override
 	public User create(User user) {
-		quarryExecutor.create(new QuarryExecutionUnit<Void>() {
+		quarryExecutor.create(new QueryExecutionUnit<Void>() {
 			@Override
-			public Void execute(EntityManager entityManager, QuarryExecutor quarryExecutor)
+			public Void execute(EntityManager entityManager, QueryExecutor quarryExecutor)
 					throws NoResultException, NotSupportedException, SystemException, SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
 				quarryExecutor.prepareWrite();
 				entityManager.persist(user);
@@ -43,7 +43,7 @@ public class UserDao implements IUserDao {
 			}
 		});
 		try {
-			return quarryExecutor.executeQuarry();
+			return quarryExecutor.executeQuery();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
