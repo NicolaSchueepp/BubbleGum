@@ -1,55 +1,52 @@
-<ui:composition template="/template.xhtml"
+<ui:composition template="/WEB-INF/templates/template.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html">
 	<ui:define name="content">
-	
-			<div class="row">
+
+		<div class="row">
 			<div class="col-md-2"></div>
 			<div class="well well-lg col-md-8">
-			<section class="jumbotron">
-			
-	<h:form style="width: 50%; margin: 10px auto;">
-	  
-	  <h1 style="text-align: center;">Registrieren</h1>
-	  
-	  <div class="form-group">
-    	<label for="emailInput">Email:</label>
-    	<p>
-	    	<h:inputText placeholder="example@example.com"
-	                 type="email" class="form-control" name="email" id="emailInput"
-	                 required="true"
-                     value="#{registerBean.email}" />
-	  	</p>
-  	</div>
-  
-  	  <div class="form-group">
-    	<label for="emailInput">Name:</label>
-    	<p>
-	    	<h:inputText placeholder="Hans Müller"
-	                 type="text" class="form-control" name="name" id="nameInput"
-	                 required="true"
-                     value="#{registerBean.name}" />
-	  	</p>
-  	 </div>
-  			
-  		<div class="form-group">
-    		<label for="passwordInput">Password:</label>
-   			<p>
-    			<h:inputSecret placeholder="password"
-	                 type="password" class="form-control" name="password" id="passwordInput"
-	                 required="true"
-                     value="#{registerBean.password}" />
-	  		</p>
-  		</div>
-  
-  	  	<p>
-	    	<h:commandButton class="btn btn-success" value="Registrieren" 
-		               action="#{registerBean.register()}" />
-	  	</p>
-	</h:form>
-	</section>
-				</div>
+				<section class="jumbotron">
+
+					<h:form style="width: 50%; margin: 10px auto;">
+
+						<h1 style="text-align: center;">Registrieren</h1>
+
+						<div class="form-group">
+							<label for="emailInput">Email:</label>
+							<p>
+								<h:inputText placeholder="example@example.com" type="email"
+									class="form-control" name="email" id="emailInput"
+									required="true" value="#{registerBean.email}" />
+							</p>
+						</div>
+
+						<div class="form-group">
+							<label for="emailInput">Name:</label>
+							<p>
+								<h:inputText placeholder="Hans Müller" type="text"
+									class="form-control" name="name" id="nameInput" required="true"
+									value="#{registerBean.name}" />
+							</p>
+						</div>
+
+						<div class="form-group">
+							<label for="passwordInput">Password:</label>
+							<p>
+								<h:inputSecret placeholder="password" type="password"
+									class="form-control" name="password" id="passwordInput"
+									required="true" value="#{registerBean.password}" />
+							</p>
+						</div>
+
+						<p>
+							<h:commandButton class="btn btn-success" value="Registrieren"
+								action="#{registerBean.register()}" />
+						</p>
+					</h:form>
+				</section>
+			</div>
 			<div class="col-md-2"></div>
 		</div>
 	</ui:define>
