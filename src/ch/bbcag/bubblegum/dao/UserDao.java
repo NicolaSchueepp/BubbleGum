@@ -1,8 +1,14 @@
 package ch.bbcag.bubblegum.dao;
 
 import javax.annotation.Resource;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceUnit;
+import javax.transaction.Status;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
@@ -10,21 +16,26 @@ import ch.bbcag.bubblegum.model.User;
 
 public class UserDao implements IUserDao {
 
-	@PersistenceContext
-	private EntityManager em;
+	@PersistenceUnit
+	private EntityManagerFactory emf;
 
 	@Resource
 	private UserTransaction transaction;
 
 	@Override
 	public User create(User user) {
+		EntityManager em = emf.createEntityManager();
 		try {
 			transaction.begin();
+			em.joinTransaction();
 			em.persist(user);
+			em.flush();
 			transaction.commit();
 		} catch (Exception e) {
 			try {
-				transaction.rollback();
+				if(transaction.getStatus() == Status.STATUS_ACTIVE) {
+					transaction.rollback();
+				}
 			} catch (IllegalStateException | SecurityException | SystemException e1) {
 				throw new RuntimeException(e1);
 			}
