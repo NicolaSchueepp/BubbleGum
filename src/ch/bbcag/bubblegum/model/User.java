@@ -15,4 +15,13 @@ public class User implements Serializable {
 	@Column(name = "id")
 	private int id;
 
+	@Column(name = "status")
+	private String status;
+
+	@Column(name = "email")
+	private String email;
+
+	@Column(name = "password")
+	private String password;
+
 }
