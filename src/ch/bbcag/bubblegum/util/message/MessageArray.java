@@ -3,9 +3,9 @@ package ch.bbcag.bubblegum.util.message;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.SessionScoped;
 
-@javax.enterprise.context.SessionScoped
+@SessionScoped
 public class MessageArray implements Serializable{
 	
 	private static final long serialVersionUID = -4732122833002795431L;

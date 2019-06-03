@@ -23,8 +23,17 @@ public class SessionBean implements Serializable {
 	}
 
 	public void invalidateSession() {
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
+		HttpSession session = getSession();
 		session.invalidate();
+	}
+
+	public void addLogedIn() {
+		HttpSession session = getSession();
+		session.setAttribute("isLoggedIn", true);
+	}
+
+	public HttpSession getSession() {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		return (HttpSession) facesContext.getExternalContext().getSession(true);
 	}
 }

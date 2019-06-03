@@ -6,6 +6,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import ch.bbcag.bubblegum.util.message.Message;
 import ch.bbcag.bubblegum.util.message.MessageArray;
 
 @Named
@@ -24,6 +25,10 @@ public class HelperBean implements Serializable {
 		String messages = messageArray.toString();
 		messageArray.clear();
 		return messages;
+	}
+	
+	public void addMessage(Message message) {
+		messageArray.addMessage(message);
 	}
 
 	public boolean isLogedIn() {

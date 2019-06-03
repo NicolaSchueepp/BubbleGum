@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf15591082978000" configfile="/BubbleGum/WebContent/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="register.xhtml" x="122" y="754" id="pf155913696480629" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf155913698768637 pf155913698768638 pf155913698768639 pf15595626977400" path="/*"/>
+  <nodes xsi:type="pageflow:PFPage" name="register.xhtml" x="122" y="946" id="pf155913696480629" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf155913698768637 pf155913698768638 pf155913698768639 pf15595720115082 pf15595720115083" path="/*"/>
   <nodes xsi:type="pageflow:PFPage" name="home.xhtml" x="338" y="178" id="pf155913698768640" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf155913698768637" path="/home.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="register.xhtml" x="338" y="562" id="pf155913698768641" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" inlinks="pf155913698768638" path="/register.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="signin.xhtml" x="338" y="946" id="pf155913698768642" referenceLink="//@navigationRule.0/@navigationCase.2/@toViewId|" inlinks="pf155913698768639" path="/login.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="Overview.xhtml" x="338" y="1330" id="pf15595626977401" referenceLink="//@navigationRule.0/@navigationCase.3/@toViewId|" inlinks="pf15595626977400" path="/overview.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="secured/overview.xhtml" id="pf15595720115084" referenceLink="//@navigationRule.0/@navigationCase.3/@toViewId|" inlinks="pf15595720115082" path="/secured/overview.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="secured/search.xhtml" id="pf15595720115085" referenceLink="//@navigationRule.0/@navigationCase.4/@toViewId|" inlinks="pf15595720115083" path="/secured/search.xhtml"/>
   <links id="pf155913698768637" target="pf155913698768640" source="pf155913696480629" outcome="home" redirect="true"/>
   <links id="pf155913698768638" target="pf155913698768641" source="pf155913696480629" outcome="register" redirect="true"/>
   <links id="pf155913698768639" target="pf155913698768642" source="pf155913696480629" outcome="login" redirect="true"/>
-  <links id="pf15595626977400" target="pf15595626977401" source="pf155913696480629" outcome="overview" redirect="true"/>
-  <links id="pf15595599935610" target="pf15595599935621" source="pf155913696480629" outcome="search"/>
+  <links id="pf15595720115082" target="pf15595720115084" source="pf155913696480629" outcome="overview" redirect="true"/>
+  <links id="pf15595720115083" target="pf15595720115085" source="pf155913696480629" outcome="search"/>
 </pageflow:Pageflow>
