@@ -53,12 +53,8 @@ public class UserDao implements IUserDao {
 		EntityManager em = emf.createEntityManager();
 		User user;
 		try {
-//			transaction.begin();
-//			em.joinTransaction();
 			TypedQuery<User> query = em.createQuery("SELECT u FROM User u where u.email = :email", User.class);
 			query.setParameter("email", email);
-//			em.flush();
-//			transaction.commit();
 			user = query.getSingleResult();
 		} catch (NoResultException e1) {
 			user = null;
