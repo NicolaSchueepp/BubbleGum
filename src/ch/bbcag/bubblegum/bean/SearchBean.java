@@ -33,10 +33,8 @@ public class SearchBean {
 		return query;
 	}
 	
-	public String search() {
+	public void search() {
 		results = searchService.getUsersByName(query);
-	    FacesContext ctx  = FacesContext.getCurrentInstance();
-	    return ctx.getViewRoot().getViewId();
 	}
 	
 	public List<User> getResults(){
