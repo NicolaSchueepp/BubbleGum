@@ -18,5 +18,9 @@
 			<from-outcome>signin</from-outcome>
 			<to-view-id>/signin.xhtml</to-view-id>
 		</navigation-case>
+				<navigation-case>
+			<from-outcome>search</from-outcome>
+			<to-view-id>/search.xhtml</to-view-id>
+		</navigation-case>
 	</navigation-rule>
 </faces-config>

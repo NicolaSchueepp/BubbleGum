@@ -35,9 +35,7 @@ public class UserDao implements IUserDao {
 	public User create(User user) {
 		queryExecutor.create(new QueryExecutionUnit<Void>() {
 			@Override
-			public Void execute(EntityManager entityManager, QueryExecutor queryExecutor)
-					throws NoResultException, NotSupportedException, SystemException, SecurityException,
-					IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
+			public Void execute(EntityManager entityManager, QueryExecutor queryExecutor) throws NoResultException, NotSupportedException, SystemException, SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
 				queryExecutor.prepareWrite();
 				entityManager.persist(user);
 				queryExecutor.closeWrite();
@@ -55,9 +53,7 @@ public class UserDao implements IUserDao {
 	public User getUserByEmail(String email) {
 		queryExecutor.create(new QueryExecutionUnit<User>() {
 			@Override
-			public User execute(EntityManager entityManager, QueryExecutor queryExecutor)
-					throws NoResultException, NotSupportedException, SystemException, SecurityException,
-					IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
+			public User execute(EntityManager entityManager, QueryExecutor queryExecutor) throws NoResultException, NotSupportedException, SystemException, SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
 				queryExecutor.prepareRead();
 				TypedQuery<User> query = entityManager.createQuery("SELECT u FROM User u where u.email = :email",
 						User.class);
@@ -79,9 +75,7 @@ public class UserDao implements IUserDao {
 	public User getUserById(Long id) {
 		queryExecutor.create(new QueryExecutionUnit<User>() {
 			@Override
-			public User execute(EntityManager entityManager, QueryExecutor queryExecutor)
-					throws NoResultException, NotSupportedException, SystemException, SecurityException,
-					IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
+			public User execute(EntityManager entityManager, QueryExecutor queryExecutor) throws NoResultException, NotSupportedException, SystemException, SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
 				queryExecutor.prepareRead();
 				TypedQuery<User> query = entityManager.createQuery("SELECT u FROM User u where u.id = :id", User.class);
 				query.setParameter("id", id);
@@ -102,13 +96,11 @@ public class UserDao implements IUserDao {
 	public List<User> searchUserByName(String name) {
 		queryExecutor.create(new QueryExecutionUnit<List<User>>() {
 			@Override
-			public List<User> execute(EntityManager entityManager, QueryExecutor queryExecutor)
-					throws NoResultException, NotSupportedException, SystemException, SecurityException,
-					IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
+			public List<User> execute(EntityManager entityManager, QueryExecutor queryExecutor) throws NoResultException, NotSupportedException, SystemException, SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
 				queryExecutor.prepareRead();
-				TypedQuery<User> query = entityManager.createQuery("SELECT u FROM User u where u.name like %:name%",
+				TypedQuery<User> query = entityManager.createQuery("SELECT u FROM User u where u.name like :name",
 						User.class);
-				query.setParameter("name", name);
+				query.setParameter("name", "%"+ name +"%");
 
 				List<User> users = query.getResultList();
 				queryExecutor.closeRead();
