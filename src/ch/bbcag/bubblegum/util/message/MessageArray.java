@@ -1,12 +1,14 @@
 package ch.bbcag.bubblegum.util.message;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.SessionScoped;
 
-@RequestScoped
-public class MessageArray {
-
+@javax.enterprise.context.SessionScoped
+public class MessageArray implements Serializable{
+	
+	private static final long serialVersionUID = -4732122833002795431L;
 	
 	private ArrayList<Message> messages;
 	

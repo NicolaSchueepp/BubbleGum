@@ -12,7 +12,7 @@ import ch.bbcag.bubblegum.util.message.MessageArray;
 @RequestScoped
 public class HelperBean implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 292364279347623L;
 
 	@Inject
 	private MessageArray messageArray;
@@ -21,7 +21,9 @@ public class HelperBean implements Serializable {
 	private SessionBean sessionBean;
 
 	public String getMessages() {
-		return messageArray.toString();
+		String messages = messageArray.toString();
+		messageArray.clear();
+		return messages;
 	}
 
 	public boolean isLogedIn() {

@@ -1,16 +1,13 @@
 package ch.bbcag.bubblegum.bean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import ch.bbcag.bubblegum.model.User;
 import ch.bbcag.bubblegum.service.ISearchService;
-import ch.bbcag.bubblegum.util.message.MessageArray;
 
 @Named
 @RequestScoped
@@ -21,9 +18,6 @@ public class SearchBean {
 	
 	@Inject
 	ISearchService searchService;
-
-	@Inject
-	MessageArray messageArray;
 	
 	public void setQuery(String query) {
 		this.query = query;
