@@ -1,4 +1,4 @@
-package ch.bbcag.gamexchange.lowlevel.util.message;
+package ch.bbcag.bubblegum.util.message;
 
 public class Message {
 

@@ -11,7 +11,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
-import ch.bbcag.gamexchange.lowlevel.util.message.MessageArray;
+import ch.bbcag.bubblegum.util.message.MessageArray;
 
 @Named
 @RequestScoped
