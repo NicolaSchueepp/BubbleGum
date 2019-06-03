@@ -9,4 +9,5 @@
   <links id="pf155913698768638" target="pf155913698768641" source="pf155913696480629" outcome="register" redirect="true"/>
   <links id="pf155913698768639" target="pf155913698768642" source="pf155913696480629" outcome="login" redirect="true"/>
   <links id="pf15595626977400" target="pf15595626977401" source="pf155913696480629" outcome="overview" redirect="true"/>
+  <links id="pf15595599935610" target="pf15595599935621" source="pf155913696480629" outcome="search"/>
 </pageflow:Pageflow>
