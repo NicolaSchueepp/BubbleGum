@@ -33,7 +33,7 @@ public class UserDao implements IUserDao {
 			transaction.commit();
 		} catch (Exception e) {
 			try {
-				if(transaction.getStatus() == Status.STATUS_ACTIVE) {
+				if (transaction.getStatus() == Status.STATUS_ACTIVE) {
 					transaction.rollback();
 				}
 			} catch (IllegalStateException | SecurityException | SystemException e1) {
