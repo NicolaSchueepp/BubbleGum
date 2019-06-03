@@ -34,7 +34,7 @@
 		action="/BubbleGum/SignoutServlet">
 		<button type="submit" class="btn btn-success">Ausloggen</button>
 	</form>
-</h:panelGroup> <h:panelGroup rendered="#{helperBean.isLogedin()}">
+</h:panelGroup> <h:panelGroup rendered="#{not helperBean.logedin}">
 	<form class="form-inline my-2 my-lg-0" action="/BubbleGum/signin.xhtml">
 		<button type="submit" class="btn btn-success">Einloggen</button>
 	</form>

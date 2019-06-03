@@ -13,11 +13,20 @@ import ch.bbcag.bubblegum.service.UserService;
 public class RegisterBean implements Serializable {
 	private static final long serialVersionUID = -8845855312932960905L;
 
+	private String name = "";
 	private String email = "";
 	private String password = "";
 
 	@Inject
 	private UserService userService;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public String getEmail() {
 		return email;
@@ -36,7 +45,7 @@ public class RegisterBean implements Serializable {
 	}
 
 	public String register() {
-		if (userService.register())
+		if (userService.register(name, email, password))
 			return "signin";
 		return "register";
 	}

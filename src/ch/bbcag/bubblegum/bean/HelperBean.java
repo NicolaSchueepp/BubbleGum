@@ -27,6 +27,8 @@ public class HelperBean implements Serializable {
 
 	private HttpSession session;
 
+//	private boolean isLoggedIn;
+
 //	public String getEmail() {
 //		return getId() != 0l ? customerDao.getById(getId()).getEmail() : "";
 //	}
