@@ -2,7 +2,7 @@ package ch.bbcag.bubblegum.service;
 
 import javax.inject.Inject;
 
-import ch.bbcag.bubblegum.bean.HelperBean;
+import ch.bbcag.bubblegum.bean.RegisterBean;
 import ch.bbcag.bubblegum.bean.SessionBean;
 import ch.bbcag.bubblegum.dao.IUserDao;
 import ch.bbcag.bubblegum.model.User;
@@ -21,6 +21,9 @@ public class UserService implements IUserService {
 
 	@Inject
 	private SessionBean sessionBean;
+
+	@Inject
+	private RegisterBean registerBean;
 
 	@Override
 	public boolean login(String email, String password) {
@@ -50,6 +53,7 @@ public class UserService implements IUserService {
 				return true;
 			} else {
 				msgArray.addMessage(new Message(MessageStyle.error, "Email wurde schon verwendet!"));
+				registerBean.setEmail("");
 			}
 		} else {
 			msgArray.addMessage(new Message(MessageStyle.error, "Ungültige Eingabe!"));

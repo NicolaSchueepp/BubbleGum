@@ -21,7 +21,7 @@ public class LoginFilter implements Filter {
 
 	@Inject
 	private HelperBean helperBean;
-	
+
 	@Inject
 	private MessageArray msgArray;
 
@@ -29,11 +29,10 @@ public class LoginFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		if (!helperBean.isLogedIn()) {
-			helperBean.addMessage(new Message(MessageStyle.error, "Du hast keine Berechtigung für diese Seite!"));
+			msgArray.addMessage(new Message(MessageStyle.error, "Du hast keine Berechtigung für diese Seite!"));
 			String contextPath = ((HttpServletRequest) request).getContextPath();
 			((HttpServletResponse) response).sendRedirect(contextPath + "/home.xhtml");
 		}
-		chain.doFilter(request, response);
 	}
 
 	@Override

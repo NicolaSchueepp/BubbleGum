@@ -2,14 +2,14 @@ package ch.bbcag.bubblegum.bean;
 
 import java.io.Serializable;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import ch.bbcag.bubblegum.service.IUserService;
 
 @Named
-@RequestScoped
+@SessionScoped
 public class RegisterBean implements Serializable {
 	private static final long serialVersionUID = -8845855312932960905L;
 
@@ -18,7 +18,7 @@ public class RegisterBean implements Serializable {
 	private String password = "";
 
 	@Inject
-	private IUserService userService;
+	private transient IUserService userService;
 
 	public String getName() {
 		return name;
@@ -45,8 +45,11 @@ public class RegisterBean implements Serializable {
 	}
 
 	public String register() {
-		if (userService.register(name, email, password))
+		if (userService.register(name, email, password)) {
+			password = "";
 			return "login";
+		}
+		password = "";
 		return "register";
 	}
 }

@@ -1,27 +1,40 @@
+
 <ui:composition template="/WEB-INF/templates/template.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html">
-	<f:viewAction listener="#{helperBean.checkForLogIn}" />
+
+
 	<ui:define name="content">
 		<div class="row">
 			<div class="col-md-2"></div>
 			<div class="well well-lg col-md-8">
-				<section class="jumbotron text-center">
-					<div class="container">
-						<h1 class="jumbotron-heading">Willkommen</h1>
-						<p class="lead text-muted">Test!</p>
 
-						<p class="lead text-muted">
-							Noch keinen Account? <BR />Registrieren Sie sich jetzt!
-						</p>
-
-						<p>
-							<a href="register.xhtml" class="btn btn-success">Registrieren</a>
-						</p>
+				<h:form>
+					<div class="input-group flex-nowrap"
+						style="width: 50%; margin: auto;">
+						<h:inputText placeholder="Name" type="text" class="form-control"
+							name="name" id="nameInput" required="true"
+							value="${searchBean.query}" />
+						<h:commandButton class="btn btn-success" value="Suchen"
+							action="#{searchBean.search()}" style="margin-left: 10px;" />
 					</div>
-				</section>
+				</h:form>
+
+				<div style="padding: 10px 0; width: 100%;"></div>
+
+				<ui:repeat value="#{searchBean.results}" var="user">
+					<div class="card"
+						style="margin: 10px 0; background-color: #e9ecef;">
+						<div class="card-body">
+							<p class="card-text" style="float: left; font-size: 20px;">#{user.name}</p>
+							<button class="btn btn-success"
+								style="float: right; margin: 0 5px;">Quick-Chat öffnen</button>
+							<button class="btn btn-success"
+								style="float: right; margin: 0 5px;">In Bubble Einladen</button>
+						</div>
+					</div>
+				</ui:repeat>
 			</div>
 			<div class="col-md-2"></div>
 		</div>
