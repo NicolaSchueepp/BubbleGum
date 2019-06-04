@@ -13,17 +13,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ch.bbcag.bubblegum.bean.HelperBean;
-import ch.bbcag.bubblegum.util.message.Message;
-import ch.bbcag.bubblegum.util.message.MessageArray;
-import ch.bbcag.bubblegum.util.message.MessageStyle;
 
-public class LoginFilter implements Filter {
+public class HomeRedirectionFilter implements Filter {
 
-	@Inject
-	private HelperBean helperBean;
-
-	@Inject
-	private MessageArray msgArray;
+	 @Inject
+	 private HelperBean helperBean;
+	
+	@Override
+	public void destroy() {
+	}
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -32,21 +30,15 @@ public class LoginFilter implements Filter {
 
 		String contextPath = ((HttpServletRequest) request).getContextPath();
 
-		if (!helperBean.isLogedIn()) {
-			msgArray.addMessage(new Message(MessageStyle.error, "Du hast keine Berechtigung für diese Seite!"));
-			((HttpServletResponse) response).sendRedirect(contextPath + "/home.xhtml");
+		if (helperBean.isLogedIn()) {
+			((HttpServletResponse) response).sendRedirect(contextPath + "/overview.xhtml");
 		} else {
 			chain.doFilter(request, response);
 		}
-
 	}
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-	}
-
-	@Override
-	public void destroy() {
 	}
 
 }

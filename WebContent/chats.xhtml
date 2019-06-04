@@ -2,7 +2,8 @@
 <ui:composition template="/WEB-INF/templates/template.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">>
 
 
 	<ui:define name="content">
@@ -27,13 +28,9 @@
 					<div class="card"
 						style="margin: 10px 0; background-color: #e9ecef;">
 						<div class="card-body">
-							<p class="card-text" style="margin: 0px; float: left; font-size: 20px;">
-								<SPAN class="font-weight-bold">#{user.name}</SPAN><BR />#{user.status}
-							</p>
+							<p class="card-text" style="float: left; font-size: 20px;">#{user.name}</p>
 							<button class="btn btn-success"
 								style="float: right; margin: 0 5px;">Quick-Chat öffnen</button>
-							<button class="btn btn-success"
-								style="float: right; margin: 0 5px;">In Bubble Einladen</button>
 						</div>
 					</div>
 				</ui:repeat>
