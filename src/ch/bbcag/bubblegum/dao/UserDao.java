@@ -22,24 +22,18 @@ import ch.bbcag.bubblegum.model.User;
 
 public class UserDao implements IUserDao {
 
-	@PersistenceUnit
-	private EntityManagerFactory emf;
-
-	@Resource
-	private UserTransaction transaction;
-
 	@Inject
 	private QueryExecutor queryExecutor;
 
 	@Override
 	public User create(User user) {
-		queryExecutor.create(new QueryExecutionUnit<Void>() {
+		queryExecutor.create(new QueryExecutionUnit<User>() {
 			@Override
-			public Void execute(EntityManager entityManager, QueryExecutor queryExecutor) throws NoResultException, NotSupportedException, SystemException, SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
+			public User execute(EntityManager entityManager, QueryExecutor queryExecutor) throws NoResultException, NotSupportedException, SystemException, SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
 				queryExecutor.prepareWrite();
 				entityManager.persist(user);
 				queryExecutor.closeWrite();
-				return null;
+				return user;
 			}
 		});
 		try {

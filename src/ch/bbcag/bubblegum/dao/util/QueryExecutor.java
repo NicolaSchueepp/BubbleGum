@@ -49,16 +49,12 @@ public class QueryExecutor {
 	@SuppressWarnings("unchecked")
 	public <T> T executeQuery() throws DaoException {
 		T result;
-		
 		try {
 			result = (T) executionUnit.execute(entityManager, this);
-		
 		if(transaction.getStatus() == Status.STATUS_ACTIVE) {
 			transaction.rollback();
 		}
-
 		entityManager.close();
-		
 		}catch (NoResultException e) {
 			result = null;
 		}catch (IllegalStateException | SecurityException | SystemException | NotSupportedException | RollbackException | HeuristicMixedException | HeuristicRollbackException e) {
