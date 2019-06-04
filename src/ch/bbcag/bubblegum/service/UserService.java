@@ -31,7 +31,6 @@ public class UserService implements IUserService {
 			User userSaved = userDao.getUserByEmail(email);
 			if (userSaved != null && Util.encode(password).equals(userSaved.getPassword())) {
 				sessionBean.setUserID(userSaved.getId());
-				sessionBean.addLogedIn();
 				return true;
 			}
 		}
