@@ -2,8 +2,8 @@
 <ui:composition template="/WEB-INF/templates/template.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">>
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
 
 
 	<ui:define name="content">
@@ -11,32 +11,38 @@
 			<div class="col-md-2"></div>
 			<div class="well well-lg col-md-8">
 
-				<h:form>
+				<h:form id="ResultsForm">
 					<div class="input-group flex-nowrap"
 						style="width: 50%; margin: auto;">
-						<h:inputText placeholder="Name" type="text" class="form-control"
-							name="name" id="nameInput" required="true"
-							value="${searchBean.query}" />
+						<h:inputText placeholder="Chat" type="text" class="form-control"
+							name="chatInput" id="chatInput" required="true"
+							value="#{chatsOverviewBean.query}" />
 						<h:commandButton class="btn btn-success" value="Suchen"
-							action="#{searchBean.search()}" style="margin-left: 10px;" />
+							style="margin-left: 10px;">
+							<f:ajax listener="#{chatsOverviewBean.search}" render="results"></f:ajax>
+						</h:commandButton>
+					</div>
+
+					<div style="padding: 10px 0; width: 100%;"></div>
+
+					<div id="results">
+						<ui:repeat value="#{chatsOverviewBean.results}" var="chat">
+							<div class="card"
+								style="margin: 10px 0; background-color: #e9ecef;">
+								<div class="card-body">
+									<p class="card-text"
+										style="margin: auto; float: left; font-size: 20px;">
+										<SPAN class="font-weight-bold">#{chat.name}</SPAN><BR />#{chat.lastMessage}
+									</p>
+									<button class="btn btn-success"
+										style="float: right; margin: 0px;">Chat öffnen</button>
+								</div>
+							</div>
+						</ui:repeat>
 					</div>
 				</h:form>
-
-				<div style="padding: 10px 0; width: 100%;"></div>
-
-				<ui:repeat value="#{searchBean.results}" var="user">
-					<div class="card"
-						style="margin: 10px 0; background-color: #e9ecef;">
-						<div class="card-body">
-							<p class="card-text" style="float: left; font-size: 20px;">#{user.name}</p>
-							<button class="btn btn-success"
-								style="float: right; margin: 0 5px;">Quick-Chat öffnen</button>
-						</div>
-					</div>
-				</ui:repeat>
 			</div>
 			<div class="col-md-2"></div>
 		</div>
-
 	</ui:define>
 </ui:composition>

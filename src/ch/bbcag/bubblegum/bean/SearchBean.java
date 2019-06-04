@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import ch.bbcag.bubblegum.model.User;
-import ch.bbcag.bubblegum.service.ISearchService;
+import ch.bbcag.bubblegum.service.IUserService;
 
 @Named
 @RequestScoped
@@ -17,7 +17,7 @@ public class SearchBean {
 	private List<User> results;
 	
 	@Inject
-	ISearchService searchService;
+	IUserService userService;
 	
 	public void setQuery(String query) {
 		this.query = query;
@@ -28,7 +28,7 @@ public class SearchBean {
 	}
 	
 	public void search() {
-		results = searchService.getUsersByName(query);
+		results = userService.searchUsersByName(query);
 	}
 	
 	public List<User> getResults(){

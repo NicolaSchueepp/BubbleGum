@@ -1,5 +1,8 @@
 package ch.bbcag.bubblegum.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import ch.bbcag.bubblegum.bean.RegisterBean;
@@ -58,5 +61,17 @@ public class UserService implements IUserService {
 			msgArray.addMessage(new Message(MessageStyle.error, "Ungültige Eingabe!"));
 		}
 		return false;
+	}
+	
+	@Override
+	public List<User> searchUsersByName(String name) {
+		List<User> users = new ArrayList<User>();
+		if(name != null && !name.isEmpty()) {
+			users = userDao.searchUserByName(name);
+		}
+		if(users.isEmpty()) {
+			msgArray.addMessage(new Message(MessageStyle.Warning, "Keine Nutzer mit diesem Namen gefunden"));
+		}
+		return users;
 	}
 }
