@@ -2,18 +2,23 @@ var wsUri = "ws://localhost:8080/BubbleGum/chatService";
 var websocket;
 var msg = {
 	 text: "",
-	 key:   "",
+	 hash:   "",
+	 chatId: ""
 };
 
 
 $("document").ready(function() {
-	msg.key = document.getElementById("chatKey").innerHTML;
-	websocket = new WebSocket(wsUri + "?key=" + key);
+	websocket = new WebSocket(buildUri());
 	websocket.onerror = function(evt) { onError(evt) };
 	websocket.onopen = function(evt) { onOpen(evt) };
 	websocket.onmessage = function(evt) { onRecive(evt) };
 })
 
+function buildUri() {
+	msg.hash = document.getElementById("hash").innerHTML;
+	msg.chatId = document.getElementById("chatId").innerHTML;
+	return wsUri + "?hash=" + msg.hash + "&chatId=" + msg.chatId;
+}
 
 function onError(evt) {
 	alert("An error occured, pleas try again later")

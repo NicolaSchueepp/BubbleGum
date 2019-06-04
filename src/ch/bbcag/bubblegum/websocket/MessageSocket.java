@@ -1,54 +1,39 @@
 package ch.bbcag.bubblegum.websocket;
 
-import java.io.StringReader;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.inject.Inject;
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-import ch.bbcag.bubblegum.model.ConversationAccessKey;
-import ch.bbcag.bubblegum.service.IConversationAccessService;
+import ch.bbcag.bubblegum.service.IMessageService;
+import ch.bbcag.bubblegum.service.message.JsonRequestMessage;
 
 @ServerEndpoint("/chatService")
 public class MessageSocket {
 
 	@Inject
-	private ClientPool clientPool;
+	private IMessageService messageService;
 	
 	
     @OnMessage
     public void onMessage(String message, Session session) {
-    	clientPool.get
-    	
-    	if(clie)
-    	
-    	
-    	JsonReader reader = Json.createReader(new StringReader(message));
-    	JsonObject jsonObject = reader.readObject();
-    	for (Session peer : peers) {
-    		peer.getAsyncRemote().sendText(jsonObject.getString("key") + " : " + jsonObject.getString("text"));
-    	}
+    	System.out.println("MESSAGE RECIVED-------------------------------------------------------------------"
+    			+ "\n" + message);
+    	messageService.spreadMessage(JsonRequestMessage.fromJson(message));
     }
 
     @OnOpen
     public void onOpen(Session session) {
-    	clientPool.add(session);
+    	messageService.registerClinet(session);
+    	System.out.println("Session Opened-------------------------------------------------------------------");
     }
 
     @OnClose
     public void onClose(Session session) {
-        clientPool.remove(session);
+    	messageService.removeClient(session);
+    	System.out.println("Session Closed-------------------------------------------------------------------");
     }
-
- 
 	  
 }

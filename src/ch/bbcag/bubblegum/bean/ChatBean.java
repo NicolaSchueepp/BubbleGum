@@ -16,7 +16,7 @@ public class ChatBean {
 	@Inject
 	private IConversationAccessService conversationAccessService;
 	
-	public String getKey() {
+	public String getHash() {
 		return conversationAccessService.create(Long.valueOf(getChatId()));
 	}
 	

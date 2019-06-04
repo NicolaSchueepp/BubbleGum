@@ -17,10 +17,10 @@ public class ConversationAccessKey implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private long id;
 	
 	@Column(name = "userId")
-	private Long userId;
+	private long userId;
 	
 	@Column(name = "chatId")
 	private Long chatId;
@@ -31,7 +31,7 @@ public class ConversationAccessKey implements Serializable{
 	@Column(name = "hash")
 	private String hash;
 
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -39,7 +39,7 @@ public class ConversationAccessKey implements Serializable{
 		this.id = id;
 	}
 
-	public Long getUserId() {
+	public long getUserId() {
 		return userId;
 	}
 
@@ -47,7 +47,7 @@ public class ConversationAccessKey implements Serializable{
 		this.userId = userId;
 	}
 
-	public Long getChatId() {
+	public long getChatId() {
 		return chatId;
 	}
 
@@ -55,7 +55,7 @@ public class ConversationAccessKey implements Serializable{
 		this.chatId = chatId;
 	}
 
-	public Long getCrationDate() {
+	public long getCrationDate() {
 		return crationDate;
 	}
 
