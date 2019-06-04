@@ -48,7 +48,7 @@ public class UserService implements IUserService {
 				user.setEmail(email);
 				user.setName(name);
 				user.setPassword(Util.encode(password));
-				user.setStatus("Hey there! I am using BubbleGum");
+				user.setStatus("Hey there! I am chewing a Bubble!");
 				userDao.create(user);
 				return true;
 			} else {
