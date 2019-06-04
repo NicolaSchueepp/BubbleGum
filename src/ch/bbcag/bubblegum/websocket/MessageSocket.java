@@ -18,7 +18,7 @@ public class MessageSocket {
     @OnMessage
     public void onMessage(String message, Session client) {
     	 for (Session peer : peers) {
-    		 peer.getAsyncRemote().sendText("HI");
+    		 peer.getAsyncRemote().sendText(peer.getRequestParameterMap().keySet().toArray().toString());
     	 }
     }
 
