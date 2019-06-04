@@ -9,26 +9,34 @@
 		<navigation-case>
 			<from-outcome>home</from-outcome>
 			<to-view-id>/home.xhtml</to-view-id>
-			<redirect/>
+			<redirect />
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>register</from-outcome>
 			<to-view-id>/register.xhtml</to-view-id>
-			<redirect/>
+			<redirect />
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>login</from-outcome>
 			<to-view-id>/login.xhtml</to-view-id>
-			<redirect/>
+			<redirect />
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>overview</from-outcome>
 			<to-view-id>/overview.xhtml</to-view-id>
-			<redirect/>
+			<redirect />
 		</navigation-case>
-				<navigation-case>
+		<navigation-case>
 			<from-outcome>search</from-outcome>
 			<to-view-id>/search.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>chatsOverview</from-outcome>
+			<to-view-id>/chatsOverview.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>chat</from-outcome>
+			<to-view-id>/chat.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 </faces-config>

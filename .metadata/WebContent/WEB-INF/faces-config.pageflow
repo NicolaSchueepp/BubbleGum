@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf15591082978000" configfile="/BubbleGum/WebContent/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="register.xhtml" x="122" y="946" id="pf155913696480629" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf155913698768637 pf155913698768638 pf155913698768639 pf15596295778970 pf15596295778971" path="/*"/>
+  <nodes xsi:type="pageflow:PFPage" name="register.xhtml" x="122" y="946" id="pf155913696480629" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf155913698768637 pf155913698768638 pf155913698768639 pf15596295778970 pf15596295778971 pf15596394846850 pf15596394979602" path="/*"/>
   <nodes xsi:type="pageflow:PFPage" name="home.xhtml" x="338" y="178" id="pf155913698768640" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf155913698768637" path="/home.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="register.xhtml" x="338" y="562" id="pf155913698768641" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" inlinks="pf155913698768638" path="/register.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="signin.xhtml" x="338" y="946" id="pf155913698768642" referenceLink="//@navigationRule.0/@navigationCase.2/@toViewId|" inlinks="pf155913698768639" path="/login.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="overview.xhtml" id="pf15596295778972" referenceLink="//@navigationRule.0/@navigationCase.3/@toViewId|" inlinks="pf15596295778970" path="/overview.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="search.xhtml" id="pf15596295778973" referenceLink="//@navigationRule.0/@navigationCase.4/@toViewId|" inlinks="pf15596295778971" path="/search.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="search.xhtml" id="pf15596295778973" referenceLink="//@navigationRule.0/@navigationCase.6/@toViewId|" inlinks="pf15596295778971" path="/search.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="chatsOverview.xhtml" id="pf15596394846851" referenceLink="//@navigationRule.0/@navigationCase.6/@toViewId|" inlinks="pf15596394846850" path="/chatsOverview.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="chat.xhtml" id="pf15596394979623" referenceLink="//@navigationRule.0/@navigationCase.6/@toViewId|" inlinks="pf15596394979602" path="/chat.xhtml"/>
   <links id="pf155913698768637" target="pf155913698768640" source="pf155913696480629" outcome="home" redirect="true"/>
   <links id="pf155913698768638" target="pf155913698768641" source="pf155913696480629" outcome="register" redirect="true"/>
   <links id="pf155913698768639" target="pf155913698768642" source="pf155913696480629" outcome="login" redirect="true"/>
   <links id="pf15596295778970" target="pf15596295778972" source="pf155913696480629" outcome="overview" redirect="true"/>
   <links id="pf15596295778971" target="pf15596295778973" source="pf155913696480629" outcome="search"/>
+  <links id="pf15596394846850" target="pf15596394846851" source="pf155913696480629" outcome="chatsOverview"/>
+  <links id="pf15596394979602" target="pf15596394979623" source="pf155913696480629" outcome="chat"/>
 </pageflow:Pageflow>
