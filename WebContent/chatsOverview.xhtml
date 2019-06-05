@@ -12,16 +12,22 @@
 			<div class="well well-lg col-md-8">
 
 				<h:form id="ResultsForm">
-					<div class="input-group flex-nowrap"
-						style="width: 50%; margin: auto;">
-						<h:inputText placeholder="Chat" type="text" class="form-control"
-							name="chatInput" id="chatInput" required="true"
-							value="#{chatsOverviewBean.query}">
-							<f:ajax listener="#{chatsOverviewBean.search}" render="results"></f:ajax>
-						</h:inputText>
+					<div class="row">
+						<div class="col-md-6">
+							<h:inputText placeholder="Chat" type="text" class="form-control"
+								name="chatInput" id="chatInput" required="true"
+								value="#{chatsOverviewBean.query}">
+								<f:ajax listener="#{chatsOverviewBean.search}"
+									render="results messages"></f:ajax>
+							</h:inputText>
+						</div>
+						<div style="float: right;" class="col-md-6">
+							<h:button type="button" style="float: right;" class="btn btn-success" value="Bubble erstellen"
+								action="#{logoutBean.logout()}" />
+						</div>
 					</div>
 
-					<div style="padding: 10px 0; width: 100%;"></div>
+					<div style="padding: 10px 0; width: 100%; display: block;"></div>
 
 					<h:panelGroup id="results" layout="block">
 						<ui:repeat value="#{chatsOverviewBean.results}" var="chat">
@@ -38,6 +44,8 @@
 							</div>
 						</ui:repeat>
 					</h:panelGroup>
+
+
 				</h:form>
 			</div>
 			<div class="col-md-2"></div>

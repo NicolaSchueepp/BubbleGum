@@ -20,6 +20,9 @@ public class RegisterBean implements Serializable {
 	@Inject
 	private transient IUserService userService;
 
+	@Inject
+	private LoginBean loginBean;
+
 	public String getName() {
 		return name;
 	}
@@ -46,10 +49,17 @@ public class RegisterBean implements Serializable {
 
 	public String register() {
 		if (userService.register(name, email, password)) {
-			password = "";
+			resetFields();
+			loginBean.setEmail(email);
 			return "login";
 		}
 		password = "";
 		return "register";
+	}
+	
+	private void resetFields() {
+		this.email = "";
+		this.name = "";
+		this.password = "";
 	}
 }

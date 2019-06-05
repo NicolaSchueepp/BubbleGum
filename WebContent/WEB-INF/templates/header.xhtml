@@ -5,12 +5,13 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
 <h:head>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous" />
-	
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+	<link rel="stylesheet"
+		href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+		crossorigin="anonymous" />
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 </h:head>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> <h:panelGroup
 	rendered="#{helperBean.logedIn}">
@@ -52,10 +53,9 @@
 	<form class="form-inline my-2 my-lg-0" action="/BubbleGum/login.xhtml">
 		<button type="submit" class="btn btn-success">Einloggen</button>
 	</form>
-</h:panelGroup> 
-</nav>
+</h:panelGroup> </nav>
 
-
-<h:outputText value="#{helperBean.messages}" escape="false" />
-
+<h:panelGroup id="messages">
+	<h:outputText value="#{helperBean.messages}" escape="false" />
+</h:panelGroup>
 </html>

@@ -19,6 +19,7 @@ public class ChatsOverviewBean implements Serializable {
 
 	private String query = "";
 	private List<Chat> results;
+	private boolean noResults;
 
 	@Inject
 	private transient IChatService chatService;
@@ -47,4 +48,17 @@ public class ChatsOverviewBean implements Serializable {
 			results = chatService.searchChatByName(query);
 		}
 	}
+
+	public boolean isNoResults() {
+		if (results.isEmpty())
+			noResults = true;
+		else
+			noResults = false;
+		return noResults;
+	}
+
+	public void setNoResults(boolean noResults) {
+		this.noResults = noResults;
+	}
+
 }

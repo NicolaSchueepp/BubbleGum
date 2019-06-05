@@ -7,9 +7,7 @@ import javax.inject.Inject;
 
 import ch.bbcag.bubblegum.dao.IChatDao;
 import ch.bbcag.bubblegum.model.Chat;
-import ch.bbcag.bubblegum.util.message.Message;
 import ch.bbcag.bubblegum.util.message.MessageArray;
-import ch.bbcag.bubblegum.util.message.MessageStyle;
 
 public class ChatService implements IChatService {
 
@@ -22,9 +20,6 @@ public class ChatService implements IChatService {
 	@Override
 	public List<Chat> searchAllChats() {
 		List<Chat> chats = chatDao.searchAllChats();
-		if (chats.isEmpty()) {
-			msgArray.addMessage(new Message(MessageStyle.Warning, "Keine Chats mit diesem Namen gefunden"));
-		}
 		return chats;
 	}
 
@@ -34,10 +29,6 @@ public class ChatService implements IChatService {
 		if (name != null && !name.isEmpty()) {
 			chats = chatDao.searchChatByName(name);
 		}
-		if (chats.isEmpty()) {
-			msgArray.addMessage(new Message(MessageStyle.Warning, "Keine Chats mit diesem Namen gefunden"));
-		}
 		return chats;
 	}
-
 }
