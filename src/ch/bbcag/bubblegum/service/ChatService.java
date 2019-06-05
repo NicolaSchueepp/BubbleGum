@@ -31,4 +31,8 @@ public class ChatService implements IChatService {
 		}
 		return chats;
 	}
+	
+	public void openQuickChat(long userId) {
+		
+	}
 }

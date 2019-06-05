@@ -78,4 +78,26 @@ public class ChatDao implements IChatDao {
 		}
 	}
 
+	@Override
+	public Chat getQuickChatByMembers(long userId1, long userId2) {
+		queryExecutor.create(new QueryExecutionUnit<List<User>>() {
+			@Override
+			public List<User> execute(EntityManager entityManager, QueryExecutor queryExecutor)
+					throws NoResultException, NotSupportedException, SystemException, SecurityException,
+					IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
+				queryExecutor.prepareRead();
+				TypedQuery<User> query = entityManager.createQuery("SELECT c FROM UserInChat u JOIN c.chatId c where c.isBubble = true",
+						User.class);
+
+				List<User> users = query.getSingleResult();
+				queryExecutor.closeRead();
+				return users;
+			}
+		});
+		try {
+			return queryExecutor.executeQuery();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
 }

@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity(name = "Chat")
@@ -26,8 +27,12 @@ public class Chat implements Serializable {
 	@Column(name = "name")
 	private String name;
 	
+	@OneToMany
+	@JoinColumn(name = "chat_id", insertable=false, updatable=false )
+	private List<Message> messages;
+	
 	public String getLastMessage() {
-		return "LastMessage";
+		return messages.get(0).getText();
 	}
 
 	public Long getId() {
