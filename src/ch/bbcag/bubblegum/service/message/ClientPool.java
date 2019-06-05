@@ -6,10 +6,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Singleton;
 
 
-@ApplicationScoped
+@Singleton
 public class ClientPool {
 
 	private Set<Client> clients;	
@@ -28,7 +28,7 @@ public class ClientPool {
 	
 	public Client getByHash(String hash) {
 		for (Client client : clients) {
-			if(client.getHash() != null && client.getHash().equals(hash))
+			if(client.getHash().equals(hash))
 				return client;
 		}
 		return null;
@@ -36,7 +36,7 @@ public class ClientPool {
 	
 	public List<Client> getByChatId(long chatId){
 		List<Client> clients = new ArrayList<Client>();
-		for (Client client : clients) {
+		for (Client client : this.clients) {
 			if(client.getAccessKey().getChatId() == chatId)
 				clients.add(client);
 		}

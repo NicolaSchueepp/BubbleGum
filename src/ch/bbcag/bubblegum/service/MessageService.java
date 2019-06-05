@@ -28,6 +28,7 @@ public class MessageService implements IMessageService{
 			ConversationAccessKey accessKey = conversationAccessKeyDao.getByHash(hash);
 			Client client = new Client(session, hash, accessKey);
 			clientPool.add(client);
+			System.out.println("NEW CLIENT ADDED -------------------------------------------------------------------");
 		}
 	}
 

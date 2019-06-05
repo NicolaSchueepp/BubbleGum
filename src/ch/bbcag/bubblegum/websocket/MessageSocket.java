@@ -19,21 +19,17 @@ public class MessageSocket {
 	
     @OnMessage
     public void onMessage(String message, Session session) {
-    	System.out.println("MESSAGE RECIVED-------------------------------------------------------------------"
-    			+ "\n" + message);
     	messageService.spreadMessage(JsonRequestMessage.fromJson(message));
     }
 
     @OnOpen
     public void onOpen(Session session) {
     	messageService.registerClinet(session);
-    	System.out.println("Session Opened-------------------------------------------------------------------");
     }
 
     @OnClose
     public void onClose(Session session) {
     	messageService.removeClient(session);
-    	System.out.println("Session Closed-------------------------------------------------------------------");
     }
 	  
 }

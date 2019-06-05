@@ -11,7 +11,9 @@ public class Client {
 	private ConversationAccessKey accessKey;
 	
 	public Client(Session session,String hash, ConversationAccessKey accessKey) {
-		// TODO Auto-generated constructor stub
+		this.hash = hash;
+		this.session = session;
+		this.accessKey = accessKey;
 	}
 	
 	public ConversationAccessKey getAccessKey() {
