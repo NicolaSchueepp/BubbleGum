@@ -36,7 +36,5 @@ public class ChatBean {
 		return messageService.getByChatId(Long.valueOf(getChatId()));
 	}
 	
-	public String getChatName() {
-		
-	}
+
 }

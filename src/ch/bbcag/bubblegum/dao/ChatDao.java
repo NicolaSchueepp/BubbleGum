@@ -56,19 +56,19 @@ public class ChatDao implements IChatDao {
 
 	@Override
 	public List<Chat> searchChatByName(String name) {
-		queryExecutor.create(new QueryExecutionUnit<List<User>>() {
+		queryExecutor.create(new QueryExecutionUnit<List<Chat>>() {
 			@Override
-			public List<User> execute(EntityManager entityManager, QueryExecutor queryExecutor)
+			public List<Chat> execute(EntityManager entityManager, QueryExecutor queryExecutor)
 					throws NoResultException, NotSupportedException, SystemException, SecurityException,
 					IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
 				queryExecutor.prepareRead();
-				TypedQuery<User> query = entityManager.createQuery("SELECT c FROM Chat c where c.name like :name",
-						User.class);
+				TypedQuery<Chat> query = entityManager.createQuery("SELECT c FROM Chat c where c.name like :name",
+						Chat.class);
 				query.setParameter("name", "%" + name + "%");
 
-				List<User> users = query.getResultList();
+				List<Chat> chats = query.getResultList();
 				queryExecutor.closeRead();
-				return users;
+				return chats;
 			}
 		});
 		try {
@@ -80,18 +80,19 @@ public class ChatDao implements IChatDao {
 
 	@Override
 	public Chat getQuickChatByMembers(long userId1, long userId2) {
-		queryExecutor.create(new QueryExecutionUnit<List<User>>() {
+		queryExecutor.create(new QueryExecutionUnit<Chat>() {
 			@Override
-			public List<User> execute(EntityManager entityManager, QueryExecutor queryExecutor)
+			public Chat execute(EntityManager entityManager, QueryExecutor queryExecutor)
 					throws NoResultException, NotSupportedException, SystemException, SecurityException,
 					IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
 				queryExecutor.prepareRead();
-				TypedQuery<User> query = entityManager.createQuery("SELECT c FROM UserInChat u JOIN c.chatId c where c.isBubble = true",
-						User.class);
-
-				List<User> users = query.getSingleResult();
+				TypedQuery<Chat> query = entityManager.createQuery("SELECT c FROM UserInChat u1 WHERE u1.userId = :userId1 JOIN c.chatId c where c.isBubble = true JOIN UserInChat u2 WHERE u2.userId = :userId2",
+						Chat.class);
+				query.setParameter("userId1", userId1);
+				query.setParameter("userId2", userId2);
+				Chat chat = query.getSingleResult();
 				queryExecutor.closeRead();
-				return users;
+				return chat;
 			}
 		});
 		try {
@@ -100,4 +101,25 @@ public class ChatDao implements IChatDao {
 			throw new RuntimeException(e);
 		}
 	}
+
+	@Override
+	public Chat create(Chat chat) {
+		queryExecutor.create(new QueryExecutionUnit<Chat>() {
+			@Override
+			public Chat execute(EntityManager entityManager, QueryExecutor queryExecutor) throws NoResultException, NotSupportedException, SystemException, SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
+				queryExecutor.prepareWrite();
+				entityManager.persist(chat);
+				queryExecutor.closeWrite();
+				return chat;
+			}
+		});
+		try {
+			return queryExecutor.executeQuery();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	
+	
 }
