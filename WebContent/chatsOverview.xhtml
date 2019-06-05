@@ -16,18 +16,16 @@
 						style="width: 50%; margin: auto;">
 						<h:inputText placeholder="Chat" type="text" class="form-control"
 							name="chatInput" id="chatInput" required="true"
-							value="#{chatsOverviewBean.query}" />
-						<h:commandButton class="btn btn-success" value="Suchen"
-							style="margin-left: 10px;">
+							value="#{chatsOverviewBean.query}">
 							<f:ajax listener="#{chatsOverviewBean.search}" render="results"></f:ajax>
-						</h:commandButton>
+						</h:inputText>
 					</div>
 
 					<div style="padding: 10px 0; width: 100%;"></div>
 
-					<div id="results">
+					<h:panelGroup id="results" layout="block">
 						<ui:repeat value="#{chatsOverviewBean.results}" var="chat">
-							<div class="card" 
+							<div class="card"
 								style="margin: 10px 0; background-color: #e9ecef;">
 								<div class="card-body">
 									<p class="card-text"
@@ -39,10 +37,18 @@
 								</div>
 							</div>
 						</ui:repeat>
-					</div>
+					</h:panelGroup>
 				</h:form>
 			</div>
 			<div class="col-md-2"></div>
+			<script>
+			
+			$(() => {
+				$('#ResultsForm\\:chatInput').on('input', function() {
+					$(this).change();
+				});
+			});
+			</script>
 		</div>
 	</ui:define>
 </ui:composition>
