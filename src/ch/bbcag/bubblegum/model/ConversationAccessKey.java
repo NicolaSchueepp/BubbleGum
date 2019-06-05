@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Table(name = "conversation_access_key")
+@Table(name = "Conversation_access_key")
 @Entity
 public class ConversationAccessKey implements Serializable{
 

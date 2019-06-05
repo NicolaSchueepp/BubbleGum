@@ -8,7 +8,7 @@ import ch.bbcag.bubblegum.model.ConversationAccessKey;
 
 public interface IConversationAccessService {
 
-	public String create(long chatId);
+	public String getKeyHashForChat(long chatId);
 	
 	public boolean isValid(String hash);
 	

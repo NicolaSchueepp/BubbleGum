@@ -24,7 +24,7 @@ public class ChatBean {
 	IMessageService messageService;
 	
 	public String getHash() {
-		return conversationAccessService.create(Long.valueOf(getChatId()));
+		return conversationAccessService.getKeyHashForChat(Long.valueOf(getChatId()));
 	}
 	
 	public String getChatId() {
@@ -36,4 +36,7 @@ public class ChatBean {
 		return messageService.getByChatId(Long.valueOf(getChatId()));
 	}
 	
+	public String getChatName() {
+		
+	}
 }

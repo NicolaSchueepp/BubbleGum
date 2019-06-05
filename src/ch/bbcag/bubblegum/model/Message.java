@@ -26,14 +26,14 @@ public class Message implements Serializable {
 	@Column(name = "sent_at")
 	private Long sendAt;
 	
-	@Column(name = "user_id")
+	@Column(name = "sent_by_user")
 	private Long userId;
 	
-	@Column(name = "chat_id")
+	@Column(name = "sent_in_chat")
 	private Long chatId;
 
 	@ManyToOne
-	@JoinColumn(name = "user_id", insertable=false, updatable=false )
+	@JoinColumn(name = "sent_by_user", insertable=false, updatable=false )
 	private User user;
 	
 	public Long getId() {
@@ -69,7 +69,7 @@ public class Message implements Serializable {
 	}
 	
 	public String getUserName() {
-		return user.getName();
+		return user == null ? "-" : user.getName();
 	}
 
 	public Long getChatId() {

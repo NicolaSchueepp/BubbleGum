@@ -16,7 +16,7 @@ public class ConversationAccessService implements IConversationAccessService{
 	@Inject
 	private SessionBean sessionBean;
 	
-	public String create(long chatId) {
+	public String getKeyHashForChat(long chatId) {
 		long userId = sessionBean.getUserID();
 		ConversationAccessKey accessKey = new ConversationAccessKey();
 		accessKey.setChatId(chatId);

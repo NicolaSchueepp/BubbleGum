@@ -12,15 +12,20 @@
 				<p id="chatId">#{chatBean.chatId}</p>
 				<p id="hash">#{chatBean.hash}</p>
 				
-				
+							
+				<div class="card" style="width: 50%;">
+				  <div class="card-body">
+				    This is some text within a card body.
+				  </div>
+				</div>
 
 
 
 			<ui:repeat value="#{chatBean.messages}" var="message">
 				<div class="card">
-  					<h5 class="card-header">message.userName</h5>
+  					<h5 class="card-header">#{message.userName}</h5>
   					<div class="card-body">
-    					<p class="card-text">message.text</p>
+    					<p class="card-text">#{message.text}</p>
   					</div>
 				</div>
 			</ui:repeat>
