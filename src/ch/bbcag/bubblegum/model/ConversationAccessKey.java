@@ -19,10 +19,10 @@ public class ConversationAccessKey implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@Column(name = "userId")
+	@Column(name = "user_id")
 	private long userId;
 	
-	@Column(name = "chatId")
+	@Column(name = "chat_id")
 	private Long chatId;
 	
 	@Column(name = "creation_date")

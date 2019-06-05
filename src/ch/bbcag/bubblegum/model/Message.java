@@ -23,17 +23,17 @@ public class Message implements Serializable {
 	@Column(name = "text")
 	private String text;
 	
-	@Column(name = "sentAt")
+	@Column(name = "sent_at")
 	private Long sendAt;
 	
-	@Column(name = "User_id")
+	@Column(name = "user_id")
 	private Long userId;
 	
-	@Column(name = "Chat_id")
+	@Column(name = "chat_id")
 	private Long chatId;
 
 	@ManyToOne
-	@JoinColumn(name = "User_id", insertable=false, updatable=false )
+	@JoinColumn(name = "user_id", insertable=false, updatable=false )
 	private User user;
 	
 	public Long getId() {

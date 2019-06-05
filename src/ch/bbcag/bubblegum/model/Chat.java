@@ -20,7 +20,7 @@ public class Chat implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "isBubble")
+	@Column(name = "is_bubble")
 	private boolean isBubble;
 
 	@Column(name = "name")
