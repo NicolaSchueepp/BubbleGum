@@ -43,7 +43,7 @@ public class ChatsOverviewBean implements Serializable {
 			this.query = (String) theInput.getValue();
 		}
 		if (query.isEmpty()) {
-			results = chatService.searchAllChats();
+			results = chatService.getAllChats();
 		} else {
 			results = chatService.searchChatByName(query);
 		}

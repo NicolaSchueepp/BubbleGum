@@ -18,8 +18,8 @@ public class ChatService implements IChatService {
 	private IChatDao chatDao;
 
 	@Override
-	public List<Chat> searchAllChats() {
-		List<Chat> chats = chatDao.searchAllChats();
+	public List<Chat> getAllChats() {
+		List<Chat> chats = chatDao.getAllChats();
 		return chats;
 	}
 
