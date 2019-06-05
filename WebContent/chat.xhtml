@@ -7,17 +7,28 @@
 		<div class="row">
 			<div class="col-md-2"></div>
 			<div class="well well-lg col-md-8">
-				<section class="jumbotron text-center">
+
 				
 				<p id="chatId">#{chatBean.chatId}</p>
 				<p id="hash">#{chatBean.hash}</p>
 				
 				
+
+
+
+			<ui:repeat value="#{chatBean.messages}" var="message">
+				<div class="card">
+  					<h5 class="card-header">message.userName</h5>
+  					<div class="card-body">
+    					<p class="card-text">message.text</p>
+  					</div>
+				</div>
+			</ui:repeat>
 				
 				<p id="output"></p>
 					<script type="text/javascript" src="resources/websocket.js"></script>
 					
-				</section>
+
 			</div>
 			<div class="col-md-2"></div>
 		</div>

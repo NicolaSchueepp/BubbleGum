@@ -33,7 +33,7 @@ public class ChatDao implements IChatDao {
 	private QueryExecutor queryExecutor;
 
 	@Override
-	public List<Chat> searchAllChats() {
+	public List<Chat> getAllChats() {
 		queryExecutor.create(new QueryExecutionUnit<List<User>>() {
 			@Override
 			public List<User> execute(EntityManager entityManager, QueryExecutor queryExecutor)

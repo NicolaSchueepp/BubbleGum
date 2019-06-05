@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Message implements Serializable {
@@ -29,6 +32,10 @@ public class Message implements Serializable {
 	@Column(name = "Chat_id")
 	private Long chatId;
 
+	@ManyToOne
+	@JoinColumn(name = "User_id", insertable=false, updatable=false )
+	private User user;
+	
 	public Long getId() {
 		return id;
 	}
@@ -56,9 +63,13 @@ public class Message implements Serializable {
 	public Long getUserId() {
 		return userId;
 	}
-
+	
 	public void setUserId(Long userId) {
 		this.userId = userId;
+	}
+	
+	public String getUserName() {
+		return user.getName();
 	}
 
 	public Long getChatId() {

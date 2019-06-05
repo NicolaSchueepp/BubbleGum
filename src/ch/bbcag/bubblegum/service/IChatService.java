@@ -6,7 +6,7 @@ import ch.bbcag.bubblegum.model.Chat;
 
 public interface IChatService {
 
-	public List<Chat> searchAllChats();
+	public List<Chat> getAllChats();
 
 	public List<Chat> searchChatByName(String name);
 }
