@@ -1,7 +1,8 @@
 <ui:composition template="/WEB-INF/templates/template.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 	<ui:define name="content">
 
 		<div class="row">
@@ -16,17 +17,17 @@
 						<div class="form-group">
 							<label for="emailInput">Email:</label>
 							<p>
-								<h:inputText placeholder="example@example.com" type="email"
+								<h:inputText p:placeholder="example@example.com" p:type="email"
 									class="form-control" name="email" id="emailInput"
-									required="true" value="#{registerBean.email}" />
+									p:required="true" value="#{registerBean.email}" />
 							</p>
 						</div>
 
 						<div class="form-group">
 							<label for="emailInput">Name:</label>
 							<p>
-								<h:inputText placeholder="Hans Müller" type="text"
-									class="form-control" name="name" id="nameInput" required="true"
+								<h:inputText p:placeholder="Hans Müller" p:type="text"
+									class="form-control" name="name" id="nameInput" p:required="true"
 									value="#{registerBean.name}" />
 							</p>
 						</div>
@@ -34,9 +35,9 @@
 						<div class="form-group">
 							<label for="passwordInput">Password:</label>
 							<p>
-								<h:inputSecret placeholder="password" type="password"
+								<h:inputSecret p:placeholder="Passwort" p:type="password"
 									class="form-control" name="password" id="passwordInput"
-									required="true" value="#{registerBean.password}" />
+									p:required="true" value="#{registerBean.password}" />
 							</p>
 						</div>
 

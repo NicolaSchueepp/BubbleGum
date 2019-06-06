@@ -25,22 +25,7 @@ public class ChatService implements IChatService {
 	private IUserInChatDao userInChatDao;
 
 	@Inject
-	SessionBean sessionBean;
-	
-	@Override
-	public List<Chat> getAllChats() {
-		List<Chat> chats = chatDao.getAllChats();
-		return chats;
-	}
-
-	@Override
-	public List<Chat> searchChatByName(String name) {
-		List<Chat> chats = new ArrayList<Chat>();
-		if (name != null && !name.isEmpty()) {
-			chats = chatDao.searchChatByName(name);
-		}
-		return chats;
-	}
+	private SessionBean sessionBean;
 	
 	@Override
 	public Long getQuickChatId(long userId) {

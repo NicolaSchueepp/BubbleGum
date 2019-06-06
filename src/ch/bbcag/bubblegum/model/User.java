@@ -31,6 +31,9 @@ public class User implements Serializable {
 	@Column(name = "name")
 	private String name;
 	
+	@ManyToMany
+	private List<Chat> chats;
+	
 	public Long getId() {
 		return id;
 	}

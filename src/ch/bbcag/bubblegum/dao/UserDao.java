@@ -2,19 +2,15 @@ package ch.bbcag.bubblegum.dao;
 
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
-import javax.persistence.PersistenceUnit;
 import javax.persistence.TypedQuery;
 import javax.transaction.HeuristicMixedException;
 import javax.transaction.HeuristicRollbackException;
 import javax.transaction.NotSupportedException;
 import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
-import javax.transaction.UserTransaction;
 
 import ch.bbcag.bubblegum.dao.util.QueryExecutionUnit;
 import ch.bbcag.bubblegum.dao.util.QueryExecutor;

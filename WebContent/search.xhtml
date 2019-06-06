@@ -2,44 +2,78 @@
 <ui:composition template="/WEB-INF/templates/template.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 
 
 	<ui:define name="content">
 		<div class="row">
-			<div class="col-md-2"></div>
-			<div class="well well-lg col-md-8">
+			<div class="col-2"></div>
+			<div class="well well-lg col-8">
 
-				<h:form>
-					<div class="input-group flex-nowrap"
-						style="width: 50%; margin: auto;">
-						<h:inputText placeholder="Name" type="text" class="form-control"
-							name="name" id="nameInput" required="true"
-							value="${searchBean.query}" />
-						<h:commandButton class="btn btn-success" value="Suchen"
-							action="#{searchBean.search()}" style="margin-left: 10px;" />
+				<h:form id="ResultsForm">
+					<div class="row">
+						<DIV class="col-3"></DIV>
+						<DIV class="col-6">
+							<h:inputText p:placeholder="Name" p:type="text"
+								class="form-control" name="name" id="nameInput"
+								value="${searchBean.query}">
+								<f:ajax listener="#{searchBean.search}" render="results"></f:ajax>
+							</h:inputText>
+						</DIV>
+						<DIV class="col-3"></DIV>
 					</div>
 				</h:form>
 
 				<div style="padding: 10px 0; width: 100%;"></div>
-
-				<ui:repeat value="#{searchBean.results}" var="user">
-					<div class="card"
-						style="margin: 10px 0; background-color: #e9ecef;">
-						<div class="card-body">
-							<p class="card-text" style="margin: 0px; float: left; font-size: 20px;">
-								<SPAN class="font-weight-bold">#{user.name}</SPAN><BR />#{user.status}
-							</p>
-							<button class="btn btn-success"
-								style="float: right; margin: 0 5px;">Quick-Chat öffnen</button>
-							<button class="btn btn-success"
-								style="float: right; margin: 0 5px;">In Bubble Einladen</button>
+				<h:panelGroup id="results">
+					<ui:repeat value="#{searchBean.results}" var="user">
+						<div class="card"
+							style="margin: 10px 0; background-color: #e9ecef;">
+							<div class="card-body">
+								<p class="card-text"
+									style="margin: 0px; float: left; font-size: 20px;">
+									<SPAN class="font-weight-bold">#{user.name}</SPAN><BR />#{user.status}
+								</p>
+								<button class="btn btn-success"
+									style="float: right; margin: 0 5px;">Quick-Chat öffnen</button>
+								<button class="btn btn-success"
+									style="float: right; margin: 0 5px;">In Bubble
+									Einladen</button>
+							</div>
 						</div>
-					</div>
-				</ui:repeat>
-			</div>
-			<div class="col-md-2"></div>
-		</div>
+					</ui:repeat>
+					<h:panelGroup
+						rendered="#{searchBean.noResults || searchBean.emptyQuery}">
+						<div class="card"
+							style="margin: 10px 0; background-color: #e9ecef;">
+							<h:panelGroup rendered="#{searchBean.noResults}">
+								<div class="card-body">
+									<p class="card-text"
+										style="margin: 0px; float: left; font-size: 20px;">Keinen Nutzer mit diesem Namen gefunden!</p>
+								</div>
+							</h:panelGroup>
 
+							<h:panelGroup rendered="#{searchBean.emptyQuery}">
+								<div class="card-body">
+									<p class="card-text"
+										style="margin: 0px; float: left; font-size: 20px;">Bitte geben Sie einen Nutzernamen ein!</p>
+								</div>
+							</h:panelGroup>
+						</div>
+					</h:panelGroup>
+				</h:panelGroup>
+			</div>
+			<div class="col-2"></div>
+		</div>
+		<script>
+			
+			$(() => {
+				$('#ResultsForm\\:nameInput').on('input', function() {
+					$(this).change();
+				});
+			});
+			</script>
 	</ui:define>
 </ui:composition>

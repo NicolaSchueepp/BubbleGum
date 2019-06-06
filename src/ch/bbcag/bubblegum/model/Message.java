@@ -9,33 +9,33 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 
 @Entity
-public class Message implements Serializable {
+public class Message implements Serializable, Comparable<Message> {
 
 	private static final long serialVersionUID = 2140513847887688809L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column(name = "text")
 	private String text;
-	
+
 	@Column(name = "sent_at")
-	private Long sendAt;
-	
+	private Long sentAt;
+
 	@Column(name = "sent_by_user")
 	private Long userId;
-	
+
 	@Column(name = "sent_in_chat")
 	private Long chatId;
 
 	@ManyToOne
-	@JoinColumn(name = "sent_by_user", insertable=false, updatable=false )
+	@JoinColumn(name = "sent_by_user", insertable = false, updatable = false)
 	private User user;
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -52,22 +52,23 @@ public class Message implements Serializable {
 		this.text = text;
 	}
 
-	public Long getSendAt() {
-		return sendAt;
+	public Long getSentAt() {
+		return sentAt;
 	}
 
-	public void setSendAt(Long sendAt) {
-		this.sendAt = sendAt;
+	@PrePersist
+	private void setSendAt() {
+		this.sentAt = System.currentTimeMillis();
 	}
 
 	public Long getUserId() {
 		return userId;
 	}
-	
+
 	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
-	
+
 	public String getUserName() {
 		return user == null ? "-" : user.getName();
 	}
@@ -79,6 +80,10 @@ public class Message implements Serializable {
 	public void setChatId(Long chatId) {
 		this.chatId = chatId;
 	}
-	
-	
+
+	@Override
+	public int compareTo(Message o) {
+		return (int) (o.sentAt - this.sentAt);
+	}
+
 }

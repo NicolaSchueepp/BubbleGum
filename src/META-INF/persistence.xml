@@ -9,5 +9,6 @@
 		<class>ch.bbcag.bubblegum.model.ConversationAccessKey</class>
 		<class>ch.bbcag.bubblegum.model.Message</class>
 		<class>ch.bbcag.bubblegum.model.UserInChat</class>
+		<class>ch.bbcag.bubblegum.model.UserInChatID</class>
 	</persistence-unit>
 </persistence>

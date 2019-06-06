@@ -1,8 +1,11 @@
 package ch.bbcag.bubblegum.dao;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
 import javax.transaction.HeuristicMixedException;
 import javax.transaction.HeuristicRollbackException;
 import javax.transaction.NotSupportedException;
@@ -28,6 +31,47 @@ public class UserInChatDao implements IUserInChatDao{
 				entityManager.persist(userInChat);
 				queryExecutor.closeWrite();
 				return userInChat;
+			}
+		});
+		try {
+			return queryExecutor.executeQuery();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Override
+	public List<UserInChat> getPersonalChats(Long userID) {
+		queryExecutor.create(new QueryExecutionUnit<List<UserInChat>>() {
+			@Override
+			public List<UserInChat> execute(EntityManager entityManager, QueryExecutor queryExecutor) throws NoResultException, NotSupportedException, SystemException, SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
+				queryExecutor.prepareRead();
+				TypedQuery<UserInChat> query = entityManager.createQuery("SELECT u FROM UserInChat u where u.user.id = :userID", UserInChat.class);
+				query.setParameter("userID", userID);
+				List<UserInChat> users = query.getResultList();
+				queryExecutor.closeRead();
+				return users;
+			}
+		});
+		try {
+			return queryExecutor.executeQuery();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	@Override
+	public List<UserInChat> searchPersonalChatByName(String name, Long userID) {
+		queryExecutor.create(new QueryExecutionUnit<List<UserInChat>>() {
+			@Override
+			public List<UserInChat> execute(EntityManager entityManager, QueryExecutor queryExecutor) throws NoResultException, NotSupportedException, SystemException, SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
+				queryExecutor.prepareRead();
+				TypedQuery<UserInChat> query = entityManager.createQuery("SELECT c, u FROM UserInChat u join u.chat c where u.user = :userID and c.name= :name", UserInChat.class);
+				query.setParameter("userID", userID);
+				query.setParameter("chatName", name);
+				List<UserInChat> users = query.getResultList();
+				queryExecutor.closeRead();
+				return users;
 			}
 		});
 		try {

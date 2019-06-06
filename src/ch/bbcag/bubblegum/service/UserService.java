@@ -62,15 +62,12 @@ public class UserService implements IUserService {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public List<User> searchUsersByName(String name) {
 		List<User> users = new ArrayList<User>();
-		if(name != null && !name.isEmpty()) {
+		if (name != null && !name.isEmpty()) {
 			users = userDao.searchUserByName(name);
-		}
-		if(users.isEmpty()) {
-			msgArray.addMessage(new Message(MessageStyle.Warning, "Keine Nutzer mit diesem Namen gefunden"));
 		}
 		return users;
 	}

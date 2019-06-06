@@ -1,7 +1,8 @@
 <ui:composition template="/WEB-INF/templates/template.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 	<ui:define name="content">
 
 		<div class="row">
@@ -14,17 +15,17 @@
 						<div class="form-group">
 							<label for="emailInput">Email:</label>
 							<p>
-								<h:inputText placeholder="example@example.com" type="email"
+								<h:inputText p:placeholder="example@example.com" p:type="email"
 									class="form-control" name="email" id="emailInput"
-									required="true" value="#{loginBean.email}" />
+									p:required="true" value="#{loginBean.email}" />
 							</p>
 						</div>
 						<div class="form-group">
 							<label for="passwordInput">Password:</label>
 							<p>
-								<h:inputSecret placeholder="password" type="password"
+								<h:inputSecret p:placeholder="Passwort" p:type="password"
 									class="form-control" name="password" id="passwordInput"
-									required="true" value="#{loginBean.password}" />
+									p:required="true" value="#{loginBean.password}" />
 							</p>
 						</div>
 
