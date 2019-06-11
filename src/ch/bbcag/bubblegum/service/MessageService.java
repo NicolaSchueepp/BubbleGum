@@ -54,7 +54,7 @@ public class MessageService implements IMessageService{
 		if(isValid(message.getHash(),message.getChatId())){
 			Message dbMessage = new Message();
 			dbMessage.setChatId(message.getChatId());
-			dbMessage.setSendAt(System.currentTimeMillis());
+			dbMessage.setSendAt();
 			dbMessage.setText(message.getText());
 			dbMessage.setUserId(sender.getAccessKey().getUserId());
 			messageDao.create(dbMessage);

@@ -57,7 +57,7 @@ public class Message implements Serializable, Comparable<Message> {
 	}
 
 	@PrePersist
-	private void setSendAt() {
+	public void setSendAt() {
 		this.sentAt = System.currentTimeMillis();
 	}
 

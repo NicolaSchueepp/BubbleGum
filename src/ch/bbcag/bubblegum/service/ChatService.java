@@ -10,6 +10,7 @@ import ch.bbcag.bubblegum.dao.IChatDao;
 import ch.bbcag.bubblegum.dao.IUserInChatDao;
 import ch.bbcag.bubblegum.dao.UserInChatDao;
 import ch.bbcag.bubblegum.model.Chat;
+import ch.bbcag.bubblegum.model.User;
 import ch.bbcag.bubblegum.model.UserInChat;
 import ch.bbcag.bubblegum.util.message.MessageArray;
 
@@ -37,16 +38,19 @@ public class ChatService implements IChatService {
 		chat.setName("Quick-Chat");
 		chat = chatDao.create(chat);
 		
+		User user = new User();
 		UserInChat userInChat1 = new UserInChat();
 		userInChat1.setAdmin(false);
-		userInChat1.setChatId(chat.getId());
-		userInChat1.setUserId(sessionBean.getUserID());
+		userInChat1.setChat(chat);
+		user.setId(sessionBean.getUserID());
+		userInChat1.setUser(user);
 		userInChatDao.create(userInChat1);
 		
 		UserInChat userInChat2 = new UserInChat();
 		userInChat2.setAdmin(false);
-		userInChat2.setChatId(chat.getId());
-		userInChat2.setUserId(userId);
+		userInChat2.setChat(chat);
+		user.setId(userId);
+		userInChat2.setUser(user);
 		userInChatDao.create(userInChat2);
 		
 		return chat.getId();

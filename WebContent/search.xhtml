@@ -36,11 +36,16 @@
 									style="margin: 0px; float: left; font-size: 20px;">
 									<SPAN class="font-weight-bold">#{user.name}</SPAN><BR />#{user.status}
 								</p>
-								<button class="btn btn-success"
-									style="float: right; margin: 0 5px;">Quick-Chat öffnen</button>
+								<h:form>
+<!-- 									<h:inputHidden name="userId" value="#{user.id}"> </h:inputHidden> -->
+									<h:inputText value="#{chatOpeningBean.text}"></h:inputText>
+									#{user.id}
+									<h:commandButton class="btn btn-success" value="Quick-Chat öffnen" action="#{chatOpeningBean.openQuiqChat}" style="float: right; margin: 0 5px;" />
+								</h:form>
 								<button class="btn btn-success"
 									style="float: right; margin: 0 5px;">In Bubble
-									Einladen</button>
+									Einladen</button>	
+									
 							</div>
 						</div>
 					</ui:repeat>
