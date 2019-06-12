@@ -1,5 +1,6 @@
 package ch.bbcag.bubblegum.bean;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -23,8 +24,19 @@ public class ChatBean {
 	@Inject
 	IMessageService messageService;
 	
+	private String hash;
+	
 	public String getHash() {
-		return conversationAccessService.getKeyHashForChat(Long.valueOf(getChatId()));
+		if(hash == null) {
+			hash = conversationAccessService.getKeyHashForChat(Long.valueOf(getChatId()));
+			if (hash.isEmpty())
+				try {
+					FacesContext.getCurrentInstance().getExternalContext().redirect("home.xhtml");
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				}
+		}
+		return hash;
 	}
 	
 	public String getChatId() {
@@ -33,8 +45,8 @@ public class ChatBean {
 	}
 	
 	public List<Message> getMessages(){
-		return messageService.getByChatId(Long.valueOf(getChatId()));
+		return messageService.getMessages(Long.valueOf(getChatId()), getHash());
 	}
-	
+
 
 }

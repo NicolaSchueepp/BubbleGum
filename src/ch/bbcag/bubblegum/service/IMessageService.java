@@ -15,5 +15,5 @@ public interface IMessageService {
 	
 	public void spreadMessage(JsonRequestMessage message);
 	
-	public List<Message> getByChatId(long chatId);
+	public List<Message> getMessages(long chatId, String hash);
 }

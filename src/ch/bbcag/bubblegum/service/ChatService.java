@@ -12,7 +12,9 @@ import ch.bbcag.bubblegum.dao.UserInChatDao;
 import ch.bbcag.bubblegum.model.Chat;
 import ch.bbcag.bubblegum.model.User;
 import ch.bbcag.bubblegum.model.UserInChat;
+import ch.bbcag.bubblegum.util.message.Message;
 import ch.bbcag.bubblegum.util.message.MessageArray;
+import ch.bbcag.bubblegum.util.message.MessageStyle;
 
 public class ChatService implements IChatService {
 
@@ -30,6 +32,11 @@ public class ChatService implements IChatService {
 	
 	@Override
 	public Long getQuickChatId(long userId) {
+		if(userId == sessionBean.getUserID()) {
+			msgArray.addMessage(new Message(MessageStyle.error,"Du kannst keinen Quick Chat mit dir selber öffnen"));
+			return 0l;
+		}
+		
 		if(chatDao.getQuickChatByMembers(sessionBean.getUserID(), userId) != null){
 			return chatDao.getQuickChatByMembers(sessionBean.getUserID(), userId).getId();
 		}

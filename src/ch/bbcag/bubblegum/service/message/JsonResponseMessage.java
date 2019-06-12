@@ -29,7 +29,7 @@ public class JsonResponseMessage {
 	public String toJson() {
 		JsonObjectBuilder objectBuilder = Json.createObjectBuilder()
 				  .add("text", text)
-				  .add("from",from);
+				  .add("from", from);
 		JsonObject jsonObject = objectBuilder.build();
 		String jsonString = "";
 		try(Writer writer = new StringWriter()) {

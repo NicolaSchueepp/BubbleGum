@@ -5,7 +5,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import ch.bbcag.bubblegum.service.IChatService;
+import ch.bbcag.bubblegum.util.message.Message;
 import ch.bbcag.bubblegum.util.message.MessageArray;
+import ch.bbcag.bubblegum.util.message.MessageStyle;
 
 @Named
 @RequestScoped
@@ -17,23 +19,11 @@ public class ChatOpeningBean {
 	@Inject
 	MessageArray messageArray;
 	
-	private String text;
-	
-	public String openQuiqChat() {
-//		String value = FacesContext.getCurrentInstance().
-//				getExternalContext().getRequestParameterMap().get("userId");
-		System.err.println("-----------------------------------------------------------------" + text);
-		throw new RuntimeException();
-		
-//		return "home";
-	}
-
-	public void setText(String text) {
-		this.text = text;
-	}
-	
-	public String getText() {
-		return text;
+	public String openQuiqChat(String userId) {
+		long id = chatService.getQuickChatId(Long.valueOf(userId));
+		if(id != 0l) 
+			return "chat?faces-redirect=true&chatId=" + id;
+		return "home";
 	}
 
 }

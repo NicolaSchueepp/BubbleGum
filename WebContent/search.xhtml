@@ -4,7 +4,9 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:pf="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jstl/core">
 
 
 	<ui:define name="content">
@@ -19,7 +21,7 @@
 							<h:inputText p:placeholder="Name" p:type="text"
 								class="form-control" name="name" id="nameInput"
 								value="${searchBean.query}">
-								<f:ajax listener="#{searchBean.search}" render="results"></f:ajax>
+								<f:ajax listener="#{searchBean.search}" render="@form :results :inviteForm"></f:ajax>
 							</h:inputText>
 						</DIV>
 						<DIV class="col-3"></DIV>
@@ -28,7 +30,7 @@
 
 				<div style="padding: 10px 0; width: 100%;"></div>
 				<h:panelGroup id="results">
-					<ui:repeat value="#{searchBean.results}" var="user">
+					<c:forEach items="#{searchBean.results}" var="user">
 						<div class="card"
 							style="margin: 10px 0; background-color: #e9ecef;">
 							<div class="card-body">
@@ -36,19 +38,16 @@
 									style="margin: 0px; float: left; font-size: 20px;">
 									<SPAN class="font-weight-bold">#{user.name}</SPAN><BR />#{user.status}
 								</p>
-								<h:form id="hidden">
-<!-- 									<h:inputHidden name="userId" value="#{user.id}"> </h:inputHidden> -->
-									<h:inputText value="#{chatOpeningBean.text}"></h:inputText>
-									#{user.id}
-									<h:commandButton class="btn btn-success" value="Quick-Chat öffnen" action="#{chatOpeningBean.openQuiqChat}" style="float: right; margin: 0 5px;" />
+								<h:form id="inviteForm">
+									<h:commandLink  class="btn btn-success" value="Quick-Chat oeffnen" action="#{chatOpeningBean.openQuiqChat(user.id)}" style="float: right; margin: 0 5px;" />
 								</h:form>
 								<button class="btn btn-success"
 									style="float: right; margin: 0 5px;">In Bubble
-									Einladen</button>	
+									Einladen</button>
 									
 							</div>
 						</div>
-					</ui:repeat>
+					</c:forEach>
 					<h:panelGroup
 						rendered="#{searchBean.noResults || searchBean.emptyQuery}">
 						<div class="card"
@@ -76,6 +75,7 @@
 			
 			$(() => {
 				$('#ResultsForm\\:nameInput').on('input', function() {
+					console.log('nameInput');
 					$(this).change();
 				});
 			});
