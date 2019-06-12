@@ -23,7 +23,7 @@ public class ChatOpeningBean {
 		long id = chatService.getQuickChatId(Long.valueOf(userId));
 		if(id != 0l) 
 			return "chat?faces-redirect=true&chatId=" + id;
-		return "chatsOverview";
+		return "home";
 	}
 
 }

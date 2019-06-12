@@ -29,9 +29,9 @@ public class ChatBean {
 	public String getHash() {
 		if(hash == null) {
 			hash = conversationAccessService.getKeyHashForChat(Long.valueOf(getChatId()));
-			if (hash.isEmpty());
+			if (hash.isEmpty())
 				try {
-					FacesContext.getCurrentInstance().getExternalContext().redirect("chatsOverview");
+					FacesContext.getCurrentInstance().getExternalContext().redirect("home.xhtml");
 				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}

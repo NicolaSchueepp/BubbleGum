@@ -31,7 +31,7 @@ public class ConversationAccessService implements IConversationAccessService{
 		long userId = sessionBean.getUserID();
 		
 		if(userInChatDao.getByUserIdAndChatId(userId, chatId) == null) {
-			messageArray.addMessage(new Message(MessageStyle.Warning, "Du hast keinen zugriff zu diesem Chat"));
+			messageArray.addMessage(new Message(MessageStyle.error, "Du hast keinen zugriff zu diesem Chat"));
 			return "";
 		}
 		
@@ -39,7 +39,7 @@ public class ConversationAccessService implements IConversationAccessService{
 		accessKey.setChatId(chatId);
 		accessKey.setUserId(userId);
 		accessKey.setCrationDate(System.currentTimeMillis());
-		accessKey.setHash(UUID.randomUUID().toString() + UUID.nameUUIDFromBytes(Util.encode(chatId + "-" + userId).getBytes()));
+		accessKey.setHash(UUID.randomUUID().toString() +"-"+ UUID.nameUUIDFromBytes(Util.encode(chatId + "-" + userId).getBytes()));
 		
 		if(conversationAccessKeyDao.getByChatAnUser(userId, chatId) != null) {
 			conversationAccessKeyDao.delete(conversationAccessKeyDao.getByChatAnUser(userId, chatId));
