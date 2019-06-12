@@ -3,6 +3,7 @@ package ch.bbcag.bubblegum.model;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -19,7 +20,7 @@ public class UserInChat {
 	@JoinColumn(name = "user_id")
 	private User user;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "chat_id")
 	private Chat chat;
 
@@ -48,6 +49,14 @@ public class UserInChat {
 
 	public void setChat(Chat chat) {
 		this.chat = chat;
+	}
+
+	public UserInChatID getUserInChatId() {
+		return userInChatId;
+	}
+
+	public void setUserInChatId(UserInChatID userInChatId) {
+		this.userInChatId = userInChatId;
 	}
 
 }

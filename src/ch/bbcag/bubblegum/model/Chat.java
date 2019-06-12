@@ -1,8 +1,6 @@
 package ch.bbcag.bubblegum.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -30,7 +28,7 @@ public class Chat implements Serializable {
 	@Column(name = "name")
 	private String name;
 
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.EAGER)
 	@JoinColumn(name = "sent_in_chat", insertable = false, updatable = false)
 	private List<Message> messages;
 
@@ -66,4 +64,12 @@ public class Chat implements Serializable {
 		this.messages = messages;
 	}
 
+	public String getLastMessage() {
+		Collections.sort(messages);
+		if (messages.size() > 0) {
+			return messages.get(0).getText();
+		} else {
+			return "";
+		}
+	}
 }

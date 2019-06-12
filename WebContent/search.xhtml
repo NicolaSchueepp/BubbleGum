@@ -36,7 +36,7 @@
 									style="margin: 0px; float: left; font-size: 20px;">
 									<SPAN class="font-weight-bold">#{user.name}</SPAN><BR />#{user.status}
 								</p>
-								<h:form>
+								<h:form id="hidden">
 <!-- 									<h:inputHidden name="userId" value="#{user.id}"> </h:inputHidden> -->
 									<h:inputText value="#{chatOpeningBean.text}"></h:inputText>
 									#{user.id}
