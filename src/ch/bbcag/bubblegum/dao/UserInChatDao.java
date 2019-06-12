@@ -3,7 +3,6 @@ package ch.bbcag.bubblegum.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -16,7 +15,6 @@ import javax.transaction.SystemException;
 
 import ch.bbcag.bubblegum.dao.util.QueryExecutionUnit;
 import ch.bbcag.bubblegum.dao.util.QueryExecutor;
-import ch.bbcag.bubblegum.model.Chat;
 import ch.bbcag.bubblegum.model.User;
 import ch.bbcag.bubblegum.model.UserInChat;
 
@@ -77,7 +75,7 @@ public class UserInChatDao implements IUserInChatDao{
 					IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
 				queryExecutor.prepareRead();
 				TypedQuery<UserInChat> query = entityManager.createQuery(
-						"SELECT c, u FROM UserInChat u join u.chat c where u.user.id = :userID and c.name like :name",
+						"SELECT u FROM UserInChat u join u.chat c where u.user.id = :userID and c.name like :name",
 						UserInChat.class);
 				query.setParameter("userID", userID);
 				query.setParameter("name", "%" + name + "%");

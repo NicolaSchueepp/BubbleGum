@@ -21,7 +21,7 @@
 							<h:inputText p:placeholder="Name" p:type="text"
 								class="form-control" name="name" id="nameInput"
 								value="${searchBean.query}">
-								<f:ajax listener="#{searchBean.search}" render="@form :results :inviteForm"></f:ajax>
+								<f:ajax listener="#{searchBean.search}" render="results inviteForm"></f:ajax>
 							</h:inputText>
 						</DIV>
 						<DIV class="col-3"></DIV>

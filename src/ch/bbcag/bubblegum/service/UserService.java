@@ -1,6 +1,5 @@
 package ch.bbcag.bubblegum.service;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +14,8 @@ import ch.bbcag.bubblegum.util.message.Message;
 import ch.bbcag.bubblegum.util.message.MessageArray;
 import ch.bbcag.bubblegum.util.message.MessageStyle;
 
-public class UserService implements IUserService, Serializable {
+public class UserService implements IUserService{
+
 
 	@Inject
 	private MessageArray msgArray;

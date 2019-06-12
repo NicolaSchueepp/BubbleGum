@@ -1,7 +1,6 @@
 package ch.bbcag.bubblegum.dao.util;
 
 import javax.annotation.Resource;
-import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
@@ -14,7 +13,6 @@ import javax.transaction.Status;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
-@RequestScoped
 public class QueryExecutor {
 
 	@PersistenceUnit
