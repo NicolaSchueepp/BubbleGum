@@ -1,5 +1,6 @@
 package ch.bbcag.bubblegum.service;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import ch.bbcag.bubblegum.util.message.Message;
 import ch.bbcag.bubblegum.util.message.MessageArray;
 import ch.bbcag.bubblegum.util.message.MessageStyle;
 
-public class UserService implements IUserService {
+public class UserService implements IUserService, Serializable {
 
 	@Inject
 	private MessageArray msgArray;
@@ -70,5 +71,10 @@ public class UserService implements IUserService {
 			users = userDao.searchUserByName(name);
 		}
 		return users;
+	}
+
+	@Override
+	public User getById(long id) {
+		return userDao.getUserById(id);
 	}
 }

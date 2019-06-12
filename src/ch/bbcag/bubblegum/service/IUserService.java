@@ -11,4 +11,6 @@ public interface IUserService {
 	public boolean login(String email, String password);
 	
 	public List<User> searchUsersByName(String name);
+	
+	public User getById(long id);
 }

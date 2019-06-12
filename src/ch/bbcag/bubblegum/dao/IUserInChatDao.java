@@ -11,4 +11,6 @@ public interface IUserInChatDao {
 	public List<UserInChat> getPersonalChats(Long userID);
 
 	public List<UserInChat> searchPersonalChatByName(String name, Long userID);
+	
+	public UserInChat getByUserIdAndChatId(long userId, long chatId);
 }

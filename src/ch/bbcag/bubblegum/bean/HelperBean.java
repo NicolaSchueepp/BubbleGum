@@ -6,6 +6,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import ch.bbcag.bubblegum.service.UserService;
 import ch.bbcag.bubblegum.util.message.MessageArray;
 
 @Named
@@ -20,6 +21,9 @@ public class HelperBean implements Serializable {
 	@Inject
 	private SessionBean sessionBean;
 
+	@Inject
+	private UserService userService;
+	
 	public String getMessages() {
 		String messages = messageArray.toString();
 		messageArray.clear();
@@ -30,4 +34,11 @@ public class HelperBean implements Serializable {
 		return sessionBean.getUserID() != null;
 	}
 
+	public String getUserName() {
+		return isLogedIn() ? userService.getById(sessionBean.getUserID()).getName() : "";
+	}
+	
+	public String getUserName(long id) {
+		return isLogedIn() ? userService.getById(id).getName() : "";
+	}
 }

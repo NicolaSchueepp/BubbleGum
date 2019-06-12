@@ -86,10 +86,17 @@ public class ChatDao implements IChatDao {
 					throws NoResultException, NotSupportedException, SystemException, SecurityException,
 					IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
 				queryExecutor.prepareRead();
-				TypedQuery<Chat> query = entityManager.createQuery("SELECT c FROM UserInChat u1 WHERE u1.userId = :userId1 JOIN c.chatId c where c.isBubble = true JOIN UserInChat u2 WHERE u2.userId = :userId2",
-						Chat.class);
-				query.setParameter("userId1", userId1);
-				query.setParameter("userId2", userId2);
+				TypedQuery<Chat> query = entityManager.createQuery("SELECT c1 FROM UserInChat u1, UserInChat u2 "
+																+ "INNER JOIN u1.chat c1 "
+																+ "INNER JOIN u2.chat c2 "
+																+ "WHERE u1.user = :user1 AND c1.isBubble = false AND u2.user = :user2 AND c1 = c2",
+																Chat.class);
+				User user1 = new User();
+				user1.setId(userId1);
+				query.setParameter("user1", user1);
+				User user2 = new User();
+				user2.setId(userId2);
+				query.setParameter("user2",  user2);
 				Chat chat = query.getSingleResult();
 				queryExecutor.closeRead();
 				return chat;
