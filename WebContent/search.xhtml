@@ -21,7 +21,8 @@
 							<h:inputText p:placeholder="Name" p:type="text"
 								class="form-control" name="name" id="nameInput"
 								value="${searchBean.query}">
-								<f:ajax listener="#{searchBean.search}" render="results inviteForm"></f:ajax>
+								<f:ajax listener="#{searchBean.search}"
+									render="@form :results :inviteForm"></f:ajax>
 							</h:inputText>
 						</DIV>
 						<DIV class="col-3"></DIV>
@@ -39,12 +40,15 @@
 									<SPAN class="font-weight-bold">#{user.name}</SPAN><BR />#{user.status}
 								</p>
 								<h:form id="inviteForm">
-									<h:commandLink  class="btn btn-success" value="Quick-Chat oeffnen" action="#{chatOpeningBean.openQuiqChat(user.id)}" style="float: right; margin: 0 5px;" />
+									<h:commandButton class="btn btn-success"
+										value="Quick-Chat oeffnen"
+										action="#{chatOpeningBean.openQuiqChat(user.id)}"
+										style="float: right; margin: 0 5px;" />
 								</h:form>
 								<button class="btn btn-success"
 									style="float: right; margin: 0 5px;">In Bubble
 									Einladen</button>
-									
+
 							</div>
 						</div>
 					</c:forEach>
@@ -55,14 +59,16 @@
 							<h:panelGroup rendered="#{searchBean.noResults}">
 								<div class="card-body">
 									<p class="card-text"
-										style="margin: 0px; float: left; font-size: 20px;">Keinen Nutzer mit diesem Namen gefunden!</p>
+										style="margin: 0px; float: left; font-size: 20px;">Keinen
+										Nutzer mit diesem Namen gefunden!</p>
 								</div>
 							</h:panelGroup>
 
 							<h:panelGroup rendered="#{searchBean.emptyQuery}">
 								<div class="card-body">
 									<p class="card-text"
-										style="margin: 0px; float: left; font-size: 20px;">Bitte geben Sie einen Nutzernamen ein!</p>
+										style="margin: 0px; float: left; font-size: 20px;">Bitte
+										geben Sie einen Nutzernamen ein!</p>
 								</div>
 							</h:panelGroup>
 						</div>
@@ -77,8 +83,9 @@
 				$('#ResultsForm\\:nameInput').on('input', function() {
 					console.log('nameInput');
 					$(this).change();
+					$(this).focus();
 				});
 			});
-			</script>
+		</script>
 	</ui:define>
 </ui:composition>

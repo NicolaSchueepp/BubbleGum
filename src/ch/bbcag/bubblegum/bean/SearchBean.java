@@ -3,7 +3,7 @@ package ch.bbcag.bubblegum.bean;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -11,7 +11,7 @@ import ch.bbcag.bubblegum.model.User;
 import ch.bbcag.bubblegum.service.IUserService;
 
 @Named
-@RequestScoped
+@ViewScoped
 public class SearchBean implements Serializable {
 	private static final long serialVersionUID = 3052191526832499164L;
 
