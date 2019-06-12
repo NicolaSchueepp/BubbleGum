@@ -1,7 +1,9 @@
 package ch.bbcag.bubblegum.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -27,7 +29,9 @@ public class UserInChatDao implements IUserInChatDao{
 	public UserInChat create(UserInChat userInChat) {
 		queryExecutor.create(new QueryExecutionUnit<UserInChat>() {
 			@Override
-			public UserInChat execute(EntityManager entityManager, QueryExecutor queryExecutor) throws NoResultException, NotSupportedException, SystemException, SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
+			public UserInChat execute(EntityManager entityManager, QueryExecutor queryExecutor)
+					throws NoResultException, NotSupportedException, SystemException, SecurityException,
+					IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
 				queryExecutor.prepareWrite();
 				entityManager.persist(userInChat);
 				queryExecutor.closeWrite();
@@ -45,9 +49,12 @@ public class UserInChatDao implements IUserInChatDao{
 	public List<UserInChat> getPersonalChats(Long userID) {
 		queryExecutor.create(new QueryExecutionUnit<List<UserInChat>>() {
 			@Override
-			public List<UserInChat> execute(EntityManager entityManager, QueryExecutor queryExecutor) throws NoResultException, NotSupportedException, SystemException, SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
+			public List<UserInChat> execute(EntityManager entityManager, QueryExecutor queryExecutor)
+					throws NoResultException, NotSupportedException, SystemException, SecurityException,
+					IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
 				queryExecutor.prepareRead();
-				TypedQuery<UserInChat> query = entityManager.createQuery("SELECT u FROM UserInChat u where u.user.id = :userID", UserInChat.class);
+				TypedQuery<UserInChat> query = entityManager
+						.createQuery("SELECT u FROM UserInChat u where u.user.id = :userID", UserInChat.class);
 				query.setParameter("userID", userID);
 				List<UserInChat> users = query.getResultList();
 				queryExecutor.closeRead();
@@ -60,17 +67,24 @@ public class UserInChatDao implements IUserInChatDao{
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	@Override
 	public List<UserInChat> searchPersonalChatByName(String name, Long userID) {
 		queryExecutor.create(new QueryExecutionUnit<List<UserInChat>>() {
 			@Override
-			public List<UserInChat> execute(EntityManager entityManager, QueryExecutor queryExecutor) throws NoResultException, NotSupportedException, SystemException, SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
+			public List<UserInChat> execute(EntityManager entityManager, QueryExecutor queryExecutor)
+					throws NoResultException, NotSupportedException, SystemException, SecurityException,
+					IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
 				queryExecutor.prepareRead();
-				TypedQuery<UserInChat> query = entityManager.createQuery("SELECT c, u FROM UserInChat u join u.chat c where u.user = :userID and c.name= :name", UserInChat.class);
+				TypedQuery<UserInChat> query = entityManager.createQuery(
+						"SELECT c, u FROM UserInChat u join u.chat c where u.user.id = :userID and c.name like :name",
+						UserInChat.class);
 				query.setParameter("userID", userID);
-				query.setParameter("chatName", name);
+				query.setParameter("name", "%" + name + "%");
 				List<UserInChat> users = query.getResultList();
+				if (users == null) {
+					users = new ArrayList<UserInChat>();
+				}
 				queryExecutor.closeRead();
 				return users;
 			}

@@ -1,12 +1,8 @@
 package ch.bbcag.bubblegum.bean;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
-import javax.faces.component.UIInput;
-import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -15,8 +11,7 @@ import ch.bbcag.bubblegum.service.IUserInChatService;
 
 @Named
 @RequestScoped
-public class ChatsOverviewBean implements Serializable {
-	private static final long serialVersionUID = 7027924866646797604L;
+public class ChatsOverviewBean {
 
 	private String query = "";
 	private List<UserInChat> results;
@@ -34,15 +29,11 @@ public class ChatsOverviewBean implements Serializable {
 	}
 
 	public List<UserInChat> getResults() {
-		search(null);
+		search();
 		return results;
 	}
 
-	public void search(AjaxBehaviorEvent event) {
-		if (event != null) {
-			UIInput theInput = (UIInput) event.getSource();
-			this.query = (String) theInput.getValue();
-		}
+	public void search() {
 		if (query.isEmpty()) {
 			results = userInChatService.getAllChats();
 		} else {
@@ -61,5 +52,4 @@ public class ChatsOverviewBean implements Serializable {
 	public void setNoResults(boolean noResults) {
 		this.noResults = noResults;
 	}
-
 }

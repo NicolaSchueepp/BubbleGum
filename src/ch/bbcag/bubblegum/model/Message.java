@@ -36,6 +36,10 @@ public class Message implements Serializable, Comparable<Message> {
 	@JoinColumn(name = "sent_by_user", insertable = false, updatable = false)
 	private User user;
 
+	@ManyToOne
+	@JoinColumn(name = "sent_in_chat", insertable = false, updatable = false)
+	private Chat chat;
+
 	public Long getId() {
 		return id;
 	}
