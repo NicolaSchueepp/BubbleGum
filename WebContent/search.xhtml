@@ -22,7 +22,7 @@
 								class="form-control" name="name" id="nameInput"
 								value="${searchBean.query}">
 								<f:ajax listener="#{searchBean.search}"
-									render="@form :results :inviteForm"></f:ajax>
+									render=":results"></f:ajax>
 							</h:inputText>
 						</DIV>
 						<DIV class="col-3"></DIV>
@@ -39,12 +39,7 @@
 									style="margin: 0px; float: left; font-size: 20px;">
 									<SPAN class="font-weight-bold">#{user.name}</SPAN><BR />#{user.status}
 								</p>
-								<h:form id="inviteForm">
-									<h:commandButton class="btn btn-success"
-										value="Quick-Chat oeffnen"
-										action="#{chatOpeningBean.openQuiqChat(user.id)}"
-										style="float: right; margin: 0 5px;" />
-								</h:form>
+								<a href="/BubbleGum/chat.xhtml?userId=#{user.id}" class="btn btn-success" style="float: right; margin: 0 5px;">Quick-Chat öffnen</a>
 								<button class="btn btn-success"
 									style="float: right; margin: 0 5px;">In Bubble
 									Einladen</button>
@@ -83,7 +78,7 @@
 				$('#ResultsForm\\:nameInput').on('input', function() {
 					console.log('nameInput');
 					$(this).change();
-					$(this).focus();
+// 					$(this).focus();
 				});
 			});
 		</script>

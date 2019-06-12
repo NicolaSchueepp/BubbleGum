@@ -32,7 +32,7 @@ public class ConversationAccessService implements IConversationAccessService{
 		
 		if(userInChatDao.getByUserIdAndChatId(userId, chatId) == null) {
 			messageArray.addMessage(new Message(MessageStyle.error, "Du hast keinen zugriff zu diesem Chat"));
-			return "";
+			return null;
 		}
 		
 		ConversationAccessKey accessKey = new ConversationAccessKey();

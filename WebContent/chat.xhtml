@@ -3,8 +3,12 @@
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:c="http://java.sun.com/jstl/core">
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core">
 	<ui:define name="content">
+	
+		<f:event type="preRenderView" listener="#{chatBean.prepare}" />
+		
 		<input type="hidden" id="chatId" value="#{chatBean.chatId}" />
 		<input type="hidden" id="hash" value="#{chatBean.hash}" />
 		<input type="hidden" id="userName" value="#{helperBean.userName}" />
