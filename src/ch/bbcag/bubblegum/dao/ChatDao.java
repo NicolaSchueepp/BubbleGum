@@ -126,7 +126,30 @@ public class ChatDao implements IChatDao {
 			throw new RuntimeException(e);
 		}
 	}
-	
+
+	@Override
+	public Chat getById(long id) {
+		queryExecutor.create(new QueryExecutionUnit<Chat>() {
+			@Override
+			public Chat execute(EntityManager entityManager, QueryExecutor queryExecutor)
+					throws NoResultException, NotSupportedException, SystemException, SecurityException,
+					IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
+				queryExecutor.prepareRead();
+				TypedQuery<Chat> query = entityManager.createQuery("SELECT c FROM Chat c where c.id = :id",
+						Chat.class);
+				query.setParameter("id", id);
+
+				Chat chat = query.getSingleResult();
+				queryExecutor.closeRead();
+				return chat;
+			}
+		});
+		try {
+			return queryExecutor.executeQuery();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
 	
 	
 }

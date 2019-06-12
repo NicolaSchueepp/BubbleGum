@@ -5,42 +5,42 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:c="http://java.sun.com/jstl/core">
 	<ui:define name="content">
+		<input type="hidden" id="chatId" value="#{chatBean.chatId}" />
+		<input type="hidden" id="hash" value="#{chatBean.hash}" />
+		<input type="hidden" id="userName" value="#{helperBean.userName}" />
 		<div class="row">
 			<div class="col-md-2"></div>
-			<div class="well well-lg col-md-8" id="messageContainer" style="overflow-y: scroll; max-height: 700px;">
-
-				
-				<input type="hidden" id="chatId" value="#{chatBean.chatId}" />
-				<input type="hidden" id="hash" value="#{chatBean.hash}" />
-				<input type="hidden" id="userName" value="#{helperBean.userName}" />
-
-				<ui:repeat value="#{chatBean.messages}" var="message">
-				
-					<h:panelGroup rendered="#{helperBean.userName eq (helperBean.getUserName(message.userId))}">
-		   				<div style="width: 50.1%; background: #e9ecef; border-radius: .3rem; padding-bottom: 5px; float: right; margin: 10px;">
-		   					<div style="padding: 3px; width: 100%; background: #343a40; border-top-left-radius: .3rem; border-top-right-radius: .3rem;">
-								<p style="color: #28a745; margin-bottom: 0px;">#{helperBean.getUserName(message.userId)}</p>
+			<div class="well well-lg col-md-8">
+	
+				<h2>#{chatBean.chatName}</h2>
+	
+				<div id="messageContainer" style="overflow-y: scroll; max-height: calc(100vh - 170px);">
+					<ui:repeat value="#{chatBean.messages}" var="message">
+						<c:set var="senderName" value="#{helperBean.getUserName(message.userId)}" />
+						<h:panelGroup rendered="#{helperBean.userName == senderName}">
+			   				<div style="width: 50.1%; background: #e9ecef; border-radius: .3rem; padding-bottom: 5px; float: right; margin: 10px;">
+			   					<div style="padding: 3px; width: 100%; background: #343a40; border-top-left-radius: .3rem; border-top-right-radius: .3rem;">
+									<p style="color: #28a745; margin-bottom: 0px;">#{senderName}</p>
+								</div>
+				 				<p style="margin: 3px">#{message.text}</p> 
 							</div>
-			 				<p style="margin: 3px">#{message.text}</p> 
-						</div>
-					</h:panelGroup>
-					<h:panelGroup rendered="#{helperBean.userName != message.userName}">
-		   				<div style="width: 50.1%; background: #e9ecef; border-radius: .3rem; padding-bottom: 5px; float: left; margin: 10px;">
-		   					<div style="padding: 3px; width: 100%; background: #343a40; border-top-left-radius: .3rem; border-top-right-radius: .3rem;">
-								<p style="color: #28a745; margin-bottom: 0px;">#{helperBean.getUserName(message.userId)}</p>
+						</h:panelGroup>
+						<h:panelGroup rendered="#{helperBean.userName != senderName}">
+			   				<div style="width: 50.1%; background: #e9ecef; border-radius: .3rem; padding-bottom: 5px; float: left; margin: 10px;">
+			   					<div style="padding: 3px; width: 100%; background: #343a40; border-top-left-radius: .3rem; border-top-right-radius: .3rem;">
+									<p style="color: #28a745; margin-bottom: 0px;">#{senderName}</p>
+								</div>
+				 				<p style="margin: 3px">#{message.text}</p> 
 							</div>
-			 				<p style="margin: 3px">#{message.text}</p> 
-						</div>
-					</h:panelGroup>
+						</h:panelGroup>
+					</ui:repeat>
+					<div id="output"></div>
+				</div>
 				
-				</ui:repeat>
-			
-				<div id="output"></div>
-			
-				<script type="text/javascript" src="resources/websocket.js"></script>
 			</div>
 			<div class="col-md-2"></div>
 		</div>
+		
 	<div class="row">
 		<div class="col-md-2"></div>
 			<div class="well well-lg col-md-8">
@@ -49,5 +49,7 @@
 			</div>
 		<div class="col-md-2"></div>
 	</div>
+	
+	<script type="text/javascript" src="resources/websocket.js"></script>
 	</ui:define>
 </ui:composition>

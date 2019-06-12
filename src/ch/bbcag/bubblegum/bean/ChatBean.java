@@ -24,6 +24,9 @@ public class ChatBean {
 	@Inject
 	IMessageService messageService;
 	
+	@Inject
+	IChatService chatService;
+	
 	private String hash;
 	
 	public String getHash() {
@@ -46,6 +49,10 @@ public class ChatBean {
 	
 	public List<Message> getMessages(){
 		return messageService.getMessages(Long.valueOf(getChatId()), getHash());
+	}
+	
+	public String getChatName() {
+		return chatService.getChatName(Long.valueOf(getChatId()));
 	}
 
 

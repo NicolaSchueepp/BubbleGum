@@ -14,6 +14,7 @@ import javax.transaction.SystemException;
 
 import ch.bbcag.bubblegum.dao.util.QueryExecutionUnit;
 import ch.bbcag.bubblegum.dao.util.QueryExecutor;
+import ch.bbcag.bubblegum.model.Chat;
 import ch.bbcag.bubblegum.model.User;
 import ch.bbcag.bubblegum.model.UserInChat;
 
@@ -91,6 +92,26 @@ public class UserInChatDao implements IUserInChatDao{
 				query.setParameter("userId", userId);
 				query.setParameter("chatId", chatId);
 				UserInChat users = query.getSingleResult();
+				queryExecutor.closeRead();
+				return users;
+			}
+		});
+		try {
+			return queryExecutor.executeQuery();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Override
+	public List<User> getMembersByChat(long chatId) {
+		queryExecutor.create(new QueryExecutionUnit<List<User>>() {
+			@Override
+			public List<User> execute(EntityManager entityManager, QueryExecutor queryExecutor) throws NoResultException, NotSupportedException, SystemException, SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
+				queryExecutor.prepareRead();
+				TypedQuery<User> query = entityManager.createQuery("SELECT u FROM UserInChat uic INNER JOIN uic.user u WHERE uic.chat.id = :chatId", User.class);
+				query.setParameter("chatId", chatId);
+				List<User> users = query.getResultList();
 				queryExecutor.closeRead();
 				return users;
 			}

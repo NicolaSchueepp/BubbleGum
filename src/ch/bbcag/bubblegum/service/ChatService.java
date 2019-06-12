@@ -30,6 +30,9 @@ public class ChatService implements IChatService {
 	@Inject
 	private SessionBean sessionBean;
 	
+	@Inject
+	private IUserService userService;
+	
 	@Override
 	public Long getQuickChatId(long userId) {
 		if(userId == sessionBean.getUserID()) {
@@ -62,4 +65,21 @@ public class ChatService implements IChatService {
 		
 		return chat.getId();
 	}
+
+	@Override
+	public String getChatName(long chatId) {
+		String userName = "unnown";
+		Chat chat;
+		if(!(chat = chatDao.getById(chatId)).getName().equals("Quick-Chat")) {
+			return chat.getName();
+		}
+		for (User u : userInChatDao.getMembersByChat(chatId)) {
+			if(!u.getEmail().equals(userService.getById(sessionBean.getUserID()).getEmail())){
+				userName = u.getName();
+				break;
+			}
+		}
+		return "Quick-Chat mit " + userName;
+	}
+	
 }

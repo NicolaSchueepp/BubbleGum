@@ -13,4 +13,7 @@ public interface IChatDao {
 	public Chat getQuickChatByMembers(long userId1, long userId2);
 	
 	public Chat create(Chat chat);
+	
+	public Chat getById(long id);
+
 }
