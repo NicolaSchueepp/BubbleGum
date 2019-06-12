@@ -46,7 +46,6 @@ public class QueryExecutor {
 
 	public void closeWrite() throws SecurityException, IllegalStateException, RollbackException,
 			HeuristicMixedException, HeuristicRollbackException, SystemException {
-		entityManager.clear();
 		entityManager.flush();
 		transaction.commit();
 	}
