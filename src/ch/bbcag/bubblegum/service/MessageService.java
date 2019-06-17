@@ -5,10 +5,14 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.websocket.Session;
 
+import ch.bbcag.bubblegum.bean.SessionBean;
 import ch.bbcag.bubblegum.dao.IConversationAccessKeyDao;
 import ch.bbcag.bubblegum.dao.IMessageDao;
+import ch.bbcag.bubblegum.dao.IUserReadMessageDao;
+import ch.bbcag.bubblegum.dao.UserReadMessageDao;
 import ch.bbcag.bubblegum.model.ConversationAccessKey;
 import ch.bbcag.bubblegum.model.Message;
+import ch.bbcag.bubblegum.model.UserReadMessage;
 import ch.bbcag.bubblegum.service.message.Client;
 import ch.bbcag.bubblegum.service.message.ClientPool;
 import ch.bbcag.bubblegum.service.message.JsonRequestMessage;
@@ -31,6 +35,12 @@ public class MessageService implements IMessageService{
 	
 	@Inject
 	private IConversationAccessService conversationAccessService;
+	
+	@Inject
+	private IUserReadMessageDao userReadMessageDao;
+	
+	@Inject
+	private SessionBean sessionBean;
 	
 	@Override
 	public void registerClinet(Session session) {
@@ -63,8 +73,13 @@ public class MessageService implements IMessageService{
 			dbMessage.setUserId(sender.getAccessKey().getUserId());
 			messageDao.create(dbMessage);
 			
+			UserReadMessage userReadMessage = new UserReadMessage();
+			userReadMessage.setMessageId(dbMessage.getId());
 			for(Client client : clientPool.getByChatId(message.getChatId())) {
 				if(conversationAccessService.isValid(client.getHash(), message.getChatId())) {
+					userReadMessage.setUserId(client.getAccessKey().getUserId());
+					userReadMessageDao.create(userReadMessage);
+					
 					client.send(new JsonResponseMessage(message.getText(), userService.getById(sender.getAccessKey().getUserId()).getName()));
 				}
 			}
@@ -76,6 +91,15 @@ public class MessageService implements IMessageService{
 	@Override
 	public List<Message> getMessages(long chatId, String hash) {
 		if(conversationAccessService.isValid(hash, chatId)) {
+			List<Message> messages = messageDao.getByChatId(chatId);
+			UserReadMessage userReadMessage = new UserReadMessage();
+			userReadMessage.setUserId(sessionBean.getUserID());
+			for (Message message : messages) {
+				if(userReadMessageDao.get(sessionBean.getUserID(), message.getId()) == null) {
+					userReadMessage.setMessageId(message.getId());
+					userReadMessageDao.create(userReadMessage);
+				}
+			}
 			return messageDao.getByChatId(chatId);
 		}
 		return null;

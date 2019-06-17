@@ -18,7 +18,7 @@
 	
 				<h2>#{chatBean.chatName}</h2>
 	
-				<div id="messageContainer" style="overflow-y: scroll; max-height: calc(100vh - 170px);">
+				<div id="messageContainer" style="overflow-y: scroll; min-height: 100%; max-height: calc(100vh - 270px);">
 					<ui:repeat value="#{chatBean.messages}" var="message">
 						<c:set var="senderName" value="#{helperBean.getUserName(message.userId)}" />
 						<h:panelGroup rendered="#{helperBean.userName == senderName}">
