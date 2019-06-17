@@ -1,6 +1,5 @@
 package ch.bbcag.bubblegum.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -20,15 +19,6 @@ public class UserInChatService implements IUserInChatService {
 	@Override
 	public List<UserInChat> getAllChats() {
 		List<UserInChat> chats = userInChatDao.getPersonalChats(sessionBean.getUserID());
-		return chats;
-	}
-
-	@Override
-	public List<UserInChat> searchChatByName(String name) {
-		List<UserInChat> chats = new ArrayList<UserInChat>();
-		if (name != null && !name.isEmpty()) {
-			chats = userInChatDao.searchPersonalChatByName(name, sessionBean.getUserID());
-		}
 		return chats;
 	}
 }

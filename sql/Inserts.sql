@@ -12,3 +12,12 @@ insert into message values (null, 'NeusteNachrichtTest2', 1559829618917, 2, 3),
 (null, 'Nachricht', 1559829519918, 2, 3);
 
 delete from message where message.sent_in_chat = 3;
+
+delete from message;
+delete from conversation_access_key;
+delete from invite;
+delete from chat;
+delete from user;
+delete from user_in_chat;
+delete from user_read_message;
+
