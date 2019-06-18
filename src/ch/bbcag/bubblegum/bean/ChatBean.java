@@ -1,11 +1,13 @@
 package ch.bbcag.bubblegum.bean;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -18,20 +20,22 @@ import ch.bbcag.bubblegum.service.IMessageService;
 import ch.bbcag.bubblegum.service.IUserInChatService;
 
 @Named
-@RequestScoped
-public class ChatBean {
+@ViewScoped
+public class ChatBean implements Serializable{
+
+	private static final long serialVersionUID = -7591504596005185310L;
 
 	@Inject
-	private IConversationAccessService conversationAccessService;
+	private transient IConversationAccessService conversationAccessService;
 	
 	@Inject
-	IMessageService messageService;
+	private transient IMessageService messageService;
 	
 	@Inject
-	IChatService chatService;
+	private transient IChatService chatService;
 	
 	@Inject
-	IUserInChatService userInChatService;
+	private transient IUserInChatService userInChatService;
 	
 	private String hash;
 	private String chatId;

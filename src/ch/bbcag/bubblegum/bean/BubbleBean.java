@@ -19,7 +19,7 @@ public class BubbleBean {
 		long id = chatService.createBubble(name);
 		return "chat?faces-redirect=true&chatId="+id;
 	}
-
+	
 	public void setName(String name) {
 		this.name = name;
 	}

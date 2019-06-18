@@ -29,6 +29,9 @@ public class ChatService implements IChatService {
 	@Inject
 	private IUserService userService;
 	
+	@Inject
+	private IUserInChatService userInChatService;
+	
 	@Override
 	public Long createBubble(String name) {
 		Chat chat = new Chat();
@@ -36,14 +39,7 @@ public class ChatService implements IChatService {
 		chat.setName(name);
 		chatDao.create(chat);
 		
-		User user = new User();
-		UserInChat userInChat = new UserInChat();
-		userInChat.setAdmin(true);
-		userInChat.setChat(chat);
-		user.setId(sessionBean.getUserID());
-		userInChat.setUser(user);
-		userInChatDao.create(userInChat);
-		
+		userInChatService.addUser(chat.getId(),sessionBean.getUserID(),true);
 		return chat.getId();
 	}
 	
@@ -62,24 +58,14 @@ public class ChatService implements IChatService {
 		chat.setName("Quick-Chat");
 		chat = chatDao.create(chat);
 		
-		User user = new User();
-		UserInChat userInChat1 = new UserInChat();
-		userInChat1.setAdmin(false);
-		userInChat1.setChat(chat);
-		user.setId(sessionBean.getUserID());
-		userInChat1.setUser(user);
-		userInChatDao.create(userInChat1);
-		
-		UserInChat userInChat2 = new UserInChat();
-		userInChat2.setAdmin(false);
-		userInChat2.setChat(chat);
-		user.setId(userId);
-		userInChat2.setUser(user);
-		userInChatDao.create(userInChat2);
+		userInChatService.addUser(chat.getId(),sessionBean.getUserID(),false);
+		userInChatService.addUser(chat.getId(),userId,false);
 		
 		return chat.getId();
 	}
 
+
+	
 	@Override
 	public String getChatName(long chatId) {
 		String userName = "unnown";

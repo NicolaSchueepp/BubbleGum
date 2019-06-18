@@ -12,5 +12,6 @@
 		<class>ch.bbcag.bubblegum.model.UserInChatID</class>
 		<class>ch.bbcag.bubblegum.model.UserReadMessage</class>
 		<class>ch.bbcag.bubblegum.model.UserReadMessageID</class>
+		<class>ch.bbcag.bubblegum.model.Invite</class>
 	</persistence-unit>
 </persistence>
