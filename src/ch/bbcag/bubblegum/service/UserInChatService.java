@@ -21,4 +21,9 @@ public class UserInChatService implements IUserInChatService {
 		List<UserInChat> chats = userInChatDao.getPersonalChats(sessionBean.getUserID());
 		return chats;
 	}
+
+	@Override
+	public List<UserInChat> getUsers(Long chatId) {
+		return userInChatDao.getByChatUserId(chatId);
+	}
 }
