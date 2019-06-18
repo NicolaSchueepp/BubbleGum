@@ -1,14 +1,10 @@
 package ch.bbcag.bubblegum.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.inject.Inject;
 
 import ch.bbcag.bubblegum.bean.SessionBean;
 import ch.bbcag.bubblegum.dao.IChatDao;
 import ch.bbcag.bubblegum.dao.IUserInChatDao;
-import ch.bbcag.bubblegum.dao.UserInChatDao;
 import ch.bbcag.bubblegum.model.Chat;
 import ch.bbcag.bubblegum.model.User;
 import ch.bbcag.bubblegum.model.UserInChat;
