@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import ch.bbcag.bubblegum.bean.SessionBean;
 import ch.bbcag.bubblegum.dao.IUserInChatDao;
+import ch.bbcag.bubblegum.model.User;
 import ch.bbcag.bubblegum.model.UserInChat;
 
 public class UserInChatService implements IUserInChatService {
@@ -30,5 +31,10 @@ public class UserInChatService implements IUserInChatService {
 			chats = userInChatDao.searchPersonalChatByName(name, sessionBean.getUserID());
 		}
 		return chats;
+	}
+
+	@Override
+	public List<UserInChat> getUsers(long chatId) {
+		return userInChatDao.getByChatUserId(chatId);
 	}
 }

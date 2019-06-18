@@ -4,7 +4,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthroug">
 	<ui:define name="content">
 	
 		<f:event type="preRenderView" listener="#{chatBean.prepare}" />
@@ -15,9 +16,99 @@
 		<div class="row">
 			<div class="col-md-2"></div>
 			<div class="well well-lg col-md-8">
-	
-				<h2>#{chatBean.chatName}</h2>
-	
+				
+				
+				<div class="row">
+					<div class="col-sm-6"><h2 style="float: left;">#{chatBean.chatName}</h2></div>
+					<div class="col-sm-6">
+						
+						<h:panelGroup rendered="#{chatBean.bubble}">
+			   				<button type="button" class="btn btn-success" style="float: right;" data-toggle="modal" data-target="#userModal">Mitglieder anzeigen</button>
+			   				<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel" aria-hidden="true">
+							  <div class="modal-dialog" role="document">
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <h5 class="modal-title" id="userModalLabel">Mitglieder</h5>
+							        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							          <span aria-hidden="true">x</span>
+							        </button>
+							      </div>
+							      <h:form>
+							      <div class="modal-body">
+							      
+							     <ui:repeat value="#{chatBean.partipiants}" var="userInChat">
+							     	<div style="background-color: #e9ecef; border-radius: .3rem; margin-bottom: 10px;">
+							     		<div style="float: none;">
+								     		<span style="float: left;">#{userInChat.user.name}</span>
+								     		<h:panelGroup rendered="#{userInChat.admin}">
+								     			<span style="color: red; float: right;">ADMIN</span>
+								     		</h:panelGroup>
+							     		</div>
+							     		<div style="float: none;">
+							     			<span>#{userInChat.user.status}</span>
+							     		</div>
+							     	</div>
+									
+								 </ui:repeat>
+							       <div style="height: 10px;"></div>
+							      </div>
+							      <div class="modal-footer">
+									<button type="button" class="btn btn-success" data-toggle="modal" data-target="#addUserModal">Nutzer Hinzufügen</button>
+							      </div>
+							       </h:form>
+							    </div>
+							  </div>
+							</div>
+							
+							<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
+							  <div class="modal-dialog" role="document">
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <h5 class="modal-title" id="addUserModalLabel">Nutzer Hinzufügen</h5>
+							        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							          <span aria-hidden="true">x</span>
+							        </button>
+							      </div>
+							      <div class="modal-body">
+							     
+								<h:form id="ResultsForm">
+									<h:inputText p:placeholder="Name" p:type="text"
+										class="form-control" name="name" id="nameInput"
+										value="${searchBean.query}">
+										<f:ajax listener="#{searchBean.search}"
+											render=":results"></f:ajax>
+									</h:inputText>
+								</h:form>
+								
+				<h:panelGroup id="results">
+					<c:forEach items="#{searchBean.results}" var="user">
+						<div class="card"
+							style="margin: 10px 0; background-color: #e9ecef;">
+							<div class="card-body">
+								<p class="card-text"
+									style="margin: 0px; float: left; font-size: 20px;">
+									<SPAN class="font-weight-bold">#{user.name}</SPAN><BR />#{user.status}
+								</p>
+								<a href="/BubbleGum/chat.xhtml?userId=#{user.id}" class="btn btn-success" style="float: right; margin: 0 5px;">Quick-Chat öffnen</a>
+								<button class="btn btn-success"
+									style="float: right; margin: 0 5px;">In Bubble
+									Einladen</button>
+
+							</div>
+						</div>
+					</c:forEach>
+
+				</h:panelGroup>
+					
+							      </div>
+							    </div>
+							  </div>
+							</div>
+							
+						</h:panelGroup>
+					</div>
+				</div>
+
 				<div id="messageContainer" style="overflow-y: scroll; min-height: 100%; max-height: calc(100vh - 270px);">
 					<ui:repeat value="#{chatBean.messages}" var="message">
 						<c:set var="senderName" value="#{helperBean.getUserName(message.userId)}" />
@@ -54,6 +145,16 @@
 		<div class="col-md-2"></div>
 	</div>
 	
+		<script>
+			
+			$(() => {
+				$('#ResultsForm\\:nameInput').on('input', function() {
+					console.log('nameInput');
+					$(this).change();
+// 					$(this).focus();
+				});
+			});
+		</script>
 	<script type="text/javascript" src="resources/websocket.js"></script>
 	</ui:define>
 </ui:composition>

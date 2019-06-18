@@ -10,9 +10,12 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import ch.bbcag.bubblegum.model.Message;
+import ch.bbcag.bubblegum.model.User;
+import ch.bbcag.bubblegum.model.UserInChat;
 import ch.bbcag.bubblegum.service.IChatService;
 import ch.bbcag.bubblegum.service.IConversationAccessService;
 import ch.bbcag.bubblegum.service.IMessageService;
+import ch.bbcag.bubblegum.service.IUserInChatService;
 
 @Named
 @RequestScoped
@@ -26,6 +29,9 @@ public class ChatBean {
 	
 	@Inject
 	IChatService chatService;
+	
+	@Inject
+	IUserInChatService userInChatService;
 	
 	private String hash;
 	private String chatId;
@@ -74,6 +80,14 @@ public class ChatBean {
 	
 	public String getChatName(long id) {
 		return chatService.getChatName(id);
+	}
+	
+	public boolean isBubble() {
+		return chatService.getChat(Long.valueOf(getChatId())).isBubble();
+	}
+	
+	public List<UserInChat> getPartipiants(){
+		return userInChatService.getUsers(Long.valueOf(getChatId()));
 	}
 
 }

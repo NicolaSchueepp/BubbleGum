@@ -134,4 +134,24 @@ public class UserInChatDao implements IUserInChatDao{
 			throw new RuntimeException(e);
 		}
 	}
+	
+	@Override
+	public List<UserInChat> getByChatUserId(long chatId) {
+		queryExecutor.create(new QueryExecutionUnit<List<UserInChat>>() {
+			@Override
+			public List<UserInChat> execute(EntityManager entityManager, QueryExecutor queryExecutor) throws NoResultException, NotSupportedException, SystemException, SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
+				queryExecutor.prepareRead();
+				TypedQuery<UserInChat> query = entityManager.createQuery("SELECT u FROM UserInChat u where u.chat.id = :chatId", UserInChat.class);
+				query.setParameter("chatId", chatId);
+				List<UserInChat> users = query.getResultList();
+				queryExecutor.closeRead();
+				return users;
+			}
+		});
+		try {
+			return queryExecutor.executeQuery();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
 }

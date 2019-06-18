@@ -17,4 +17,7 @@ public interface IUserInChatDao {
 	public UserInChat getByUserIdAndChatId(long userId, long chatId);
 	
 	public List<User> getMembersByChat(long chatId);
+
+	public List<UserInChat> getByChatUserId(long chatId);
+
 }

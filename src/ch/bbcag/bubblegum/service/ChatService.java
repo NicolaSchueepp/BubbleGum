@@ -34,6 +34,24 @@ public class ChatService implements IChatService {
 	private IUserService userService;
 	
 	@Override
+	public Long createBubble(String name) {
+		Chat chat = new Chat();
+		chat.setBubble(true);
+		chat.setName(name);
+		chatDao.create(chat);
+		
+		User user = new User();
+		UserInChat userInChat = new UserInChat();
+		userInChat.setAdmin(true);
+		userInChat.setChat(chat);
+		user.setId(sessionBean.getUserID());
+		userInChat.setUser(user);
+		userInChatDao.create(userInChat);
+		
+		return chat.getId();
+	}
+	
+	@Override
 	public Long getQuickChatId(long userId) {
 		if(userId == sessionBean.getUserID()) {
 			msgArray.addMessage(new Message(MessageStyle.error,"Du kannst keinen Quick Chat mit dir selber öffnen"));
@@ -80,6 +98,11 @@ public class ChatService implements IChatService {
 			}
 		}
 		return "Quick-Chat mit " + userName;
+	}
+
+	@Override
+	public Chat getChat(long id) {
+		return chatDao.getById(id);
 	}
 	
 }
