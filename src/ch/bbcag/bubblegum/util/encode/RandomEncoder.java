@@ -9,14 +9,16 @@ public class RandomEncoder implements EncodingMethod{
 	@Override
 	public String encode(String text) {
 		EncodingMethod encodingMethod = null;
-		switch ((text.length()%3)*10) {
+		switch (text.length()%3) {
 		case 0:
 			encodingMethod = new EncodingMethod1();
 			break;
-		case 3:
+		case 1:
+			text = text + "ab";
 			encodingMethod = new EncodingMethod2();
 			break;
-		case 6:
+		case 2:
+			text = text + "a";
 			encodingMethod = new EncodingMethod3();
 			break;
 		}
