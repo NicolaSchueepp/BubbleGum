@@ -42,12 +42,12 @@ public class InviteDao implements IInviteDao{
 	}
 
 	@Override
-	public List<Invite> getbyUser(long userId) {
+	public List<Invite> getUnacceptedByUser(long userId) {
 		queryExecutor.create(new QueryExecutionUnit<List<Invite>>() {
 			@Override
 			public List<Invite> execute(EntityManager entityManager, QueryExecutor queryExecutor) throws NoResultException, NotSupportedException, SystemException, SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
 				queryExecutor.prepareRead();
-				TypedQuery<Invite> query = entityManager.createQuery("SELECT i FROM Invite i where i.invitedtId = :invitedtId",
+				TypedQuery<Invite> query = entityManager.createQuery("SELECT i FROM Invite i where i.invitedtId = :invitedtId AND i.isAccepted = false",
 						Invite.class);
 				query.setParameter("invitedtId", userId);
 

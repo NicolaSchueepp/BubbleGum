@@ -1,6 +1,7 @@
 package ch.bbcag.bubblegum.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -32,7 +33,7 @@ public class UserService implements IUserService {
 	public boolean login(String email, String password) {
 		if (email != null && !email.isEmpty() && password != null && !password.isEmpty()) {
 			User userSaved = userDao.getUserByEmail(email);
-			if (userSaved != null && Util.encode(password).equals(userSaved.getPassword())) {
+			if (userSaved != null && Arrays.equals(Util.encode(password).getBytes(),userSaved.getPassword().getBytes())) {
 				sessionBean.setUserID(userSaved.getId());
 				return true;
 			}

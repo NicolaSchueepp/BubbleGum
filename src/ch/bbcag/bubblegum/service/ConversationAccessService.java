@@ -27,6 +27,7 @@ public class ConversationAccessService implements IConversationAccessService{
 	@Inject
 	private MessageArray messageArray;
 	
+	@Override
 	public String getKeyHashForChat(long chatId) {
 		long userId = sessionBean.getUserID();
 		

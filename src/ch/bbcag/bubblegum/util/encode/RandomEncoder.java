@@ -5,7 +5,6 @@ import javax.inject.Inject;
 public class RandomEncoder implements EncodingMethod{
 
 	
-	
 	@Override
 	public String encode(String text) {
 		EncodingMethod encodingMethod = null;

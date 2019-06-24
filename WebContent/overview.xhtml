@@ -3,7 +3,9 @@
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">>
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core">
 
 
 	<ui:define name="content">
@@ -11,20 +13,73 @@
 			<div class="col-2"></div>
 			<div class="well well-lg col-8">
 
-						<div class="card"
+
+					<c:forEach items="#{overviewBean.invites}" var="invite">
+							<div class="card"
 							style="margin: 10px 0; background-color: #e9ecef;">
 							<div class="card-body">
 								<p class="card-text"
 									style="margin: 0px; float: left; font-size: 20px;">
-									<SPAN class="font-weight-bold">sdfsdf</SPAN><BR />sdfsdf
+									<SPAN class="font-weight-bold">Neue einladung in Bubble</SPAN><BR />Du wurdest von #{invite.sender.name} in die Bubble #{invite.chat.name} eingeladen!
 								</p>
-								<a href="/BubbleGum/chat.xhtml?userId=asdasd" class="btn btn-success" style="float: right; margin: 0 5px;">Quick-Chat öffnen</a>
-								<button class="btn btn-success"
-									style="float: right; margin: 0 5px;">In Bubble
-									Einladen</button>
-
+								<h:form >
+									<h:commandButton class="btn btn-success" style="float: right; margin: 0 5px;" value="Annehmen"
+										action="#{acceptInviteBean.accept}" >
+										 <f:setPropertyActionListener target="#{acceptInviteBean.inviteId}" value="#{invite.id}" />
+										  <f:setPropertyActionListener target="#{acceptInviteBean.chatId}" value="#{invite.chat.id}" />
+									</h:commandButton>
+								</h:form>
 							</div>
 						</div>
+					</c:forEach>
+					
+					<c:forEach items="#{overviewBean.quickMessages}" var="entry">
+							<div class="card"
+							style="margin: 10px 0; background-color: #e9ecef;">
+							<div class="card-body">
+								<p class="card-text"
+									style="margin: 0px; float: left; font-size: 20px;">
+									<h:panelGroup rendered="#{entry.value eq 1}">
+										<SPAN class="font-weight-bold">Neue Quick Nachricht von #{entry.key.user.name}</SPAN>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{entry.value ne 1}">
+										<SPAN class="font-weight-bold">#{entry.value} neue Quick Nachrichten von #{entry.key.user.name}</SPAN>
+									</h:panelGroup>
+									<BR />#{entry.key.text}
+								</p>
+								<a href="/BubbleGum/chat.xhtml?chatId=#{entry.key.chat.id}" class="btn btn-success" style="float: right; margin: 0 5px;">Öffnen</a>
+							</div>
+						</div>
+					</c:forEach>	
+
+					<c:forEach items="#{overviewBean.bubbleMessages}" var="entry">
+							<div class="card"
+							style="margin: 10px 0; background-color: #e9ecef;">
+							<div class="card-body">
+								<p class="card-text"
+									style="margin: 0px; float: left; font-size: 20px;">
+									<h:panelGroup rendered="#{entry.value eq 1}">
+										<SPAN class="font-weight-bold">Neue Nachricht in der Bubble #{entry.key.chat.name}</SPAN>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{entry.value ne 1}">
+										<SPAN class="font-weight-bold">#{entry.value} Neue Nachrichten in der Bubble #{entry.key.chat.name}</SPAN>
+									</h:panelGroup>
+									<BR />#{entry.key.text}
+								</p>
+								<a href="/BubbleGum/chat.xhtml?chatId=#{entry.key.chat.id}" class="btn btn-success" style="float: right; margin: 0 5px;">Öffnen</a>
+							</div>
+						</div>
+					</c:forEach>	
+
+					<h:panelGroup rendered="#{overviewBean.emty}">
+						<div class="card"
+						style="margin: 10px 0; background-color: #e9ecef;">
+							<div class="card-body">
+								<p class="card-text"
+									style="margin: 0px; float: left; font-size: 20px;">Keine neuen Mitteilungen vorhanden!</p>
+							</div>
+						</div>
+					</h:panelGroup>
 				
 			</div>
 			<div class="col-2"></div>

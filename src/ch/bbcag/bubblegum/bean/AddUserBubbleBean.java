@@ -40,4 +40,5 @@ public class AddUserBubbleBean {
 		inviteService.inviteUser(Long.valueOf(chatBean.getChatId()), userId);
 		return null;
 	}
+	
 }

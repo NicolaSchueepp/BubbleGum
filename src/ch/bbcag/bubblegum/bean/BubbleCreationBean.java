@@ -8,7 +8,7 @@ import ch.bbcag.bubblegum.service.IChatService;
 
 @Named
 @RequestScoped
-public class BubbleBean {
+public class BubbleCreationBean {
 	
 	@Inject
 	private IChatService chatService;
