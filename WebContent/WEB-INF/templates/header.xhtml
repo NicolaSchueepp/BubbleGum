@@ -47,10 +47,10 @@
 </div>
 
 <h:panelGroup rendered="#{helperBean.logedIn}">
-	<h:form class="form-inline my-2 my-lg-0">
-		<h:commandButton class="btn btn-success" value="Ausloggen"
-			action="#{logoutBean.logout()}" />
-	</h:form>
+	<ul class="navbar-nav mr-auto">
+		<li class="nav-item active"><a class="nav-link text-muted"
+			href="/BubbleGum/settings.xhtml">Einstellungen</a></li>
+	</ul>
 </h:panelGroup> <h:panelGroup rendered="#{!helperBean.logedIn}">
 	<form class="form-inline my-2 my-lg-0" action="/BubbleGum/login.xhtml">
 		<button type="submit" class="btn btn-success">Einloggen</button>
@@ -58,7 +58,7 @@
 </h:panelGroup> </nav>
 
 
-	<h:outputText value="#{helperBean.messages}" escape="false" />
+<h:outputText id="messages" value="#{helperBean.messages}" escape="false" />
 
 
 </html>

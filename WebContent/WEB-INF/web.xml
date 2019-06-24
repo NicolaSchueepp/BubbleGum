@@ -18,6 +18,7 @@
 		<url-pattern>/search.xhtml</url-pattern>
 		<url-pattern>/chat.xhtml</url-pattern>
 		<url-pattern>/chatsOverview.xhtml</url-pattern>
+		<url-pattern>/settings.xhtml</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>HomeRedirectionFilter</filter-name>

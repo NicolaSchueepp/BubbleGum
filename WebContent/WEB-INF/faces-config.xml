@@ -38,5 +38,9 @@
 			<from-outcome>chat</from-outcome>
 			<to-view-id>/chat.xhtml</to-view-id>
 		</navigation-case>
+		<navigation-case>
+			<from-outcome>setting</from-outcome>
+			<to-view-id>/settings.xhtml</to-view-id>
+		</navigation-case>
 	</navigation-rule>
 </faces-config>
