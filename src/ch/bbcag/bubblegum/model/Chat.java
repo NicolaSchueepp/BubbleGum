@@ -64,12 +64,12 @@ public class Chat implements Serializable {
 		this.messages = messages;
 	}
 
-	public String getLastMessage() {
+	public Message getLastMessage() {
 		Collections.sort(messages);
 		if (messages.size() > 0) {
-			return messages.get(0).getText();
+			return messages.get(0);
 		} else {
-			return "";
+			return null;
 		}
 	}
 }

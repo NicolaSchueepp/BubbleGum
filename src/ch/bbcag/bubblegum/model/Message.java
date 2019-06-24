@@ -40,6 +40,7 @@ public class Message implements Serializable, Comparable<Message> {
 	@JoinColumn(name = "sent_in_chat", insertable = false, updatable = false)
 	private Chat chat;
 
+	
 	public Long getId() {
 		return id;
 	}
@@ -90,4 +91,19 @@ public class Message implements Serializable, Comparable<Message> {
 		return (int) (o.sentAt - this.sentAt);
 	}
 
+	public User getUser() {
+		return user;
+	}
+	
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+	public Chat getChat() {
+		return chat;
+	}
+	
+	public void setChat(Chat chat) {
+		this.chat = chat;
+	}
 }

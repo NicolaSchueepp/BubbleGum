@@ -1,5 +1,7 @@
 package ch.bbcag.bubblegum.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import ch.bbcag.bubblegum.bean.SessionBean;
@@ -41,7 +43,7 @@ public class InviteService implements IInviteService {
 		invite.setInvitedtId(userId);
 		invite.setSenderId(sessionBean.getUserID());
 		inviteDao.create(invite);
-		messageArray.addMessage(new Message(MessageStyle.Warning,"Nutzer erfolgreich eingeladen"));
+		messageArray.addMessage(new Message(MessageStyle.Info,"Nutzer erfolgreich eingeladen"));
 		return true;
 	}
 
@@ -49,12 +51,18 @@ public class InviteService implements IInviteService {
 	public boolean acceptInvite(long inviteId) {
 		Invite invite = inviteDao.getById(inviteId);
 		invite.setAccepted(true);
+		inviteDao.update(invite);
 		if (userInChatService.addUser(invite.getChatId(), invite.getInvitedtId(), false)) {
-			messageArray.addMessage(new Message(MessageStyle.Warning,"Nutzer erfolgreich eingeladen"));
+			messageArray.addMessage(new Message(MessageStyle.Info,"Du bist der Bubble beigetreten"));
 			return true;
 		}
 		return false;
 			
+	}
+
+	@Override
+	public List<Invite> getUnacceptedInvites() {
+		return inviteDao.getUnacceptedByUser(sessionBean.getUserID());
 	}
 
 }

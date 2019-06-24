@@ -44,14 +44,14 @@
 										<p>
 											<h:inputText p:placeholder="Bubble Name"
 												class="form-control" id="bubbleNameInput"
-												p:required="true" value="#{bubbleBean.name}" />
+												p:required="true" value="#{bubbleCreationBean.name}" />
 										</p>
 							          </div>
 							       
 							      </div>
 							      <div class="modal-footer">
 							        <h:commandButton class="btn btn-success" value="Erstellen"
-										action="#{bubbleBean.createBubble}" />
+										action="#{bubbleCreationBean.createBubble}" />
 							      </div>
 							       </h:form>
 							    </div>
@@ -70,7 +70,7 @@
 								<div class="card-body">
 									<p class="card-text"
 										style="margin: auto; float: left; font-size: 20px;">
-										<SPAN class="font-weight-bold">#{chatBean.getChatName(userInChat.chat.id)}</SPAN><BR />#{userInChat.chat.lastMessage}
+										<SPAN class="font-weight-bold">#{chatBean.getChatName(userInChat.chat.id)}</SPAN><BR />#{userInChat.chat.lastMessage.text}
 									</p>
 									<a href="/BubbleGum/chat.xhtml?chatId=#{userInChat.chat.id}" class="btn btn-success" style="float: right; margin: 0 5px;">Chat öffnen</a>
 								</div>

@@ -1,17 +1,30 @@
 package ch.bbcag.bubblegum.service;
 
+import java.util.AbstractMap;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
+import javax.activation.MailcapCommandMap;
 import javax.inject.Inject;
 import javax.websocket.Session;
 
+import com.sun.mail.handlers.message_rfc822;
+
 import ch.bbcag.bubblegum.bean.SessionBean;
+import ch.bbcag.bubblegum.dao.IChatDao;
 import ch.bbcag.bubblegum.dao.IConversationAccessKeyDao;
 import ch.bbcag.bubblegum.dao.IMessageDao;
+import ch.bbcag.bubblegum.dao.IUserInChatDao;
 import ch.bbcag.bubblegum.dao.IUserReadMessageDao;
 import ch.bbcag.bubblegum.dao.UserReadMessageDao;
+import ch.bbcag.bubblegum.model.Chat;
 import ch.bbcag.bubblegum.model.ConversationAccessKey;
 import ch.bbcag.bubblegum.model.Message;
+import ch.bbcag.bubblegum.model.UserInChat;
 import ch.bbcag.bubblegum.model.UserReadMessage;
 import ch.bbcag.bubblegum.service.message.Client;
 import ch.bbcag.bubblegum.service.message.ClientPool;
@@ -32,6 +45,9 @@ public class MessageService implements IMessageService{
 	
 	@Inject
 	private UserService userService;
+	
+	@Inject
+	private IUserInChatDao userInChatDao;
 	
 	@Inject
 	private IConversationAccessService conversationAccessService;
@@ -103,5 +119,37 @@ public class MessageService implements IMessageService{
 			return messageDao.getByChatId(chatId);
 		}
 		return null;
+	}
+
+	@Override
+	public ArrayList<Entry<Message, Integer>> getNewQuickMessages() {
+		ArrayList<Entry<Message, Integer>> messages = new ArrayList<Entry<Message, Integer>>();
+		for(UserInChat u : userInChatDao.getPersonalChats(sessionBean.getUserID())) {
+			messages.addAll(groupUnreadMesagesByChat(messageDao.getByChatId(u.getChat().getId()).stream().filter((c) -> !c.getChat().isBubble()).collect(Collectors.toList())));
+		}
+		return messages;
+	}
+
+	@Override
+	public ArrayList<Entry<Message, Integer>> getNewBubbleMessages() {
+		ArrayList<Entry<Message, Integer>> messages = new ArrayList<Entry<Message, Integer>>();
+		for(UserInChat u : userInChatDao.getPersonalChats(sessionBean.getUserID())) {
+			messages.addAll(groupUnreadMesagesByChat(messageDao.getByChatId(u.getChat().getId()).stream().filter((c) -> c.getChat().isBubble()).collect(Collectors.toList())));
+		}
+		return messages;
+	}
+
+	private ArrayList<Entry<Message, Integer>> groupUnreadMesagesByChat(List<Message> messages){
+		Map<Long,Entry<Message, Integer>> grouptMessages = new HashMap<Long, Map.Entry<Message,Integer>>();
+		for (Message message : messages) {
+			if(userReadMessageDao.get(sessionBean.getUserID(), message.getId()) == null) {
+				if(grouptMessages.containsKey(message.getChatId())) {
+					grouptMessages.get(message.getChatId()).setValue(grouptMessages.get(message.getChatId()).getValue()+1);
+				} else {
+					grouptMessages.put(message.getChatId(), new AbstractMap.SimpleEntry<Message,Integer>(message.getChat().getLastMessage(),1));
+				}
+			}
+		}
+		return new ArrayList<Entry<Message, Integer>>(grouptMessages.values());
 	}
 }

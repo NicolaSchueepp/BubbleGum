@@ -9,4 +9,5 @@ public interface IMessageDao {
 	public List<Message> getByChatId(long chatId);
 	
 	public Message create(Message message);
+	
 }
