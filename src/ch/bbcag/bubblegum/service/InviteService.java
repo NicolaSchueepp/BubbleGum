@@ -23,6 +23,9 @@ public class InviteService implements IInviteService {
 	
 	@Inject
 	private IUserInChatService userInChatService;
+
+	@Inject 
+	IUserInChatDao userInChatDao;
 	
 	@Inject
 	private MessageArray messageArray;
@@ -35,6 +38,10 @@ public class InviteService implements IInviteService {
 		}
 		if(userId == sessionBean.getUserID()) {
 			messageArray.addMessage(new Message(MessageStyle.Warning,"Du kannst dich nicht selber einladen"));
+			return false;
+		}
+		if(!userInChatDao.getByUserIdAndChatId(sessionBean.getUserID(), chatId).isAdmin()) {
+			messageArray.addMessage(new Message(MessageStyle.Warning,"Du hast keine Berechtigung für diese Aktion"));
 			return false;
 		}
 		Invite invite = new Invite();

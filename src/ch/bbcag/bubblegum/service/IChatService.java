@@ -11,4 +11,6 @@ public interface IChatService {
 	public Chat getChat(long id);
 
 	public Long createBubble(String name);
+
+	public boolean isAdmin(Long chatId);
 }

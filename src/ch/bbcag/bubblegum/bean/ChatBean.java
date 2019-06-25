@@ -74,6 +74,10 @@ public class ChatBean implements Serializable{
 		return chatId;
 	}
 	
+	public boolean isAdmin() {
+		return chatService.isAdmin(Long.valueOf(getChatId()));
+	}
+	
 	public List<Message> getMessages(){
 		return messageService.getMessages(Long.valueOf(getChatId()), getHash());
 	}

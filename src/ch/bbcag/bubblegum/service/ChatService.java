@@ -86,5 +86,10 @@ public class ChatService implements IChatService {
 	public Chat getChat(long id) {
 		return chatDao.getById(id);
 	}
+
+	@Override
+	public boolean isAdmin(Long chatId) {
+		return userInChatDao.getByUserIdAndChatId(sessionBean.getUserID(), chatId).isAdmin();
+	}
 	
 }

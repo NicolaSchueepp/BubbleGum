@@ -63,9 +63,11 @@
 												<div style="height: 10px;"></div>
 											</div>
 											<div class="modal-footer">
-												<button type="button" class="btn btn-success"
-													data-dismiss="modal" data-toggle="modal"
-													data-target="#addUserModal">Nutzer Hinzufügen</button>
+												<h:panelGroup rendered="#{chatBean.admin}">
+													<button type="button" class="btn btn-success"
+														data-dismiss="modal" data-toggle="modal"
+														data-target="#addUserModal">Nutzer Hinzufügen</button>
+												</h:panelGroup>
 											</div>
 										</h:form>
 									</div>
