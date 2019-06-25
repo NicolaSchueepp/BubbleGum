@@ -111,7 +111,7 @@ public class MessageService implements IMessageService{
 			UserReadMessage userReadMessage = new UserReadMessage();
 			userReadMessage.setUserId(sessionBean.getUserID());
 			for (Message message : messages) {
-				if(userReadMessageDao.get(sessionBean.getUserID(), message.getId()) == null) {
+				if(userReadMessageDao.getByUserIdAndMessageId(sessionBean.getUserID(), message.getId()) == null) {
 					userReadMessage.setMessageId(message.getId());
 					userReadMessageDao.create(userReadMessage);
 				}
@@ -124,7 +124,7 @@ public class MessageService implements IMessageService{
 	@Override
 	public ArrayList<Entry<Message, Integer>> getNewQuickMessages() {
 		ArrayList<Entry<Message, Integer>> messages = new ArrayList<Entry<Message, Integer>>();
-		for(UserInChat u : userInChatDao.getPersonalChats(sessionBean.getUserID())) {
+		for(UserInChat u : userInChatDao.getByUserId(sessionBean.getUserID())) {
 			messages.addAll(groupUnreadMesagesByChat(messageDao.getByChatId(u.getChat().getId()).stream().filter((c) -> !c.getChat().isBubble()).collect(Collectors.toList())));
 		}
 		return messages;
@@ -133,7 +133,7 @@ public class MessageService implements IMessageService{
 	@Override
 	public ArrayList<Entry<Message, Integer>> getNewBubbleMessages() {
 		ArrayList<Entry<Message, Integer>> messages = new ArrayList<Entry<Message, Integer>>();
-		for(UserInChat u : userInChatDao.getPersonalChats(sessionBean.getUserID())) {
+		for(UserInChat u : userInChatDao.getByUserId(sessionBean.getUserID())) {
 			messages.addAll(groupUnreadMesagesByChat(messageDao.getByChatId(u.getChat().getId()).stream().filter((c) -> c.getChat().isBubble()).collect(Collectors.toList())));
 		}
 		return messages;
@@ -142,7 +142,7 @@ public class MessageService implements IMessageService{
 	private ArrayList<Entry<Message, Integer>> groupUnreadMesagesByChat(List<Message> messages){
 		Map<Long,Entry<Message, Integer>> grouptMessages = new HashMap<Long, Map.Entry<Message,Integer>>();
 		for (Message message : messages) {
-			if(userReadMessageDao.get(sessionBean.getUserID(), message.getId()) == null) {
+			if(userReadMessageDao.getByUserIdAndMessageId(sessionBean.getUserID(), message.getId()) == null) {
 				if(grouptMessages.containsKey(message.getChatId())) {
 					grouptMessages.get(message.getChatId()).setValue(grouptMessages.get(message.getChatId()).getValue()+1);
 				} else {

@@ -26,13 +26,13 @@ public class UserInChatService implements IUserInChatService {
 
 	@Override
 	public List<UserInChat> getAllChats() {
-		List<UserInChat> chats = userInChatDao.getPersonalChats(sessionBean.getUserID());
+		List<UserInChat> chats = userInChatDao.getByUserId(sessionBean.getUserID());
 		return chats;
 	}
 
 	@Override
 	public List<UserInChat> getUsers(Long chatId) {
-		return userInChatDao.getByChatUserId(chatId);
+		return userInChatDao.getByChatId(chatId);
 	}
 	
 

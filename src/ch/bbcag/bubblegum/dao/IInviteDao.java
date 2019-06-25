@@ -6,13 +6,13 @@ import ch.bbcag.bubblegum.model.Invite;
 
 public interface IInviteDao {
 
-	public Invite create(Invite invite);
+	public void create(Invite invite);
 	
 	public List<Invite> getUnacceptedByUser(long userId);
 	
 	public Invite getByUserAndChatId(long userId, long chatId);
 	
-	public Invite update(Invite invite);
+	public void update(Invite invite);
 	
 	public Invite getById(long id);
 	

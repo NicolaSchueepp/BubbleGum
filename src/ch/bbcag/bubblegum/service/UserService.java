@@ -76,6 +76,6 @@ public class UserService implements IUserService{
 
 	@Override
 	public User getById(long id) {
-		return userDao.getUserById(id);
+		return userDao.getById(id);
 	}
 }

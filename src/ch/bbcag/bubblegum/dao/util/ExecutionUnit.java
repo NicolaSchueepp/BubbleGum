@@ -8,7 +8,8 @@ import javax.transaction.NotSupportedException;
 import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
 
-public interface QueryExecutionUnit<T> {
+@FunctionalInterface
+public interface ExecutionUnit<I,O> {
 
-	public T execute(EntityManager entityManager, QueryExecutor queryExecutor) throws NoResultException, NotSupportedException, SystemException, SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException;
+	public O execute(I input);
 }

@@ -4,7 +4,7 @@ import ch.bbcag.bubblegum.model.UserReadMessage;
 
 public interface IUserReadMessageDao {
 
-	public UserReadMessage create(UserReadMessage userReadMessage);
+	public void create(UserReadMessage userReadMessage);
 	
-	public UserReadMessage get(long userId, long messageId);
+	public UserReadMessage getByUserIdAndMessageId(long userId, long messageId);
 }

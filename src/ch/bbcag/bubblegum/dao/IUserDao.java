@@ -6,11 +6,11 @@ import ch.bbcag.bubblegum.model.User;
 
 public interface IUserDao {
 	
-	public User create(User user);
+	public void create(User user);
 	
 	public User getUserByEmail(String email);
 	
-	public User getUserById(Long id);
+	public User getById(long id);
 	
 	public List<User> searchUserByName(String name);
 }

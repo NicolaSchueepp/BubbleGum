@@ -56,7 +56,7 @@ public class ChatService implements IChatService {
 		Chat chat = new Chat();
 		chat.setBubble(false);
 		chat.setName("Quick-Chat");
-		chat = chatDao.create(chat);
+		chatDao.create(chat);
 		
 		userInChatService.addUser(chat.getId(),sessionBean.getUserID(),false);
 		userInChatService.addUser(chat.getId(),userId,false);
@@ -73,9 +73,9 @@ public class ChatService implements IChatService {
 		if(!(chat = chatDao.getById(chatId)).getName().equals("Quick-Chat")) {
 			return chat.getName();
 		}
-		for (User u : userInChatDao.getMembersByChat(chatId)) {
-			if(!u.getEmail().equals(userService.getById(sessionBean.getUserID()).getEmail())){
-				userName = u.getName();
+		for (UserInChat u : userInChatDao.getByChatId(chatId)) {
+			if(!u.getUser().getEmail().equals(userService.getById(sessionBean.getUserID()).getEmail())){
+				userName = u.getUser().getName();
 				break;
 			}
 		}

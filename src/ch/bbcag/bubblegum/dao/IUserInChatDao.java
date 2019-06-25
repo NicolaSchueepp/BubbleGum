@@ -8,16 +8,13 @@ import ch.bbcag.bubblegum.model.UserInChat;
 
 public interface IUserInChatDao {
 
-	public UserInChat create(UserInChat userInChat);
+	public void create(UserInChat userInChat);
 	
-	public List<UserInChat> getPersonalChats(Long userID);
-
-	public List<UserInChat> searchPersonalChatByName(String name, Long userID);
+	public List<UserInChat> getByUserId(Long userID);
 	
 	public UserInChat getByUserIdAndChatId(long userId, long chatId);
 	
-	public List<User> getMembersByChat(long chatId);
+	public List<UserInChat> getByChatId(long chatId);
 
-	public List<UserInChat> getByChatUserId(long chatId);
 
 }

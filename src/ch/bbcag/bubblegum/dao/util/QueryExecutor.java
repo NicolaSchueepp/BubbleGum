@@ -5,67 +5,52 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceUnit;
-import javax.transaction.HeuristicMixedException;
-import javax.transaction.HeuristicRollbackException;
-import javax.transaction.NotSupportedException;
-import javax.transaction.RollbackException;
 import javax.transaction.Status;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
-public class QueryExecutor {
+import ch.bbcag.bubblegum.dao.querryoperation.QuerryOperation;
 
+public class QueryExecutor<T> {
+	
+		
 	@PersistenceUnit
 	private EntityManagerFactory emf;
 
 	@Resource
 	private UserTransaction transaction;
 
-	private QueryExecutionUnit<?> executionUnit;
-
 	private EntityManager entityManager;
 
-	public void create(QueryExecutionUnit<?> executionUnit) {
+
+	public <E> E executeQuery(ExecutionUnit<EntityManager, E> executionUnit, QuerryOperation<E, T> querryOperation) throws DaoException {
 		this.entityManager = emf.createEntityManager();
-		this.executionUnit = executionUnit;
-	}
-
-	public void prepareWrite() throws NotSupportedException, SystemException {
-		transaction.begin();
-		entityManager.joinTransaction();
-
-	}
-
-	public void prepareRead() {
-	}
-
-	public void closeRead() {
-		entityManager.clear();
-		emf.getCache().evictAll();
-	}
-
-	public void closeWrite() throws SecurityException, IllegalStateException, RollbackException,
-			HeuristicMixedException, HeuristicRollbackException, SystemException {
-		entityManager.flush();
-		transaction.commit();
-	}
-
-	@SuppressWarnings("unchecked")
-	public <T> T executeQuery() throws DaoException {
-		T result;
+		E result;
 		try {
-			result = (T) executionUnit.execute(entityManager, this);
+			querryOperation.prepare(this);
+			result = executionUnit.execute(entityManager);
+			querryOperation.close(this);
 			if (transaction.getStatus() == Status.STATUS_ACTIVE) {
 				transaction.rollback();
 			}
-			entityManager.close();
 		} catch (NoResultException e) {
 			result = null;
-		} catch (IllegalStateException | SecurityException | SystemException | NotSupportedException | RollbackException
-				| HeuristicMixedException | HeuristicRollbackException e) {
+		} catch (IllegalStateException | SecurityException | SystemException e) {
 			throw new DaoException(e);
 		}
 		return result;
+	}
+	
+	public EntityManagerFactory getEmf() {
+		return emf;
+	}
+	
+	public EntityManager getEntityManager() {
+		return entityManager;
+	}
+	
+	public UserTransaction getTransaction() {
+		return transaction;
 	}
 
 }

@@ -6,13 +6,13 @@ import ch.bbcag.bubblegum.model.Chat;
 
 public interface IChatDao {
 	
-	public List<Chat> getAllChats();
+	public List<Chat> getAll();
 
 	public List<Chat> searchChatByName(String name);
 
 	public Chat getQuickChatByMembers(long userId1, long userId2);
 	
-	public Chat create(Chat chat);
+	public void create(Chat chat);
 	
 	public Chat getById(long id);
 

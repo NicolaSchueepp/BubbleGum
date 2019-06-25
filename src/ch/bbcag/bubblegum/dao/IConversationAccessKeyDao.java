@@ -4,7 +4,7 @@ import ch.bbcag.bubblegum.model.ConversationAccessKey;
 
 public interface IConversationAccessKeyDao {
 
-	public ConversationAccessKey create(ConversationAccessKey conversationAccessKey);
+	public void create(ConversationAccessKey conversationAccessKey);
 	
 	public void delete(ConversationAccessKey conversationAccessKey);
 	
