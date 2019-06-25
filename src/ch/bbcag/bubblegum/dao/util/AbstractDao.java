@@ -13,8 +13,6 @@ import ch.bbcag.bubblegum.dao.querryoperation.SingleReadOperation;
 import ch.bbcag.bubblegum.dao.querryoperation.WriteOperation;
 
 public abstract class AbstractDao<T> {
-
-	public abstract Class<T> getClazz();
 	
 	@Inject
 	protected QueryExecutor<T> queryExecutor;
@@ -30,7 +28,6 @@ public abstract class AbstractDao<T> {
 		}, new WriteOperation<T>());
 	}
 	
-	
 	public T getById(long id) {
 		return queryExecutor.executeQuery(new ExecutionUnit<EntityManager, T>() {
 			@Override
@@ -40,11 +37,9 @@ public abstract class AbstractDao<T> {
 		}, new SingleReadOperation<T>());
 	}
 	
-	
 	public List<T> getAll(){
-		return executeCustomQuarry("SELECT x FROM "+getClazz().getSimpleName()+" x", null, new ListReadOperation<T>());
+		return executeCustomQuarry("SELECT x FROM "+getClassName()+" x", null, new ListReadOperation<T>());
 	}
-	
 	
 	public void update(T t) {
 		queryExecutor.executeQuery(new ExecutionUnit<EntityManager, Void>() {
@@ -56,9 +51,8 @@ public abstract class AbstractDao<T> {
 		},new WriteOperation<T>());
 	}
 	
-	
 	public void delete(T t) {
-		executeCustomQuarry("DELETE FROM "+getClazz().getSimpleName()+" x WHERE x = :obj", (q) -> q.setParameter("obj", t), new WriteOperation<T>());
+		executeCustomQuarry("DELETE FROM "+getClassName()+" x WHERE x = :obj", (q) -> q.setParameter("obj", t), new WriteOperation<T>());
 	}
 	
 	public <E> E executeCustomQuarry(String querry, ExecutionUnit<TypedQuery<T>, TypedQuery<T>> paramSetter, QuerryOperation<E, T> querryOperation){
@@ -73,4 +67,9 @@ public abstract class AbstractDao<T> {
 		}, querryOperation);
 	}
 	
+	public abstract Class<T> getClazz();
+	
+	public String getClassName() {
+		return getClazz().getSimpleName();
+	}
 }

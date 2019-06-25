@@ -12,7 +12,6 @@ import javax.transaction.UserTransaction;
 import ch.bbcag.bubblegum.dao.querryoperation.QuerryOperation;
 
 public class QueryExecutor<T> {
-	
 		
 	@PersistenceUnit
 	private EntityManagerFactory emf;
@@ -30,6 +29,7 @@ public class QueryExecutor<T> {
 			querryOperation.prepare(this);
 			result = executionUnit.execute(entityManager);
 			querryOperation.close(this);
+			
 			if (transaction.getStatus() == Status.STATUS_ACTIVE) {
 				transaction.rollback();
 			}
