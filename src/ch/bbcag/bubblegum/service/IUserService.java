@@ -13,4 +13,6 @@ public interface IUserService {
 	public List<User> searchUsersByName(String name);
 	
 	public User getById(long id);
+	
+	public boolean update(User user);
 }

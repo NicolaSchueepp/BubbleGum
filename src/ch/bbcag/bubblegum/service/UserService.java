@@ -15,8 +15,7 @@ import ch.bbcag.bubblegum.util.message.Message;
 import ch.bbcag.bubblegum.util.message.MessageArray;
 import ch.bbcag.bubblegum.util.message.MessageStyle;
 
-public class UserService implements IUserService{
-
+public class UserService implements IUserService {
 
 	@Inject
 	private MessageArray msgArray;
@@ -77,5 +76,16 @@ public class UserService implements IUserService{
 	@Override
 	public User getById(long id) {
 		return userDao.getById(id);
+	}
+
+	@Override
+	public boolean update(User user) {
+		if (user != null) {
+			userDao.updateUser(user);
+			msgArray.addMessage(new Message(MessageStyle.Info, "Änderungen wurden erfolgreich gespeichert!"));
+			return true;
+		}
+		msgArray.addMessage(new Message(MessageStyle.Info, "Etwas lief schief, kontaktieren Sie den Support!"));
+		return false;
 	}
 }

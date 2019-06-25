@@ -1,0 +1,51 @@
+
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+	<f:event type="preRenderView" listener="#{settingsBean.prepare()}" />
+
+	<ui:define name="content">
+		<div class="row">
+			<div class="col-2"></div>
+			<div class="well well-lg col-8">
+
+				<h:form id="SettingsForm">
+					<div class="row">
+						<div class="col-6">
+							<h:inputText p:placeholder="Passwort ändern" p:type="password"
+								class="form-control" name="password" id="password"
+								value="#{settingsBean.password}">
+							</h:inputText>
+						</div>
+						<div style="float: right;" class="col-6">
+							<h:commandButton style="float: right;" class="btn btn-success"
+								value="Ausloggen" action="#{settingsBean.logout()}" />
+						</div>
+					</div>
+					<div style="padding: 10px 0; width: 100%; display: block;"></div>
+					<div class="row">
+						<div class="col-6">
+							<h:inputText p:placeholder="Status ändern" p:type="text"
+								class="form-control" name="status" id="status"
+								value="#{settingsBean.status}">
+							</h:inputText>
+						</div>
+						<div style="float: right;" class="col-6">
+							<h:commandButton style="float: right;" class="btn btn-success"
+								value="Änderungen speichern"
+								action="#{settingsBean.saveSettings}">
+							</h:commandButton>
+						</div>
+					</div>
+				</h:form>
+
+
+			</div>
+			<div class="col-2"></div>
+		</div>
+	</ui:define>
+</ui:composition>

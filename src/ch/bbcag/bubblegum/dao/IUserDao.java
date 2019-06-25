@@ -13,4 +13,6 @@ public interface IUserDao {
 	public User getById(long id);
 	
 	public List<User> searchUserByName(String name);
+	
+	public User updateUser(User user);
 }
