@@ -14,5 +14,5 @@ public interface IUserDao {
 	
 	public List<User> searchUserByName(String name);
 	
-	public User updateUser(User user);
+	public void update(User user);
 }

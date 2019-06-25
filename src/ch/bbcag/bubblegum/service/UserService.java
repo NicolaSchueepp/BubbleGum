@@ -81,7 +81,7 @@ public class UserService implements IUserService {
 	@Override
 	public boolean update(User user) {
 		if (user != null) {
-			userDao.updateUser(user);
+			userDao.update(user);
 			msgArray.addMessage(new Message(MessageStyle.Info, "Änderungen wurden erfolgreich gespeichert!"));
 			return true;
 		}

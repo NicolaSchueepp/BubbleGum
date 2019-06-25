@@ -25,24 +25,4 @@ public class UserDao extends AbstractDao<User> implements IUserDao {
 		return User.class;
 	}
 
-	@Override
-	public User updateUser(User user) {
-		queryExecutor.create(new QueryExecutionUnit<User>() {
-			@Override
-			public User execute(EntityManager entityManager, QueryExecutor queryExecutor)
-					throws NoResultException, NotSupportedException, SystemException, SecurityException,
-					IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
-				queryExecutor.prepareWrite();
-				entityManager.merge(user);
-				queryExecutor.closeWrite();
-				return user;
-			}
-		});
-		try {
-			return queryExecutor.executeQuery();
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
 }
