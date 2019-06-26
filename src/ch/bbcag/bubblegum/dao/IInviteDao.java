@@ -8,6 +8,8 @@ public interface IInviteDao {
 
 	public void create(Invite invite);
 	
+	public void delete(Invite invite);
+	
 	public List<Invite> getUnacceptedByUser(long userId);
 	
 	public Invite getByUserAndChatId(long userId, long chatId);

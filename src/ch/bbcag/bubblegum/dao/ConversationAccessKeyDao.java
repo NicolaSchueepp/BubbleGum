@@ -1,6 +1,7 @@
 package ch.bbcag.bubblegum.dao;
 
 import ch.bbcag.bubblegum.dao.querryoperation.SingleReadOperation;
+import ch.bbcag.bubblegum.dao.querryoperation.WriteOperation;
 import ch.bbcag.bubblegum.dao.util.AbstractDao;
 import ch.bbcag.bubblegum.model.ConversationAccessKey;
 
@@ -14,9 +15,10 @@ public class ConversationAccessKeyDao extends AbstractDao<ConversationAccessKey>
 
 	@Override
 	public ConversationAccessKey getByHash(String hash) {
-		return executeCustomQuarry("SELECT c FROM ConversationAccessKey c where c.hash = :hash", (q) -> q.setParameter("hash", hash), new SingleReadOperation<ConversationAccessKey>());
+		return executeCustomQuarry("SELECT c FROM ConversationAccessKey c where c.hash = :hash",
+				(q) -> q.setParameter("hash", hash), new SingleReadOperation<ConversationAccessKey>());
 	}
-
+	
 	@Override
 	public Class<ConversationAccessKey> getClazz() {
 		return ConversationAccessKey.class;

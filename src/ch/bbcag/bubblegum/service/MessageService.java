@@ -30,6 +30,8 @@ import ch.bbcag.bubblegum.service.message.Client;
 import ch.bbcag.bubblegum.service.message.ClientPool;
 import ch.bbcag.bubblegum.service.message.JsonRequestMessage;
 import ch.bbcag.bubblegum.service.message.JsonResponseMessage;
+import ch.bbcag.bubblegum.util.message.MessageArray;
+import ch.bbcag.bubblegum.util.message.MessageStyle;
 
 public class MessageService implements IMessageService{
 
@@ -42,6 +44,9 @@ public class MessageService implements IMessageService{
 	
 	@Inject
 	private IMessageDao messageDao;
+	
+	@Inject
+	private MessageArray messageArray;
 	
 	@Inject
 	private UserService userService;
@@ -151,5 +156,16 @@ public class MessageService implements IMessageService{
 			}
 		}
 		return new ArrayList<Entry<Message, Integer>>(grouptMessages.values());
+	}
+
+	@Override
+	public void deleteMessages(long chatId) {
+		if(userInChatDao.getByUserIdAndChatId(sessionBean.getUserID(), chatId).isAdmin() || !userInChatDao.getByUserIdAndChatId(sessionBean.getUserID(), chatId).getChat().isBubble()) {
+			messageDao.deleteByChat(chatId);
+			messageArray.addMessage(new ch.bbcag.bubblegum.util.message.Message(MessageStyle.Info, "Chat Verlauf erfolgreich gelöscht"));
+		}else {
+			messageArray.addMessage(new ch.bbcag.bubblegum.util.message.Message(MessageStyle.Info, "Du kannst den Verlauf nicht löschen"));
+		}
+		
 	}
 }

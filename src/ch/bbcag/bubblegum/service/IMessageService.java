@@ -24,4 +24,6 @@ public interface IMessageService {
 	public ArrayList<Entry<Message, Integer>> getNewQuickMessages();
 	
 	public ArrayList<Entry<Message, Integer>> getNewBubbleMessages();
+	
+	public void deleteMessages(long chatId);
 }

@@ -74,6 +74,11 @@ public class ChatBean implements Serializable{
 		return chatId;
 	}
 	
+	public String clear() {
+		messageService.deleteMessages(Long.valueOf(getChatId()));
+		return null;
+	}
+	
 	public boolean isAdmin() {
 		return chatService.isAdmin(Long.valueOf(getChatId()));
 	}

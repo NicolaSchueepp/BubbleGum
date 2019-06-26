@@ -10,4 +10,6 @@ public interface IMessageDao {
 	
 	public void create(Message message);
 	
+	public void deleteByChat(long chatId);
+	
 }

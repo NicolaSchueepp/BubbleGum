@@ -23,10 +23,14 @@
 						<h2 style="float: left;">#{chatBean.chatName}</h2>
 					</div>
 					<div class="col-sm-6">
-
+						<h:panelGroup rendered="#{!chatBean.bubble or chatBean.admin}">
+						<button type="button" class="btn btn-success" onclick="clearChat();"
+								style="float: right; margin: 0 5px;">Chat Verlauf löschen</button>
+						</h:panelGroup>
+						
 						<h:panelGroup rendered="#{chatBean.bubble}">
 							<button type="button" class="btn btn-success"
-								style="float: right;" data-toggle="modal"
+								style="float: right; margin: 0 5px;" data-toggle="modal"
 								data-target="#userModal">Mitglieder anzeigen</button>
 							<div class="modal fade" id="userModal" tabindex="-1"
 								role="dialog" aria-labelledby="userModalLabel"
@@ -54,8 +58,16 @@
 																	<h:panelGroup rendered="#{userInChat.admin}">
 																		<span style="color: red; float: right;">ADMIN</span>
 																	</h:panelGroup>
+																	<h:panelGroup rendered="#{!userInChat.admin and chatBean.admin}">
+																		<button style="float: right;" class="btn btn-success" type="button" onclick="removeUser(#{userInChat.user.id});" >Kick</button>
+																	</h:panelGroup>
 																</div>
-																<BR /> <SPAN>#{userInChat.user.status}</SPAN>
+																<BR /> 
+																<SPAN>#{userInChat.user.status}</SPAN>
+																<BR /> 
+																	<h:panelGroup rendered="#{!userInChat.admin and chatBean.admin}">
+																		<button style="float: right;" class="btn btn-success" type="button" onclick="promoteUser(#{userInChat.user.id});" >Promote</button>
+																	</h:panelGroup>
 															</div>
 														</div>
 													</div>
@@ -124,27 +136,53 @@
 									</div>
 								</div>
 							</div>
+						</h:panelGroup>
+							<h:form id="clearChatForm">
+								<h:commandButton id="clearChatButton" style="display: none;"
+									class="btn btn-success" value=""
+									action="#{chatBean.clear}" />
+							</h:form>
+							<h:form id="promoteUserForm">
+								<h:inputHidden id="userId" value="#{promoteUserBubbleBean.userId}"></h:inputHidden>
+								<h:commandButton id="promoteUserButton" style="display: none;"
+									class="btn btn-success" value=""
+									action="#{promoteUserBubbleBean.promote}" />
+							</h:form>
 							<h:form id="addUserForm">
 								<h:inputHidden id="userId" value="#{addUserBubbleBean.userId}"></h:inputHidden>
 								<h:commandButton id="addUserButton" style="display: none;"
 									class="btn btn-success" value=""
 									action="#{addUserBubbleBean.add}" />
 							</h:form>
+							<h:form id="removeUserForm">
+								<h:inputHidden id="userId" value="#{removeUserBubbleBean.userId}"></h:inputHidden>
+								<h:commandButton id="removeUserButton" style="display: none;"
+									class="btn btn-success" value=""
+									action="#{removeUserBubbleBean.remove}" />
+							</h:form>
 							<script>
-										function addUser(userId) {
-											document.getElementById("addUserForm:userId").value = userId;
-											document.getElementById('addUserForm:addUserButton').click();
-										}
-										$(() => {
-											$('#ResultsForm\\:nameInput').on('input', function() {
-												console.log('nameInput');
-												$(this).change();
-							// 					$(this).focus();
-											});
+									function clearChat() {
+										document.getElementById('clearChatForm:clearChatButton').click();
+									}
+									function addUser(userId) {
+										document.getElementById("addUserForm:userId").value = userId;
+										document.getElementById('addUserForm:addUserButton').click();
+									}
+									function removeUser(userId) {
+										document.getElementById("removeUserForm:userId").value = userId;
+										document.getElementById('removeUserForm:removeUserButton').click();
+									}
+									function promoteUser(userId) {
+										document.getElementById("promoteUserForm:userId").value = userId;
+										document.getElementById("promoteUserForm:promoteUserButton").click();
+									}
+									$(() => {
+										$('#ResultsForm\\:nameInput').on('input', function() {
+											console.log('nameInput');
+											$(this).change();
 										});
-									</script>
-
-						</h:panelGroup>
+									});
+							</script>
 					</div>
 				</div>
 

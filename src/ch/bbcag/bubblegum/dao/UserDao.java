@@ -17,7 +17,6 @@ public class UserDao extends AbstractDao<User> implements IUserDao {
 	@Override
 	public List<User> searchUserByName(String name) {
 		return executeCustomQuarry("SELECT u FROM User u where u.name like :name", (q) -> q.setParameter("name", "%"+ name +"%"), new ListReadOperation<User>());
-	
 	}
 
 	@Override

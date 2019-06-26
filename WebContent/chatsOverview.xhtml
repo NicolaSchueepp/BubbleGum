@@ -73,6 +73,13 @@
 										<SPAN class="font-weight-bold">#{chatBean.getChatName(userInChat.chat.id)}</SPAN><BR />#{userInChat.chat.lastMessage.text}
 									</p>
 									<a href="/BubbleGum/chat.xhtml?chatId=#{userInChat.chat.id}" class="btn btn-success" style="float: right; margin: 0 5px;">Chat öffnen</a>
+									<h:form>
+    									<h:commandLink style="float: right; margin: 0 5px;" class="btn btn-success" action="#{leaveChatBean.leave}" value="#{userInChat.chat.bubble ? 'Chat verlassen' : 'Quick-Chat löschen'}" >
+    										<f:setPropertyActionListener target="#{leaveChatBean.chatId}" value="#{userInChat.chat.id}" />
+    									</h:commandLink>
+									</h:form>
+
+	
 								</div>
 							</div>
 						</ui:repeat>
@@ -92,8 +99,9 @@
 				
 			</div>
 			<div class="col-2"></div>
+
 			<script>
-			
+
 			$(() => {
 				$('#ResultsForm\\:chatInput').on('input', function() {
 					$(this).change();

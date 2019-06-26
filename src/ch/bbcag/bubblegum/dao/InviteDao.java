@@ -18,7 +18,7 @@ public class InviteDao extends AbstractDao<Invite> implements IInviteDao{
 
 	@Override
 	public Invite getByUserAndChatId(long userId, long chatId) {
-		return executeCustomQuarry("SELECT i FROM Invite i where i.invitedtId = :invitedtId AND i.chatId = :chatId",
+		return executeCustomQuarry("SELECT i FROM Invite i where i.invitedtId = :invitedtId AND i.chatId = :chatId", 
 				(q) -> q.setParameter("invitedtId", userId).setParameter("chatId", chatId), new SingleReadOperation<Invite>());
 	}
 

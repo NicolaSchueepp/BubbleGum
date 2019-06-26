@@ -14,6 +14,8 @@ public interface IChatDao {
 	
 	public void create(Chat chat);
 	
+	public void delete(Chat chat);
+	
 	public Chat getById(long id);
 
 }
