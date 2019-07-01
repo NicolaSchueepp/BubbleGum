@@ -15,6 +15,7 @@ public class WriteOperation<T> implements QuerryOperation<Void, T>{
 	@Override
 	public Void extractFromQuarry(TypedQuery<T> query) {
 		query.executeUpdate();
+	
 		return null;
 	}
 

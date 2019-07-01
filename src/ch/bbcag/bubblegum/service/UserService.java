@@ -28,6 +28,9 @@ public class UserService implements IUserService {
 
 	@Inject
 	private RegisterBean registerBean;
+	
+	@Inject
+	private IMailService mailService;
 
 	@Override
 	public boolean login(String email, String password) {
@@ -53,6 +56,7 @@ public class UserService implements IUserService {
 				user.setPassword(Util.encode(password));
 				user.setStatus("Hey there! I am chewing a Bubble!");
 				userDao.create(user);
+				mailService.sendAuthenticationKey(user);
 				return true;
 			} else {
 				msgArray.addMessage(new Message(MessageStyle.error, "Email wurde schon verwendet!"));

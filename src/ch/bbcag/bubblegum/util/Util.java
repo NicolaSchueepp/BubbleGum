@@ -11,8 +11,6 @@ import ch.bbcag.bubblegum.util.encode.RandomEncoder;
 
 public class Util {
 
-
-	
 	public static String encode(String text) {
 		EncodingMethod encoder = new RandomEncoder();
 		byte[] encodedhash;
@@ -27,4 +25,7 @@ public class Util {
 		return new String(encodedhash);
 	}
 
+	public static String generateKey(String seed) {
+		return UUID.randomUUID().toString() +"-"+ UUID.nameUUIDFromBytes(Util.encode(seed).getBytes()).toString();
+	}
 }

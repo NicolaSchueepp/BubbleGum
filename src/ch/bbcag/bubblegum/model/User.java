@@ -31,6 +31,9 @@ public class User implements Serializable {
 	@Column(name = "name")
 	private String name;
 	
+	@Column(name = "email_verified")
+	private boolean EmailVerified;
+	
 	@ManyToMany
 	private List<Chat> chats;
 	
@@ -72,6 +75,14 @@ public class User implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public boolean isEmailVerified() {
+		return EmailVerified;
+	}
+	
+	public void setEmailVerified(boolean emailVerified) {
+		EmailVerified = emailVerified;
 	}
 
 }

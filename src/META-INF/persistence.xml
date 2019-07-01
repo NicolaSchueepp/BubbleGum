@@ -13,5 +13,6 @@
 		<class>ch.bbcag.bubblegum.model.UserReadMessage</class>
 		<class>ch.bbcag.bubblegum.model.UserReadMessageID</class>
 		<class>ch.bbcag.bubblegum.model.Invite</class>
+		<class>ch.bbcag.bubblegum.model.EmailVerificationKey</class>
 	</persistence-unit>
 </persistence>

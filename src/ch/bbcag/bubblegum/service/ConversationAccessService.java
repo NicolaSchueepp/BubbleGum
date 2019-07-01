@@ -40,7 +40,7 @@ public class ConversationAccessService implements IConversationAccessService{
 		accessKey.setChatId(chatId);
 		accessKey.setUserId(userId);
 		accessKey.setCrationDate(System.currentTimeMillis());
-		accessKey.setHash(UUID.randomUUID().toString() +"-"+ UUID.nameUUIDFromBytes(Util.encode(chatId + "-" + userId).getBytes()));
+		accessKey.setHash(Util.generateKey(chatId+"-"+userId));
 		
 		if(conversationAccessKeyDao.getByChatAnUser(userId, chatId) != null) {
 			conversationAccessKeyDao.delete(conversationAccessKeyDao.getByChatAnUser(userId, chatId));

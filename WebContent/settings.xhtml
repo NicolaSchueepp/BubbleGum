@@ -42,8 +42,26 @@
 						</div>
 					</div>
 				</h:form>
-
-
+					<div style="padding: 10px 0; width: 100%; display: block;"></div>
+					<div class="row">
+						<div class="col-6">
+								<h:outputText style="color: green;" rendered="#{settingsBean.verified}"
+									value="Ihre Emailadresse ist bestätigt">
+								</h:outputText>
+								<h:outputText style="color: red;" rendered="#{!settingsBean.verified}"
+									value="Bitte bestätigen sie Ihre Email Adresse">
+								</h:outputText>
+						</div>
+						<div style="float: right;" class="col-6">
+							<h:form rendered="#{!settingsBean.verified}">
+								<h:commandButton style="float: right;" class="btn btn-success"
+									value="Neuen Email Verifikations Schlüssel senden"
+									action="#{settingsBean.sendVerificationEmail}">
+								</h:commandButton>
+							</h:form>
+						</div>
+					</div>
+		
 			</div>
 			<div class="col-2"></div>
 		</div>

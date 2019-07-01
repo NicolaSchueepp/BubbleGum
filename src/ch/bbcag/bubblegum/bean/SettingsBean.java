@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import ch.bbcag.bubblegum.model.User;
+import ch.bbcag.bubblegum.service.IMailService;
 import ch.bbcag.bubblegum.service.UserService;
 import ch.bbcag.bubblegum.util.Util;
 
@@ -17,22 +18,35 @@ public class SettingsBean {
 	private User user;
 	private String status = "";
 
-	@PostConstruct
-	public void init() {
-		user = userService.getById(sessionBean.getUserID());
-		status = user.getStatus();
-	}
-
 	@Inject
 	private SessionBean sessionBean;
 
 	@Inject
 	private UserService userService;
 
+	@Inject
+	private IMailService mailService;
+	
+	@PostConstruct
+	public void init() {
+		user = userService.getById(sessionBean.getUserID());
+		status = user.getStatus();
+	}
+
+	
+	public boolean isVerified() {
+		return user.isEmailVerified();
+	}
+	
+	public String sendVerificationEmail() {
+		mailService.sendAuthenticationKey(user);
+		return null;
+	}
+	
 	public String getPassword() {
 		return password;
 	}
-
+	
 	public void setPassword(String password) {
 		this.password = password;
 	}
