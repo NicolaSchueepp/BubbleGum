@@ -66,7 +66,7 @@ public class SettingsBean {
 
 	public void saveSettings() {
 		if (!password.isEmpty())
-			user.setPassword(Util.encode(password));
+			user.setPassword(Util.encodePassword(password));
 		if (!status.isEmpty())
 			user.setStatus(status);
 		userService.update(user);

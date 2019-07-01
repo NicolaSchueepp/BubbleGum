@@ -12,7 +12,7 @@ import ch.bbcag.bubblegum.util.encode.RandomEncoder;
 
 public class Util {
 
-	public static String encode(String password) {
+	public static String encodePassword(String password) {
 		EncodingMethod encoder = new RandomEncoder();
 		password = encoder.encode(password);
 		String salt = BCrypt.gensalt(12);

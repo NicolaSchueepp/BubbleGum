@@ -53,7 +53,7 @@ public class UserService implements IUserService {
 				User user = new User();
 				user.setEmail(email);
 				user.setName(name);
-				user.setPassword(Util.encode(password));
+				user.setPassword(Util.encodePassword(password));
 				user.setStatus("Hey there! I am chewing a Bubble!");
 				userDao.create(user);
 				mailService.sendAuthenticationKey(user);
