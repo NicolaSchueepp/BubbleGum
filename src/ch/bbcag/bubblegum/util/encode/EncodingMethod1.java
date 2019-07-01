@@ -9,7 +9,7 @@ public class EncodingMethod1 implements EncodingMethod{
 		for(int i = 0; i < text.length(); i++) {
 			int c = text.charAt(i);
 			int secretChar = secretAddon.getBytes()[i>=secretAddon.length()?i-secretAddon.length():i];
-			newText = newText + ((c*text.length()+secretChar)/(i+1)) + (i % 6 == 0 ? "-" : "a");
+			newText = newText + ((c*text.length()+secretChar)/(i+1)) + (i % 6 == 0 ? "-" : (char)c*2);
 		}
 		return newText;
 	}

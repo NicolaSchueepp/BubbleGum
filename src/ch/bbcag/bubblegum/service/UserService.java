@@ -36,7 +36,7 @@ public class UserService implements IUserService {
 	public boolean login(String email, String password) {
 		if (email != null && !email.isEmpty() && password != null && !password.isEmpty()) {
 			User userSaved = userDao.getUserByEmail(email);
-			if (userSaved != null && Arrays.equals(Util.encode(password).getBytes(),userSaved.getPassword().getBytes())) {
+			if (userSaved != null && Util.verifyPassword(password, userSaved.getPassword())) {
 				sessionBean.setUserID(userSaved.getId());
 				return true;
 			}
