@@ -25,8 +25,6 @@ public class Util {
 		return BCrypt.checkpw(encoder.encode(password), bCryptPassword);
 	}
 	
-	
-	
 	public static String generateKey(String seed) {
 		return UUID.randomUUID().toString() +"-"+ UUID.nameUUIDFromBytes((seed+UUID.randomUUID().toString()).getBytes()).toString();
 	}

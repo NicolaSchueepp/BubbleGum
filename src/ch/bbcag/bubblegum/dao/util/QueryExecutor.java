@@ -22,7 +22,7 @@ public class QueryExecutor<T> {
 	private EntityManager entityManager;
 
 
-	public <E> E executeQuery(ExecutionUnit<EntityManager, E> executionUnit, QuerryOperation<E, T> querryOperation) throws DaoException {
+	public <E> E executeQuery(ExecutionUnit<EntityManager, E> executionUnit, QuerryOperation<E, T> querryOperation) {
 		this.entityManager = emf.createEntityManager();
 		E result;
 		try {

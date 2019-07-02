@@ -18,7 +18,7 @@
 </h:head>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> <h:panelGroup
 	rendered="#{helperBean.logedIn}">
-	<a class="navbar-brand" href="/BubbleGum/overview.xhtml"> <img
+	<a class="navbar-brand active" href="/BubbleGum/overview.xhtml"> <img
 		src="/BubbleGum/resources/bubblegum-logo.png" width="30" height="30"
 		alt="" /></a>
 	<a class="navbar-brand" href="/BubbleGum/overview.xhtml">BubbleGum</a>
@@ -39,10 +39,10 @@
 <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	<h:panelGroup rendered="#{helperBean.logedIn}">
 		<ul class="navbar-nav mr-auto">
-			<li class="nav-item active"><a class="nav-link text-muted"
-				href="/BubbleGum/chatsOverview.xhtml">Chats</a></li>
-			<li class="nav-item active"><a class="nav-link text-muted"
-				href="/BubbleGum/search.xhtml">Nutzer Suchen</a></li>
+			<li class="nav-item"><a class="nav-link text-muted"
+				href="/BubbleGum/chatsOverview.xhtml" style="#{view.viewId == '/chatsOverview.xhtml' ? 'font-weight: bold;' : ''}">Chats</a></li>
+			<li class="nav-item"><a class="nav-link text-muted"
+				href="/BubbleGum/search.xhtml" style="#{view.viewId == '/search.xhtml' ? 'font-weight: bold;' : ''}">Nutzer Suchen</a></li>
 		</ul>
 	</h:panelGroup>
 </div>
@@ -50,13 +50,14 @@
 <h:panelGroup rendered="#{helperBean.logedIn}">
 	<ul class="navbar-nav mr-auto">
 		<li class="nav-item active"><a class="nav-link text-muted"
-			href="/BubbleGum/settings.xhtml">Einstellungen</a></li>
+			href="/BubbleGum/settings.xhtml" style="#{view.viewId == '/settings.xhtml' ? 'font-weight: bold;' : ''}">Einstellungen</a></li>
 	</ul>
 </h:panelGroup> <h:panelGroup rendered="#{!helperBean.logedIn}">
 	<form class="form-inline my-2 my-lg-0" action="/BubbleGum/login.xhtml">
 		<button type="submit" class="btn btn-success">Einloggen</button>
 	</form>
-</h:panelGroup> </nav>
+</h:panelGroup> 
+</nav>
 
 
 <h:outputText id="messages" value="#{helperBean.messages}" escape="false" />
