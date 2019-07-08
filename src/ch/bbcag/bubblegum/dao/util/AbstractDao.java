@@ -15,8 +15,13 @@ import ch.bbcag.bubblegum.dao.querryoperation.WriteOperation;
 public abstract class AbstractDao<T> {
 	
 	@Inject
-	protected QueryExecutor<T> queryExecutor;
+	protected IQueryExecutor<T> queryExecutor;
 	
+	public AbstractDao(IQueryExecutor<T> queryExecutor) {
+		this.queryExecutor = queryExecutor;
+	}
+	
+	public AbstractDao() {}
 	
 	public void create(T t) {
 		queryExecutor.executeQuery(new ExecutionUnit<EntityManager, Void>() {
@@ -71,5 +76,9 @@ public abstract class AbstractDao<T> {
 	
 	public String getClassName() {
 		return getClazz().getSimpleName();
+	}
+	
+	public void setQueryExecutor(IQueryExecutor<T> queryExecutor) {
+		this.queryExecutor = queryExecutor;
 	}
 }

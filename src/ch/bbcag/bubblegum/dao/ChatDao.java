@@ -12,13 +12,14 @@ import ch.bbcag.bubblegum.dao.querryoperation.ListReadOperation;
 import ch.bbcag.bubblegum.dao.querryoperation.SingleReadOperation;
 import ch.bbcag.bubblegum.dao.util.AbstractDao;
 import ch.bbcag.bubblegum.dao.util.ExecutionUnit;
+import ch.bbcag.bubblegum.dao.util.IQueryExecutor;
 import ch.bbcag.bubblegum.model.Chat;
 
 public class ChatDao extends AbstractDao<Chat> implements IChatDao {
 
 	@PersistenceUnit
 	private EntityManagerFactory emf;
-
+	
 	@Override
 	public List<Chat> searchChatByName(String name) {
 		return executeCustomQuarry("SELECT c FROM Chat c where c.name like :name",(q)-> q.setParameter("name", "%"+name+"%"), new ListReadOperation<Chat>());
