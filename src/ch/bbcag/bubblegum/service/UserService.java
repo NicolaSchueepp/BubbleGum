@@ -89,7 +89,7 @@ public class UserService implements IUserService {
 			msgArray.addMessage(new Message(MessageStyle.Info, "Änderungen wurden erfolgreich gespeichert!"));
 			return true;
 		}
-		msgArray.addMessage(new Message(MessageStyle.Info, "Etwas lief schief, kontaktieren Sie den Support!"));
+		msgArray.addMessage(new Message(MessageStyle.error, "Etwas lief schief, kontaktieren Sie den Support! (044 420 69 69)"));
 		return false;
 	}
 }

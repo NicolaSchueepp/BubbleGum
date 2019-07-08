@@ -164,7 +164,7 @@ public class MessageService implements IMessageService{
 			messageDao.deleteByChat(chatId);
 			messageArray.addMessage(new ch.bbcag.bubblegum.util.message.Message(MessageStyle.Info, "Chat Verlauf erfolgreich gelöscht"));
 		}else {
-			messageArray.addMessage(new ch.bbcag.bubblegum.util.message.Message(MessageStyle.Info, "Du kannst den Verlauf nicht löschen"));
+			messageArray.addMessage(new ch.bbcag.bubblegum.util.message.Message(MessageStyle.error, "Du kannst den Verlauf nicht löschen"));
 		}
 		
 	}

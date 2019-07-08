@@ -55,7 +55,7 @@ public abstract class AbstractDao<T> {
 		executeCustomQuarry("DELETE FROM "+getClassName()+" x WHERE x = :obj", (q) -> q.setParameter("obj", t), new WriteOperation<T>());
 	}
 	
-	public <E> E executeCustomQuarry(String querry, ExecutionUnit<TypedQuery<T>, TypedQuery<T>> paramSetter, QuerryOperation<E, T> querryOperation){
+	protected <E> E executeCustomQuarry(String querry, ExecutionUnit<TypedQuery<T>, TypedQuery<T>> paramSetter, QuerryOperation<E, T> querryOperation){
 		return queryExecutor.executeQuery(new ExecutionUnit<EntityManager, E>() {
 			@Override
 			public E execute(EntityManager entityManager) {

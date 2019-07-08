@@ -20,9 +20,6 @@ public class EmailVerificationKey {
 	@Column(name = "user_id")
 	private long userId;
 
-//	@ManyToOne
-//	@JoinColumn(name = "user_id", insertable = false, updatable = false)
-//	private User user;
 
 	@Column(name = "hash")
 	private String hash;
@@ -42,11 +39,6 @@ public class EmailVerificationKey {
 		return hash;
 	}
 
-//	
-//	public User getUser() {
-//		return user;
-//	}
-//	
 	public long getUserId() {
 		return userId;
 	}
@@ -63,10 +55,6 @@ public class EmailVerificationKey {
 		this.hash = hash;
 	}
 
-//	public void setUser(User user) {
-//		this.user = user;
-//	}
-//	
 	public void setUserId(long userId) {
 		this.userId = userId;
 	}

@@ -46,7 +46,7 @@ public class ChatBean implements Serializable{
 			try {
 				FacesContext.getCurrentInstance().getExternalContext().redirect(location);
 			} catch (IOException e) {
-				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
 		}
 	}
