@@ -1,27 +1,32 @@
 package ch.bbcag.bubblegum.dao.test;
 
-import java.util.List;
-import java.util.Map;
+import static org.junit.Assert.*;
 
-import javax.persistence.EntityGraph;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.FlushModeType;
-import javax.persistence.LockModeType;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
-import javax.persistence.StoredProcedureQuery;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaDelete;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.CriteriaUpdate;
-import javax.persistence.metamodel.Metamodel;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
-public class ChatDaoTest {
+import ch.bbcag.bubblegum.dao.ChatDao;
+import ch.bbcag.bubblegum.dao.IChatDao;
+import ch.bbcag.bubblegum.dao.test.util.QuerryExecutorForTest;
+import ch.bbcag.bubblegum.model.Chat;
 
-	public static void main(String[] args) {
-		Persistence.cr
+public class ChatDaoTest{
+
+	private static ChatDao chatDao;
+	
+	@BeforeClass
+	public static void setUpClass() {
+		chatDao = new ChatDao();
+		chatDao.setQueryExecutor(new QuerryExecutorForTest<Chat>());
+	}
+	
+	@Test
+	public void searchChatByName() {
+		assertEquals("Quick-Chat", chatDao.getQuickChatByMembers(1, 2).getName());
+	}
+
+	@Test
+	public void getQuickChatByMembers() {
+		assertEquals(2, chatDao.searchChatByName("a").size());
 	}
 }
