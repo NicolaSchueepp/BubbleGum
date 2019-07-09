@@ -3,7 +3,6 @@ package ch.bbcag.bubblegum.bean;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.annotation.PostConstruct;
@@ -11,10 +10,8 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import ch.bbcag.bubblegum.model.Chat;
 import ch.bbcag.bubblegum.model.Invite;
 import ch.bbcag.bubblegum.model.Message;
-import ch.bbcag.bubblegum.service.IChatService;
 import ch.bbcag.bubblegum.service.IInviteService;
 import ch.bbcag.bubblegum.service.IMessageService;
 

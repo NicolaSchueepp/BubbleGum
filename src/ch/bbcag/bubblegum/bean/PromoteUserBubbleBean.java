@@ -4,8 +4,6 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import ch.bbcag.bubblegum.service.IChatService;
-import ch.bbcag.bubblegum.service.IInviteService;
 import ch.bbcag.bubblegum.service.IUserInChatService;
 import ch.bbcag.bubblegum.util.message.MessageArray;
 
@@ -16,13 +14,13 @@ public class PromoteUserBubbleBean {
 	private Long userId;
 	
 	@Inject
-	ChatBean chatBean;
+	private ChatBean chatBean;
 	
 	@Inject
-	IUserInChatService userInChatService;
+	private IUserInChatService userInChatService;
 	
 	@Inject
-	MessageArray messageArray;
+	private MessageArray messageArray;
 	
 	public void setUserId(Long userId) {
 		this.userId = userId;

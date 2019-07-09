@@ -8,7 +8,6 @@ import javax.persistence.TypedQuery;
 
 import ch.bbcag.bubblegum.dao.querryoperation.ListReadOperation;
 import ch.bbcag.bubblegum.dao.querryoperation.QuerryOperation;
-import ch.bbcag.bubblegum.dao.querryoperation.ReadOperation;
 import ch.bbcag.bubblegum.dao.querryoperation.SingleReadOperation;
 import ch.bbcag.bubblegum.dao.querryoperation.WriteOperation;
 
@@ -16,12 +15,6 @@ public abstract class AbstractDao<T> {
 	
 	@Inject
 	protected IQueryExecutor<T> queryExecutor;
-	
-	public AbstractDao(IQueryExecutor<T> queryExecutor) {
-		this.queryExecutor = queryExecutor;
-	}
-	
-	public AbstractDao() {}
 	
 	public void create(T t) {
 		queryExecutor.executeQuery(new ExecutionUnit<EntityManager, Void>() {

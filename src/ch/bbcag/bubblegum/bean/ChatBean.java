@@ -5,14 +5,12 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import ch.bbcag.bubblegum.model.Message;
-import ch.bbcag.bubblegum.model.User;
 import ch.bbcag.bubblegum.model.UserInChat;
 import ch.bbcag.bubblegum.service.IChatService;
 import ch.bbcag.bubblegum.service.IConversationAccessService;

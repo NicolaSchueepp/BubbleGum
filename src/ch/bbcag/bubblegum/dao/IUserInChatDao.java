@@ -2,8 +2,6 @@ package ch.bbcag.bubblegum.dao;
 
 import java.util.List;
 
-import ch.bbcag.bubblegum.model.Chat;
-import ch.bbcag.bubblegum.model.User;
 import ch.bbcag.bubblegum.model.UserInChat;
 
 public interface IUserInChatDao {

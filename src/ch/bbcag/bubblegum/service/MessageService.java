@@ -6,22 +6,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-import javax.activation.MailcapCommandMap;
 import javax.inject.Inject;
 import javax.websocket.Session;
 
-import com.sun.mail.handlers.message_rfc822;
-
 import ch.bbcag.bubblegum.bean.SessionBean;
-import ch.bbcag.bubblegum.dao.IChatDao;
 import ch.bbcag.bubblegum.dao.IConversationAccessKeyDao;
 import ch.bbcag.bubblegum.dao.IMessageDao;
 import ch.bbcag.bubblegum.dao.IUserInChatDao;
 import ch.bbcag.bubblegum.dao.IUserReadMessageDao;
-import ch.bbcag.bubblegum.dao.UserReadMessageDao;
-import ch.bbcag.bubblegum.model.Chat;
 import ch.bbcag.bubblegum.model.ConversationAccessKey;
 import ch.bbcag.bubblegum.model.Message;
 import ch.bbcag.bubblegum.model.UserInChat;
@@ -30,11 +26,11 @@ import ch.bbcag.bubblegum.service.message.Client;
 import ch.bbcag.bubblegum.service.message.ClientPool;
 import ch.bbcag.bubblegum.service.message.JsonRequestMessage;
 import ch.bbcag.bubblegum.service.message.JsonResponseMessage;
+import ch.bbcag.bubblegum.util.LogInitializer;
 import ch.bbcag.bubblegum.util.message.MessageArray;
 import ch.bbcag.bubblegum.util.message.MessageStyle;
 
 public class MessageService implements IMessageService{
-
 
 	@Inject
 	private ClientPool clientPool;
@@ -63,6 +59,8 @@ public class MessageService implements IMessageService{
 	@Inject
 	private SessionBean sessionBean;
 	
+	private final Logger LOGGER = new LogInitializer(getClass().getName()).initConsole().getLogger();
+	
 	@Override
 	public void registerClinet(Session session) {
 		String hash = session.getRequestParameterMap().get("hash").get(0);
@@ -72,14 +70,21 @@ public class MessageService implements IMessageService{
 			ConversationAccessKey accessKey = conversationAccessKeyDao.getByHash(hash);
 			Client client = new Client(session, hash, accessKey);
 			clientPool.add(client);
+			LOGGER.log(Level.FINEST, "Client WebSocket successfully opened for user " + accessKey.getUserId());
+			return;
 		}
+		LOGGER.log(Level.FINEST, "Client WebSocket failt to opened for chat " + " requestedChat" + " with hash " + hash);
 	}
 
 	@Override
 	public void removeClient(Session session) {
 		String hash = session.getRequestParameterMap().get("hash").get(0);
-		if(clientPool.getByHash(hash) != null)
-			clientPool.remove(clientPool.getByHash(hash));
+		if(clientPool.getByHash(hash) != null) {
+			Client client = clientPool.getByHash(hash);
+			clientPool.remove(client);
+			LOGGER.log(Level.FINEST, "Client WebSocket succesfully closed for user " + client.getAccessKey().getUserId());
+		}
+
 	}
 
 	@Override
@@ -94,13 +99,15 @@ public class MessageService implements IMessageService{
 			dbMessage.setUserId(sender.getAccessKey().getUserId());
 			messageDao.create(dbMessage);
 			
+			LOGGER.log(Level.FINEST, "Message " + dbMessage.getId() + " recived from user " + dbMessage.getUserId());
+			
 			UserReadMessage userReadMessage = new UserReadMessage();
 			userReadMessage.setMessageId(dbMessage.getId());
 			for(Client client : clientPool.getByChatId(message.getChatId())) {
 				if(conversationAccessService.isValid(client.getHash(), message.getChatId())) {
 					userReadMessage.setUserId(client.getAccessKey().getUserId());
 					userReadMessageDao.create(userReadMessage);
-					
+					LOGGER.log(Level.FINEST, "Message " + dbMessage.getId() + " shared with Websocket Client User " + client.getAccessKey().getUserId());
 					client.send(new JsonResponseMessage(message.getText(), userService.getById(sender.getAccessKey().getUserId()).getName()));
 				}
 			}
@@ -123,6 +130,7 @@ public class MessageService implements IMessageService{
 			}
 			return messageDao.getByChatId(chatId);
 		}
+		LOGGER.log(Level.FINEST, "Unaotorized chat access in chat " + chatId + " with hash " + hash);
 		return null;
 	}
 

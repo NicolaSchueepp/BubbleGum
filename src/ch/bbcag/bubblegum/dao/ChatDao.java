@@ -1,24 +1,13 @@
 package ch.bbcag.bubblegum.dao;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
-import javax.persistence.TypedQuery;
 
 import ch.bbcag.bubblegum.dao.querryoperation.ListReadOperation;
 import ch.bbcag.bubblegum.dao.querryoperation.SingleReadOperation;
 import ch.bbcag.bubblegum.dao.util.AbstractDao;
-import ch.bbcag.bubblegum.dao.util.ExecutionUnit;
-import ch.bbcag.bubblegum.dao.util.IQueryExecutor;
 import ch.bbcag.bubblegum.model.Chat;
 
 public class ChatDao extends AbstractDao<Chat> implements IChatDao {
-
-	@PersistenceUnit
-	private EntityManagerFactory emf;
 	
 	@Override
 	public List<Chat> searchChatByName(String name) {

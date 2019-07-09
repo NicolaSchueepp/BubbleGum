@@ -3,7 +3,6 @@ package ch.bbcag.bubblegum.dao.util;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceUnit;
 import javax.transaction.Status;

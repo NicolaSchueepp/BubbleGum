@@ -14,7 +14,7 @@ public class AcceptInviteBean {
 	private long chatId;
 	
 	@Inject
-	IInviteService inviteService;
+	private IInviteService inviteService;
 	
 	public void setInviteId(long inviteId) {
 		this.inviteId = inviteId;

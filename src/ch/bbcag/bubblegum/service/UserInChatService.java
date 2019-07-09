@@ -1,21 +1,20 @@
 package ch.bbcag.bubblegum.service;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.inject.Inject;
 
 import ch.bbcag.bubblegum.bean.SessionBean;
-import ch.bbcag.bubblegum.dao.ConversationAccessKeyDao;
 import ch.bbcag.bubblegum.dao.IChatDao;
 import ch.bbcag.bubblegum.dao.IConversationAccessKeyDao;
 import ch.bbcag.bubblegum.dao.IInviteDao;
-import ch.bbcag.bubblegum.dao.IMessageDao;
 import ch.bbcag.bubblegum.dao.IUserInChatDao;
-import ch.bbcag.bubblegum.dao.IUserReadMessageDao;
-import ch.bbcag.bubblegum.dao.UserReadMessageDao;
 import ch.bbcag.bubblegum.model.Chat;
 import ch.bbcag.bubblegum.model.User;
 import ch.bbcag.bubblegum.model.UserInChat;
+import ch.bbcag.bubblegum.util.LogInitializer;
 import ch.bbcag.bubblegum.util.message.Message;
 import ch.bbcag.bubblegum.util.message.MessageArray;
 import ch.bbcag.bubblegum.util.message.MessageStyle;
@@ -36,9 +35,11 @@ public class UserInChatService implements IUserInChatService {
 	
 	@Inject
 	private IChatDao chatDao;
-
+	
 	@Inject
 	private MessageArray messageArray;
+	
+	private final Logger LOGGER = new LogInitializer(getClass().getName()).initConsole().getLogger();
 
 	@Override
 	public List<UserInChat> getAllChats() {
@@ -67,6 +68,7 @@ public class UserInChatService implements IUserInChatService {
 		userInChat.setChat(chat);
 		userInChat.setUser(user);
 		userInChatDao.create(userInChat);
+		LOGGER.log(Level.FINEST, "New user " + userId + " added to chat " + chatId);
 		return true;
 	}
 
@@ -80,6 +82,7 @@ public class UserInChatService implements IUserInChatService {
 		conversationAccessKeyDao.delete(conversationAccessKeyDao.getByChatAnUser(userId, chatId));
 		messageArray.addMessage(new Message(MessageStyle.Info,"Nutzer erfolgreich entfernt"));
 		inviteDao.delete(inviteDao.getByUserAndChatId(userId, chatId));
+		LOGGER.log(Level.FINEST, "user " + userId + " removed from chat " + chatId);
 		return true;
 	}
 
@@ -97,6 +100,7 @@ public class UserInChatService implements IUserInChatService {
 		}else {
 			messageArray.addMessage(new Message(MessageStyle.Info,"Du hast den Chat Verlassen"));
 		}
+		LOGGER.log(Level.FINEST, "user " + sessionBean.getUserID() + " left chat " + chatId + " by self");
 		return true;
 	}
 
@@ -114,6 +118,7 @@ public class UserInChatService implements IUserInChatService {
 		UserInChat userInChat = userInChatDao.getByUserIdAndChatId(userId, chatId);
 		userInChat.setAdmin(true);
 		userInChatDao.update(userInChat);
+		LOGGER.log(Level.FINEST, "user " + userId + " promotet by " + sessionBean.getUserID() + " in chat " + chatId);
 		return true;
 	}
 }

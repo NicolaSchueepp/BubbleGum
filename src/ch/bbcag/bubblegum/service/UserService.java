@@ -1,8 +1,9 @@
 package ch.bbcag.bubblegum.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.inject.Inject;
 
@@ -10,6 +11,7 @@ import ch.bbcag.bubblegum.bean.RegisterBean;
 import ch.bbcag.bubblegum.bean.SessionBean;
 import ch.bbcag.bubblegum.dao.IUserDao;
 import ch.bbcag.bubblegum.model.User;
+import ch.bbcag.bubblegum.util.LogInitializer;
 import ch.bbcag.bubblegum.util.Util;
 import ch.bbcag.bubblegum.util.message.Message;
 import ch.bbcag.bubblegum.util.message.MessageArray;
@@ -32,15 +34,19 @@ public class UserService implements IUserService {
 	@Inject
 	private IMailService mailService;
 
+	private final Logger LOGGER = new LogInitializer(getClass().getName()).initConsole().getLogger();
+	
 	@Override
 	public boolean login(String email, String password) {
 		if (email != null && !email.isEmpty() && password != null && !password.isEmpty()) {
 			User userSaved = userDao.getUserByEmail(email);
 			if (userSaved != null && Util.verifyPassword(password, userSaved.getPassword())) {
 				sessionBean.setUserID(userSaved.getId());
+				LOGGER.log(Level.FINEST, "user " + userSaved.getId() + " logged in");
 				return true;
 			}
 		}
+
 		msgArray.addMessage(new Message(MessageStyle.error, "Email/Passwort ist falsch!"));
 		return false;
 	}
@@ -57,6 +63,7 @@ public class UserService implements IUserService {
 				user.setStatus("Hey there! I am chewing a Bubble!");
 				userDao.create(user);
 				mailService.sendAuthenticationKey(user);
+				LOGGER.log(Level.FINEST, "new user " + user.getId() + " registered");
 				return true;
 			} else {
 				msgArray.addMessage(new Message(MessageStyle.error, "Email wurde schon verwendet!"));

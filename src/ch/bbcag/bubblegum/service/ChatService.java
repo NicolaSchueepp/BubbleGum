@@ -1,13 +1,16 @@
 package ch.bbcag.bubblegum.service;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.inject.Inject;
 
 import ch.bbcag.bubblegum.bean.SessionBean;
 import ch.bbcag.bubblegum.dao.IChatDao;
 import ch.bbcag.bubblegum.dao.IUserInChatDao;
 import ch.bbcag.bubblegum.model.Chat;
-import ch.bbcag.bubblegum.model.User;
 import ch.bbcag.bubblegum.model.UserInChat;
+import ch.bbcag.bubblegum.util.LogInitializer;
 import ch.bbcag.bubblegum.util.message.Message;
 import ch.bbcag.bubblegum.util.message.MessageArray;
 import ch.bbcag.bubblegum.util.message.MessageStyle;
@@ -32,21 +35,23 @@ public class ChatService implements IChatService {
 	@Inject
 	private IUserInChatService userInChatService;
 	
+	private final Logger LOGGER = new LogInitializer(getClass().getName()).initConsole().getLogger();
+	
 	@Override
 	public Long createBubble(String name) {
 		Chat chat = new Chat();
 		chat.setBubble(true);
 		chat.setName(name);
 		chatDao.create(chat);
-		
 		userInChatService.addUser(chat.getId(),sessionBean.getUserID(),true);
+		LOGGER.log(Level.FINEST, "New Bubble created by user " + sessionBean.getUserID());
 		return chat.getId();
 	}
 	
 	@Override
 	public Long getQuickChatId(long userId) {
 		if(userId == sessionBean.getUserID()) {
-			msgArray.addMessage(new Message(MessageStyle.error,"Du kannst keinen Quick Chat mit dir selber öffnen"));
+			msgArray.addMessage(new Message(MessageStyle.Warning,"Du kannst keinen Quick Chat mit dir selber öffnen"));
 			return 0l;
 		}
 		
@@ -60,7 +65,7 @@ public class ChatService implements IChatService {
 		
 		userInChatService.addUser(chat.getId(),sessionBean.getUserID(),false);
 		userInChatService.addUser(chat.getId(),userId,false);
-		
+		LOGGER.log(Level.FINEST, "New Quick-Chat created by user " + sessionBean.getUserID() + " with " + userId);
 		return chat.getId();
 	}
 
