@@ -2,12 +2,9 @@ package ch.bbcag.bubblegum.dao;
 
 import java.util.List;
 
-import javax.persistence.TypedQuery;
-
 import ch.bbcag.bubblegum.dao.querryoperation.ListReadOperation;
 import ch.bbcag.bubblegum.dao.querryoperation.SingleReadOperation;
 import ch.bbcag.bubblegum.dao.util.AbstractDao;
-import ch.bbcag.bubblegum.dao.util.ExecutionUnit;
 import ch.bbcag.bubblegum.model.UserInChat;
 
 public class UserInChatDao extends AbstractDao<UserInChat> implements IUserInChatDao{

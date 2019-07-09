@@ -2,12 +2,10 @@ package ch.bbcag.bubblegum.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.websocket.Session;
 
-import ch.bbcag.bubblegum.model.Chat;
 import ch.bbcag.bubblegum.model.Message;
 import ch.bbcag.bubblegum.service.message.JsonRequestMessage;
 

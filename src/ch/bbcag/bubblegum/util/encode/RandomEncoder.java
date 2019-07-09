@@ -1,7 +1,5 @@
 package ch.bbcag.bubblegum.util.encode;
 
-import javax.inject.Inject;
-
 public class RandomEncoder implements EncodingMethod{
 
 	

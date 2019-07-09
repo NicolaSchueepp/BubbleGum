@@ -13,7 +13,7 @@ public class LeaveChatBean {
 	private long chatId;
 
 	@Inject
-	IUserInChatService userInChatService;
+	private IUserInChatService userInChatService;
 	
 	public void setChatId(long chatId) {
 		this.chatId = chatId;

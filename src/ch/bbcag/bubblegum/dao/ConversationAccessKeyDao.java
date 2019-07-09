@@ -1,7 +1,6 @@
 package ch.bbcag.bubblegum.dao;
 
 import ch.bbcag.bubblegum.dao.querryoperation.SingleReadOperation;
-import ch.bbcag.bubblegum.dao.querryoperation.WriteOperation;
 import ch.bbcag.bubblegum.dao.util.AbstractDao;
 import ch.bbcag.bubblegum.model.ConversationAccessKey;
 

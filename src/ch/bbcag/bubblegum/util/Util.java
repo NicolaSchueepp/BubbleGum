@@ -1,10 +1,6 @@
 package ch.bbcag.bubblegum.util;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
-
-import javax.inject.Inject;
 
 import ch.bbcag.bubblegum.util.encode.BCrypt;
 import ch.bbcag.bubblegum.util.encode.EncodingMethod;

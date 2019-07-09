@@ -1,14 +1,12 @@
 package ch.bbcag.bubblegum.bean;
 
 import java.io.IOException;
-import java.util.Map;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import ch.bbcag.bubblegum.dao.IEmailVerificationKeyDao;
 import ch.bbcag.bubblegum.service.IMailService;
 
 @Named

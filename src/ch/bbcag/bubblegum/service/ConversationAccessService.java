@@ -1,6 +1,7 @@
 package ch.bbcag.bubblegum.service;
 
-import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.inject.Inject;
 
@@ -8,6 +9,7 @@ import ch.bbcag.bubblegum.bean.SessionBean;
 import ch.bbcag.bubblegum.dao.IConversationAccessKeyDao;
 import ch.bbcag.bubblegum.dao.IUserInChatDao;
 import ch.bbcag.bubblegum.model.ConversationAccessKey;
+import ch.bbcag.bubblegum.util.LogInitializer;
 import ch.bbcag.bubblegum.util.Util;
 import ch.bbcag.bubblegum.util.message.Message;
 import ch.bbcag.bubblegum.util.message.MessageArray;
@@ -27,11 +29,14 @@ public class ConversationAccessService implements IConversationAccessService{
 	@Inject
 	private MessageArray messageArray;
 	
+	private final Logger LOGGER = new LogInitializer(getClass().getName()).initConsole().getLogger();
+	
 	@Override
 	public String getKeyHashForChat(long chatId) {
 		long userId = sessionBean.getUserID();
 		
 		if(userInChatDao.getByUserIdAndChatId(userId, chatId) == null) {
+			LOGGER.log(Level.FINEST, "Unaotorized chat access by user " + sessionBean.getUserID() + " in chat " + chatId);
 			messageArray.addMessage(new Message(MessageStyle.error, "Du hast keinen zugriff zu diesem Chat"));
 			return null;
 		}
